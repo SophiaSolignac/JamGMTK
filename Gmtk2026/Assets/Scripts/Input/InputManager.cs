@@ -1,0 +1,35 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+namespace GMTK.Inputs
+{
+    public partial class InputManager : MonoBehaviour
+    {
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            Vector3 direction = context.ReadValue<Vector2>();
+            direction.z = direction.y;
+            direction.y = 0;
+
+            onMove.Invoke(direction);
+        }
+
+        public void OnLook(InputAction.CallbackContext context)
+        {
+            onLook.Invoke(context.ReadValue<Vector2>());
+        }
+
+        public void OnJump(InputAction.CallbackContext context)
+            => onJump.Invoke(context.started);
+
+        public void OnAttack(InputAction.CallbackContext context)
+        {
+            if (context.started) onAttack.Invoke();
+        }
+
+        public void OnInteract(InputAction.CallbackContext context)
+        {
+            if (context.started) onInteract.Invoke();
+        }
+    }
+}
