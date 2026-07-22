@@ -117,9 +117,6 @@ InitTestScene*.unity*
 # Ignore the local FMOD cache.
 /[Aa]ssets/Plugins/FMOD/Cache/*
 
-# Ignore generated banks in StreamingAssets.
-/[Aa]ssets/StreamingAssets/**/*.bank
-/[Aa]ssets/StreamingAssets/**/*.bank.meta
 
 # Ignore editor logs if banks are stored outside StreamingAssets.
 fmod_editor.log
