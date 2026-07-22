@@ -104,3 +104,22 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# FMOD for Unity
+
+# Never ignore DLLs in the FMOD lib folders.
+!/[Aa]ssets/Plugins/FMOD/**/lib/*
+
+# Keep editor icons and gizmos.
+!/[Aa]ssets/Gizmos/FMOD/*
+!/[Aa]ssets/Editor Default Resources/FMOD/*
+
+# Ignore the local FMOD cache.
+/[Aa]ssets/Plugins/FMOD/Cache/*
+
+# Ignore generated banks in StreamingAssets.
+/[Aa]ssets/StreamingAssets/**/*.bank
+/[Aa]ssets/StreamingAssets/**/*.bank.meta
+
+# Ignore editor logs if banks are stored outside StreamingAssets.
+fmod_editor.log
