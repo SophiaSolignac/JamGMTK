@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _gravityForce = 1f;
     float _verticalVelocity;
 
+    // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Unity
     private void Start()
     {
         // Init Components
@@ -63,29 +64,46 @@ public class PlayerController : MonoBehaviour
         _body.linearVelocity = _movementSpeed * (transform.rotation * _movementDirection) + Vector3.up * _verticalVelocity;
     }
 
+
+    // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Collisions
     private void OnCollisionStay(Collision collision)
     {
-        foreach (ContactPoint contact in collision.contacts)
+        if (CheckGroundContact(collision.contacts)) return;
+
+        _canJump = false;
+        _isGrouded = false;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (CheckGroundContact(collision.contacts)) return;
+
+        _canJump = false;
+        _isGrouded = false;
+    }
+
+    private bool CheckGroundContact(ContactPoint[] contacts)
+    {
+        if (contacts == null) return false;
+
+        foreach (ContactPoint contact in contacts)
         {
             if (contact.normal == Vector3.up)
             {
                 _verticalVelocity = Mathf.Max(_verticalVelocity, 0);
                 _canJump = true;
                 _isGrouded = true;
-                return;
+                return true;
             }
         }
 
-        _canJump = false;
-        _isGrouded = false;
+        return false;
     }
 
     // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Updates
     private void UpdateVerticalMovement()
     {
         float jumpmTime = Time.time - _jumpStart;
-
-        // Debug.Log($"{_isJumping} - {_jumpDuration} - {jumpmTime} -> {jumpmTime <= _jumpDuration}");
 
         // Update Jump
         if (jumpmTime <= _jumpDuration && _isJumping)
@@ -123,8 +141,6 @@ public class PlayerController : MonoBehaviour
     private void OnJump(bool started)
     {
         _isJumping = started;
-
-        Debug.Log(_canJump);
 
         if (!_canJump) return;
 

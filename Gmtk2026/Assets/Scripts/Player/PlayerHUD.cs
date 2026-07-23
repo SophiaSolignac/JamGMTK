@@ -7,4 +7,13 @@ public class PlayerHUD : MonoBehaviour
 
     [SerializeField] Image _crosshair;
     [SerializeField] Sprite[] _crosshairRenderer;
+
+    public void ChangeCrosshair(Crosshair crosshair)
+    {
+        int index = (int)crosshair;
+
+        if (!_crosshair || _crosshairRenderer == null || _crosshairRenderer.Length == index) return;
+
+        _crosshair.sprite = _crosshairRenderer[index];
+    }
 }
