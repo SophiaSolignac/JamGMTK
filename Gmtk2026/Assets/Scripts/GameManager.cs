@@ -1,16 +1,23 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : PersistentSingleton<GameManager>
 {
+    public static UnityEvent OnReset = new UnityEvent();
     override protected void Awake()
     {
         base.Awake();
         TimerHealth.OnPlayerDeath.AddListener(LoadShopScene);
     }
-
-    private void LoadShopScene()
+    private void Start()
     {
-        SceneManager.LoadScene("Shop");
+        OnReset.Invoke(); // Reset all resettable objects when the game starts
+    }
+
+    private async void LoadShopScene()
+    {
+        await SceneManager.LoadSceneAsync("Shop");
+        OnReset.Invoke();
     }
 }

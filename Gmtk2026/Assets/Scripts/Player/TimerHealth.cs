@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TimerHealth : PersistentSingleton<TimerHealth>
+public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable
 {
     public float maxTime = 100f; //in seconds
     private float currentTime;   //in milliseconds
@@ -23,9 +23,10 @@ public class TimerHealth : PersistentSingleton<TimerHealth>
     public UnityEvent<float> OnTimeChanged = new UnityEvent<float>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        ResetObject();
+    protected override void Awake()
+    { 
+        base.Awake();
+        GameManager.OnReset.AddListener(ResetObj);
     }
 
     // Update is called once per frame
@@ -36,12 +37,6 @@ public class TimerHealth : PersistentSingleton<TimerHealth>
         CountDown();
     }
 
-    public void ResetObject()
-    {
-        transform.position = Vector3.zero + Vector3.up * 5; //temporary tp
-        CurrentTime = maxTime * 1000;
-        isTimerActive = true;
-    }
     private void CountDown()
     {
         CurrentTime -= Time.deltaTime * 1000;
@@ -61,5 +56,12 @@ public class TimerHealth : PersistentSingleton<TimerHealth>
         CurrentTime = 0;
         isTimerActive = false;
         OnPlayerDeath.Invoke();
+    }
+
+    public void ResetObj()
+    {
+        transform.position = Vector3.zero + Vector3.up * 5; //temporary tp
+        CurrentTime = maxTime * 1000;
+        isTimerActive = true;
     }
 }

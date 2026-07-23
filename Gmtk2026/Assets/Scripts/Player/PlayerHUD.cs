@@ -10,8 +10,8 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] Image _crosshair;
     [SerializeField] Sprite[] _crosshairRenderer;
     [SerializeField] HealthTimeUi _healthText;
-
-
+    [SerializeField] CoinHud _coins;
+ 
 
     public void ChangeCrosshair(Crosshair crosshair)
     {
@@ -25,5 +25,9 @@ public class PlayerHUD : MonoBehaviour
     public void UpdateHealthUI(float time)
     {
         _healthText.UpdateHealthTime(time);
+    }
+    public void UpdateCoinUI(int value)
+    {
+        _coins.UpdateCoinsUi(value);
     }
 }

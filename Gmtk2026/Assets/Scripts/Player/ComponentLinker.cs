@@ -11,16 +11,14 @@ public class ComponentLinker : MonoBehaviour
     private TimerHealth timerHealth;
     [SerializeField]
     private PlayerHUD playerHUD;
+    [SerializeField]
+    private RessourceSystem ressourceSystem;
 
-    void Start()
+    void Awake()
     {
         timerHealth.OnTimeChanged.AddListener(playerHUD.UpdateHealthUI);
         Deathzone.OnPlayerEnterDeathZone.AddListener(timerHealth.Die);
-        TimerHealth.OnPlayerDeath.AddListener(ResetAll);
+        ressourceSystem.OnCoinsChanged.AddListener(playerHUD.UpdateCoinUI);
     }
 
-    private void ResetAll()
-    {
-        timerHealth.ResetObject();
-    }
 }
