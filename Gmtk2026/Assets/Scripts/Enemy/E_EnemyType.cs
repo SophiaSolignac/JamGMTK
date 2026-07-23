@@ -8,13 +8,10 @@ using UnityEngine;
 namespace GMTK.Enemy
 {
     
-    public static class EnemyShootPattern
+    public enum E_EnemyType
     {
-        // ----------------~~~~~~~~~~~~~~~~~~~==========================# // VARIABLES
-
-        public static void ClassicShoot()
-        {
-            
-        }
+        TYPE_ONE,
+        TYPE_TWO,
+        TYPE_THREE,
     }
 }
