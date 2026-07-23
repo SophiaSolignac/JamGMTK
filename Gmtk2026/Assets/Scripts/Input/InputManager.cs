@@ -27,12 +27,18 @@ namespace GMTK.Inputs
 
         public void OnAttack(InputAction.CallbackContext context)
         {
-            if (context.started) onAttack.Invoke();
+            if (context.started || context.canceled)
+                onAttack.Invoke(context.started);
         }
 
         public void OnInteract(InputAction.CallbackContext context)
         {
             if (context.started) onInteract.Invoke();
+        }
+
+        public void OnDrop(InputAction.CallbackContext context)
+        {
+            if (context.started) onDrop.Invoke();
         }
     }
 }
