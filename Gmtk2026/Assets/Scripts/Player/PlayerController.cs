@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     // -------~~~~~~~~~~================# // Components
     [Header("Components")]
     [SerializeField] Rigidbody _body;
+    [SerializeField] Transform _pivot;
     [SerializeField] Camera _camera;
     Transform _cameraTransform;
     private Transform _transform;
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviour
 
     // Movement
     [SerializeField] float _movementSpeed;
+    [SerializeField] float _groundMaxAngle = 25f;
+    Vector3 _groundNormal = Vector3.up;
     Vector3 _movementDirection;
     bool _isGrouded;
 
@@ -45,6 +48,9 @@ public class PlayerController : MonoBehaviour
         if (_camera)
             _cameraTransform = _camera.transform;
 
+        if (!_pivot)
+            _pivot = _transform;
+
         // Set Cursor
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -52,16 +58,18 @@ public class PlayerController : MonoBehaviour
         InputManager.onLook.AddListener(OnLook);
         InputManager.onJump.AddListener(OnJump);
         InputManager.onMove.AddListener(OnMove);
-
     }
 
     private void Update()
     {
         // Update Gravity
         UpdateVerticalMovement();
+    }
 
+    private void FixedUpdate()
+    {
         // Update Movement Direction
-        _body.linearVelocity = _movementSpeed * (transform.rotation * _movementDirection) + Vector3.up * _verticalVelocity;
+        _body.linearVelocity = Quaternion.FromToRotation(Vector3.up, _groundNormal) * (_movementSpeed * (transform.rotation * _movementDirection) + Vector3.up * _verticalVelocity);
     }
 
 
@@ -86,18 +94,30 @@ public class PlayerController : MonoBehaviour
     {
         if (contacts == null) return false;
 
+        bool result = false;
+
+        _groundNormal = Vector3.up;
+
         foreach (ContactPoint contact in contacts)
         {
-            if (contact.normal == Vector3.up)
+            if (Vector3.Angle(contact.normal, Vector3.up) <= _groundMaxAngle)
             {
-                _verticalVelocity = Mathf.Max(_verticalVelocity, 0);
-                _canJump = true;
-                _isGrouded = true;
-                return true;
+                _groundNormal += contact.normal;
+                result  = true;
             }
+
         }
 
-        return false;
+        if (result)
+        {
+            _verticalVelocity = Mathf.Max(_verticalVelocity, 0);
+            _canJump = true;
+            _isGrouded = true;
+        }
+
+        _groundNormal = _groundNormal.normalized;
+
+        return result;
     }
 
     // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Updates
@@ -130,7 +150,7 @@ public class PlayerController : MonoBehaviour
         _cameraTransform.localRotation = Quaternion.AngleAxis(_currentVerticalRotation, Vector3.right);
 
         // Update Horizontal Rotation
-        _transform.rotation = Quaternion.AngleAxis(direction.x * _lookStrength.x * _lookMultiplyer, Vector3.up) * _transform.rotation;
+        _pivot.rotation = Quaternion.AngleAxis(direction.x * _lookStrength.x * _lookMultiplyer, Vector3.up) * _pivot.rotation;
     }
 
     // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Movement
