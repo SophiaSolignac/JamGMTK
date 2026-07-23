@@ -180,8 +180,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4945690322330585742, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 322406724}
+    - targetCorrespondingSourceObject: {fileID: 4945690322330585742, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
       insertIndex: -1
       addedObject: {fileID: 322406722}
+    - targetCorrespondingSourceObject: {fileID: 4945690322330585742, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 322406723}
   m_SourcePrefab: {fileID: 100100000, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
 --- !u!20 &173802173 stripped
 Camera:
@@ -193,6 +199,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4945690322330585742, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
   m_PrefabInstance: {fileID: 173802172}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &322406718 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7483706308596956511, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
+  m_PrefabInstance: {fileID: 173802172}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322406717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d591e27e9f4bad4282653210015d102, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!114 &322406722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +224,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   _camera: {fileID: 173802173}
   interactDistance: 3
+--- !u!114 &322406723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322406717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f8b86d5132ba7498cbad67baedd7a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+--- !u!114 &322406724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322406717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6bc878fabed174aa83f4b37013598a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  playerController: {fileID: 322406718}
+  interactor: {fileID: 322406722}
+  timerHealth: {fileID: 322406723}
 --- !u!1 &612409551
 GameObject:
   m_ObjectHideFlags: 0

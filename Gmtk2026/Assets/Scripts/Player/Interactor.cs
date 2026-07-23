@@ -2,7 +2,7 @@ using GMTK.Inputs;
 using System;
 using UnityEngine;
 
-public class Interactor : MonoBehaviour
+public class PlayerInteractor : MonoBehaviour, I_Interactor
 {
     [SerializeField]
     private Camera _camera;
@@ -10,10 +10,9 @@ public class Interactor : MonoBehaviour
     public float interactDistance = 3f;
     private void Start()
     {
-        InputManager.onInteract.AddListener(OnInteract);
+        InputManager.onInteract.AddListener(CheckForInteractables);
     }
-
-    private void OnInteract()
+    public void CheckForInteractables() 
     {
         // Check for interactable objects in front of the player
         RaycastHit hit;
@@ -29,8 +28,10 @@ public class Interactor : MonoBehaviour
         }
     }
 
+
     private void Update()
     {
         
     }
+
 }

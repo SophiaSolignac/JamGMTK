@@ -3,7 +3,20 @@ using UnityEngine;
 
 public class ShopStand : MonoBehaviour, I_Interactable
 {
+    private bool isInteractable = true;
     #region I_Interactable implementation
+    bool I_Interactable.IsInteractable
+    {
+        get
+        {
+            return isInteractable;
+        }
+        set
+        {
+            isInteractable = value;
+        }
+    }
+
     public void Interact()
     {
         if (CanInteract())
