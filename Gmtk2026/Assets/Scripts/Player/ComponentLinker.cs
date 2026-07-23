@@ -8,7 +8,8 @@ public class ComponentLinker : MonoBehaviour
     private PlayerInteractor interactor;
     [SerializeField]
     private TimerHealth timerHealth;
-
+    [SerializeField]
+    private PlayerHUD playerHUD;
     void Start()
     {
         

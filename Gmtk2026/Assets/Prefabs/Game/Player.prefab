@@ -265,7 +265,10 @@ GameObject:
   - component: {fileID: 7749554629106127551}
   - component: {fileID: 239029734174916824}
   - component: {fileID: 7559420904856526282}
+  - component: {fileID: 2117324534918981934}
   - component: {fileID: 7483706308596956511}
+  - component: {fileID: 4545559106734119095}
+  - component: {fileID: 1943581034833407759}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -340,6 +343,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2117324534918981934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c6bc878fabed174aa83f4b37013598a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  playerController: {fileID: 7483706308596956511}
+  interactor: {fileID: 4545559106734119095}
+  timerHealth: {fileID: 1943581034833407759}
+  playerHUD: {fileID: 0}
 --- !u!114 &7483706308596956511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,6 +403,33 @@ MonoBehaviour:
     m_RotationOrder: 4
   _jumpDuration: 0.5
   _gravityForce: 50
+--- !u!114 &4545559106734119095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c513722f44079e44a5a7edbcb11b0a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  _camera: {fileID: 3731956912657310255}
+  interactDistance: 3
+--- !u!114 &1943581034833407759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f8b86d5132ba7498cbad67baedd7a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  maxTime: 100
 --- !u!1 &6121699849216025789
 GameObject:
   m_ObjectHideFlags: 0
