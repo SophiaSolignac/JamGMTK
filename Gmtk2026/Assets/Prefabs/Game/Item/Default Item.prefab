@@ -193,8 +193,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   _aim: {fileID: 0}
+  _linker: {fileID: 8400222839241980380}
 --- !u!4 &5277079301827450474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7641973801046528863, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
   m_PrefabInstance: {fileID: 2537300122174588213}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8400222839241980380 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6315695046995852521, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
+  m_PrefabInstance: {fileID: 2537300122174588213}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398607328552469682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf03df27d8e061243bf806b77348e63c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemComponentLinker

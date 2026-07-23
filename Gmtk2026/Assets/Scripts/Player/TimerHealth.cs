@@ -46,9 +46,9 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable
         }
     }
 
-    public void AddTime(float timeToAdd)
+    public void AddMaxTime(float timeToAdd)
     {
-        CurrentTime += timeToAdd * 1000; // Convert seconds to milliseconds
+        maxTime += timeToAdd ; // Convert seconds to milliseconds
     }
 
     public void Die()

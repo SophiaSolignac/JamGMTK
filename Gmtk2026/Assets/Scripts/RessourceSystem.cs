@@ -14,7 +14,6 @@ public class RessourceSystem : MonoBehaviour, I_Resettable
             currentCoins = Mathf.Max(0, value); // Ensure coins don't go below 0
             OnCoinsChanged.Invoke(currentCoins); // Notify listeners of the change
         }
-
     }
     private void Awake()
     {
@@ -30,7 +29,7 @@ public class RessourceSystem : MonoBehaviour, I_Resettable
         Debug.Log($"Added {amount} coins. Current coins: {CurrentCoins}");
     }
 
-    public bool SpendCoins(int amount)
+    public bool TrySpendCoins(int amount)
     {
         if (CurrentCoins < amount)
         {
