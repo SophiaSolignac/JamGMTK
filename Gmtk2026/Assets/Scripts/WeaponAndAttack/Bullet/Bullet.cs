@@ -69,4 +69,9 @@ public class Bullet : MonoBehaviour, IUBPooledObject
 
         PoolSelf?.Store();
     }
+
+    public void CheckForInteractables()
+    {
+
+    }
 }

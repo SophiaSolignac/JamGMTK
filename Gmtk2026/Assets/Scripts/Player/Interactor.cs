@@ -1,6 +1,7 @@
 using GMTK.Inputs;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class PlayerInteractor : MonoBehaviour, I_Interactor
@@ -9,40 +10,29 @@ public class PlayerInteractor : MonoBehaviour, I_Interactor
     private Camera _camera;
 
     public float interactDistance = 3f;
+
     private void Start()
     {
         InputManager.onInteract.AddListener(CheckForInteractables);
     }
-    public void CheckForInteractables() 
+    public void CheckForInteractables()
     {
         // Check for interactable objects in front of the player
         RaycastHit hit;
         Debug.DrawRay(_camera.transform.position, _camera.transform.forward * interactDistance, Color.red, 1f);
 
-        if (Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, interactDistance))
+        if (!Physics.Raycast(_camera.transform.position, _camera.transform.forward, out hit, interactDistance))
         {
-            I_Interactable interactable = hit.collider.GetComponent<I_Interactable>();
-            if (interactable != null && interactable.CanInteract())
-            {
-                interactable.Interact();
-                LoadMap();
-                Debug.Log($"Interacted with {hit.collider.name}");
-            }
+            return;
         }
-    }
+        I_Interactable interactable = hit.collider.GetComponent<I_Interactable>();
 
-    public async Task LoadMap()
-    {
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("Shop", LoadSceneMode.Single);
-        while (!asyncOperation.isDone)
+        if (interactable == null)
         {
-            await Task.Yield();
+            return;
         }
+        Debug.Log($"Interacting with {interactable}");
+        interactable.Interact();
     }
-
-    private void Update()
-    {
-        
-    }
-
 }
+
