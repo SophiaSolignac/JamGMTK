@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ShopStand : MonoBehaviour, I_Interactable
 {
@@ -19,11 +20,13 @@ public class ShopStand : MonoBehaviour, I_Interactable
 
     public void Interact()
     {
-        if (CanInteract())
+        if (!CanInteract())
         {
-            // Implement the interaction logic here
-            Debug.Log("Interacting with the Shop Stand.");
+            return;
         }
+        // Implement the interaction logic here
+        Debug.Log("Interacting with the Shop Stand.");
+        OnAddMaxTime?.Invoke(10f); // Add 10 seconds to the timer
     }
     public bool CanInteract()
     {
@@ -32,6 +35,8 @@ public class ShopStand : MonoBehaviour, I_Interactable
     }
 
     #endregion
+
+    public UnityEvent<float> OnAddMaxTime;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

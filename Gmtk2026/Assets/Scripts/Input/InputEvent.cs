@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace GMTK.Inputs
 {
-    public partial class InputManager : MonoBehaviour
+    public partial class InputManager : PersistentSingleton<InputManager>
     {
         public static UnityEvent<Vector3> onMove { get; private set; }  = new();
 
