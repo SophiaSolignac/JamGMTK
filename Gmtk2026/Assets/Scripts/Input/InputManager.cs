@@ -20,7 +20,10 @@ namespace GMTK.Inputs
         }
 
         public void OnJump(InputAction.CallbackContext context)
-            => onJump.Invoke(context.started);
+        {
+            if (context.started || context.canceled)
+                onJump.Invoke(context.started);
+        }
 
         public void OnAttack(InputAction.CallbackContext context)
         {
