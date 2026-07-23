@@ -237,6 +237,10 @@ PrefabInstance:
       value: Default Gun
       objectReference: {fileID: 0}
     - target: {fileID: 8840331575554067306, guid: 8cad70be3b6335a479d8b4a40544545b, type: 3}
+      propertyPath: _linker
+      value: 
+      objectReference: {fileID: 2531694739218474750}
+    - target: {fileID: 8840331575554067306, guid: 8cad70be3b6335a479d8b4a40544545b, type: 3}
       propertyPath: _settings
       value: 
       objectReference: {fileID: 11400000, guid: 7ea2efa3c4ee910428ff422d609709e6, type: 2}
@@ -256,3 +260,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2338646601141596698, guid: 8cad70be3b6335a479d8b4a40544545b, type: 3}
   m_PrefabInstance: {fileID: 4539221342242110290}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2531694739218474750 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2151857717451546028, guid: 8cad70be3b6335a479d8b4a40544545b, type: 3}
+  m_PrefabInstance: {fileID: 4539221342242110290}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf03df27d8e061243bf806b77348e63c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemComponentLinker

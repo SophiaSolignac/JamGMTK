@@ -18,13 +18,7 @@ public abstract class Weapon<WeaponType> : Item where WeaponType : SOWeapon
         _settings = Instantiate(_settings);
     }
 
-    public override void Use(bool started, ItemHolder aim)
-    {
-        base.Use(started, aim);
-        // if (!started) _lastTimeUse = float.NegativeInfinity;
-    }
-
-    protected override void ApplyUse(ItemHolder aim)
+    protected override void ApplyUse(ItemHolder owner)
     {
         // Check Null
         if (!_settings) return;
@@ -34,10 +28,12 @@ public abstract class Weapon<WeaponType> : Item where WeaponType : SOWeapon
         if (time - _lastTimeUse <= _settings.WaitBetweenInput) return;
         
         // Fire
-        Fire(aim);
+        Fire(owner);
         _animator?.SetTrigger(ANIM_USE);
         _lastTimeUse = Time.time;
+
+        base.ApplyUse(owner);
     }
 
-    protected abstract void Fire(ItemHolder aim);
+    protected abstract void Fire(ItemHolder owner);
 }

@@ -1,7 +1,5 @@
 using GMTK.Inputs;
-using System;
 using System.Threading.Tasks;
-using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
