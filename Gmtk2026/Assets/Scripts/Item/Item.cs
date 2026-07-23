@@ -5,6 +5,7 @@ public class Item : MonoBehaviour, I_Interactable
     public enum InputType { Tap, Hold }
 
     [SerializeField] protected Transform _aim;
+    [SerializeField] protected ItemComponentLinker _linker;
 
     public virtual InputType Input { get; set; }
     public bool IsInteractable { get; set; } = true;
@@ -39,6 +40,6 @@ public class Item : MonoBehaviour, I_Interactable
 
     protected virtual void ApplyUse(ItemHolder owner)
     {
-        
+        _linker?.onItemUsed?.Invoke();
     }
 }

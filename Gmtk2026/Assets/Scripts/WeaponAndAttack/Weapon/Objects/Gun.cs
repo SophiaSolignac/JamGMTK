@@ -63,7 +63,7 @@ public class Gun : Weapon<SOGun>
         do
         {
             // Init Bullet
-            UBPool<Bullet> bullet = UBPool<Bullet>.GetInstancePrefab(_settings.Bullet);
+            UBPool<Bullet> bullet = UBPool<Bullet>.GetInstancePrefab(_settings.Bullet, transform);
 
             // Init Direction And Position
             bullet.transform.position = aim.position;
