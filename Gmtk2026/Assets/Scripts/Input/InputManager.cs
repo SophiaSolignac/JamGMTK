@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace GMTK.Inputs
 {
-    public partial class InputManager : MonoBehaviour
+    public partial class InputManager : PersistentSingleton<InputManager>
     {
         public void OnMove(InputAction.CallbackContext context)
         {
@@ -20,16 +20,25 @@ namespace GMTK.Inputs
         }
 
         public void OnJump(InputAction.CallbackContext context)
-            => onJump.Invoke(context.started);
+        {
+            if (context.started || context.canceled)
+                onJump.Invoke(context.started);
+        }
 
         public void OnAttack(InputAction.CallbackContext context)
         {
-            if (context.started) onAttack.Invoke();
+            if (context.started || context.canceled)
+                onAttack.Invoke(context.started);
         }
 
         public void OnInteract(InputAction.CallbackContext context)
         {
             if (context.started) onInteract.Invoke();
+        }
+
+        public void OnDrop(InputAction.CallbackContext context)
+        {
+            if (context.started) onDrop.Invoke();
         }
     }
 }
