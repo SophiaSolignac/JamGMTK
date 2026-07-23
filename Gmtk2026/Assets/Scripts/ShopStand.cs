@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Rendering;
 
-public class ShopStand : MonoBehaviour, I_Interactable
+public class ShopStand : MonoBehaviour, I_Interactable, I_BulletOrRaycastTarget
 {
     private bool isInteractable = true;
     public int cost = 100;
@@ -40,6 +40,11 @@ public class ShopStand : MonoBehaviour, I_Interactable
     public bool CanInteract()
     {
         return true; // Implement your logic to determine if interaction is possible
+    }
+
+    public void OnHit()
+    {
+        Interact();
     }
     #endregion
 

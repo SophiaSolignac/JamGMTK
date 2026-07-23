@@ -1,20 +1,29 @@
 using System;
+using UnBocal.CookingProject.Utilities;
+using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.LowLevelPhysics2D;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(PhysicsBody))]
-public class Coin : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class Coin : Collectible, IUBPooledObject
 {
     [SerializeField]
     Collider physicCollider;
     [SerializeField]
-    Collider triggerCollider;
+    SphereCollider triggerCollider;
     [SerializeField]
     Rigidbody physicsBody;
 
+    public static UnityEvent<int> OnAddMoneyToPlayer = new();
 
     GameObject target;
+    private int coinValue = 20;
+    public IUBPoolRef PoolSelf 
+    { 
+        get ; 
+        set ;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -22,7 +31,6 @@ public class Coin : MonoBehaviour
             target = other.gameObject;
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -43,8 +51,10 @@ public class Coin : MonoBehaviour
             return false;
         }
         Vector3 direction = (target.transform.position - transform.position).normalized;
-        float speed = 500f; // Adjust the speed as needed
-        physicsBody.AddForce(speed * Time.deltaTime * direction, ForceMode.Force);
+        float speed = 5000f; // Adjust the speed as needed
+        float vec = Vector3.Distance(target.transform.position,transform.position);
+        float ratio = 1- Mathf.Clamp01(vec / triggerCollider.radius);
+        physicsBody.AddForce(speed * ratio * Time.deltaTime * direction, ForceMode.Force);
         return true;
     }
 
@@ -52,5 +62,10 @@ public class Coin : MonoBehaviour
     {
         float rotationSpeed = 500f; // Adjust the rotation speed as needed
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
+    }
+    protected override void OnCollisionWithPlayer()
+    {
+        OnAddMoneyToPlayer.Invoke(coinValue);
+        PoolSelf.Store();
     }
 }
