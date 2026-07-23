@@ -1,5 +1,4 @@
 using GMTK.Inputs;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -20,17 +19,25 @@ public class PlayerController : MonoBehaviour
     float _lookMultiplyer = .01f; // For Better Lisibility In Inspector
 
     // Movement
-    [SerializeField] float _movementSpeed = 10f;
+    [SerializeField] float _movementSpeed;
     Vector3 _movementDirection;
+    bool _isGrouded;
 
     // Jump
-    [SerializeField] float _jumpForce = 10f;
+    [SerializeField]
+    float _jumpForce = 10f;
+    float _jumpStart;
+    bool _isJumping;
+    bool _canJump;
 
     // -------~~~~~~~~~~================# // Physics
     [Header("Physics")]
+    [SerializeField] AnimationCurve _jumpCurve;
+    [SerializeField] float _jumpDuration = 2f;
     [SerializeField] float _gravityForce = 1f;
     float _verticalVelocity;
 
+    // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Unity
     private void Start()
     {
         // Init Components
@@ -51,24 +58,68 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // Update Gravity
-        _verticalVelocity -= _gravityForce * Time.deltaTime;
+        UpdateVerticalMovement();
 
         // Update Movement Direction
         _body.linearVelocity = _movementSpeed * (transform.rotation * _movementDirection) + Vector3.up * _verticalVelocity;
     }
 
+
+    // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Collisions
     private void OnCollisionStay(Collision collision)
     {
-        foreach (ContactPoint contact in collision.contacts)
+        if (CheckGroundContact(collision.contacts)) return;
+
+        _canJump = false;
+        _isGrouded = false;
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (CheckGroundContact(collision.contacts)) return;
+
+        _canJump = false;
+        _isGrouded = false;
+    }
+
+    private bool CheckGroundContact(ContactPoint[] contacts)
+    {
+        if (contacts == null) return false;
+
+        foreach (ContactPoint contact in contacts)
         {
             if (contact.normal == Vector3.up)
             {
                 _verticalVelocity = Mathf.Max(_verticalVelocity, 0);
-                break;
+                _canJump = true;
+                _isGrouded = true;
+                return true;
             }
         }
+
+        return false;
     }
 
+    // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Updates
+    private void UpdateVerticalMovement()
+    {
+        float jumpmTime = Time.time - _jumpStart;
+
+        // Update Jump
+        if (jumpmTime <= _jumpDuration && _isJumping)
+        {
+            float ratio =  1 - jumpmTime / _jumpDuration;
+            _verticalVelocity = _jumpCurve.Evaluate(ratio) * _jumpForce;
+
+
+            return;
+        }
+
+        // Update Gravity
+        _verticalVelocity -= _gravityForce * Time.deltaTime;
+    }
+
+    // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Look
     private void OnLook(Vector2 direction)
     {
         if (!_camera || !_transform) return;
@@ -82,13 +133,24 @@ public class PlayerController : MonoBehaviour
         _transform.rotation = Quaternion.AngleAxis(direction.x * _lookStrength.x * _lookMultiplyer, Vector3.up) * _transform.rotation;
     }
 
+    // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Movement
     private void OnMove(Vector3 direction)
         => _movementDirection = direction;
 
+    // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Jump
     private void OnJump(bool started)
     {
-        if (!started) return;
+        _isJumping = started;
 
+        if (!_canJump) return;
+
+        if (!started)
+        {
+            _verticalVelocity = Mathf.Max(_verticalVelocity, 0);
+            return;
+        }
+
+        _jumpStart = Time.time;
         _verticalVelocity = _jumpForce;
     }
 }
