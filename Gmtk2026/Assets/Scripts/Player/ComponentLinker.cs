@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ComponentLinker : MonoBehaviour
@@ -10,8 +11,14 @@ public class ComponentLinker : MonoBehaviour
     private TimerHealth timerHealth;
     [SerializeField]
     private PlayerHUD playerHUD;
-    void Start()
+    [SerializeField]
+    private RessourceSystem ressourceSystem;
+
+    void Awake()
     {
-        
+        timerHealth.OnTimeChanged.AddListener(playerHUD.UpdateHealthUI);
+        Deathzone.OnPlayerEnterDeathZone.AddListener(timerHealth.Die);
+        ressourceSystem.OnCoinsChanged.AddListener(playerHUD.UpdateCoinUI);
     }
+
 }

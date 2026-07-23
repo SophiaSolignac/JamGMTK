@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace GMTK.Inputs
 {
-    public partial class InputManager : MonoBehaviour
+    public partial class InputManager : PersistentSingleton<InputManager>
     {
         public void OnMove(InputAction.CallbackContext context)
         {

@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 139751152689315414}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.27}
+  m_LocalPosition: {x: 0, y: 0, z: 0.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -482,6 +482,8 @@ MonoBehaviour:
   _crosshairRenderer:
   - {fileID: 21300000, guid: c805174fb300f6947a6d74da0c7bec4a, type: 3}
   - {fileID: 21300000, guid: 9d1ab990081d580449c1c855a5c70d4c, type: 3}
+  _healthText: {fileID: 0}
+  _coins: {fileID: 0}
 --- !u!1 &4945690322330585742
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,6 +567,7 @@ MonoBehaviour:
   interactor: {fileID: 4545559106734119095}
   timerHealth: {fileID: 1943581034833407759}
   playerHUD: {fileID: 0}
+  ressourceSystem: {fileID: 0}
 --- !u!114 &7483706308596956511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,6 +641,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   maxTime: 100
+  isTimerActive: 1
+  OnTimeChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6817787844863990863
 MonoBehaviour:
   m_ObjectHideFlags: 0
