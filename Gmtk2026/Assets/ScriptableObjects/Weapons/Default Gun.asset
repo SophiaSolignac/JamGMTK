@@ -16,7 +16,7 @@ MonoBehaviour:
   _reloadDuration: 1
   _waitBetweenInput: 0
   _input: 0
-  _type: 1
+  _type: 0
   _amoMax: 1
   _fireRate: 1
   _distance: 999

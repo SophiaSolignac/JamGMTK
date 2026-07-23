@@ -21,7 +21,6 @@ public class PlayerHUD : MonoBehaviour
 
         _crosshair.sprite = _crosshairRenderer[index];
     }
-
     public void UpdateHealthUI(float time)
     {
         _healthText.UpdateHealthTime(time);

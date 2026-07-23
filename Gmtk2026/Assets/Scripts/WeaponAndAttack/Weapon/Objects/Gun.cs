@@ -42,7 +42,6 @@ public class Gun : Weapon<SOGun>
             return;
         }
 
-
         // Can Only Have One Target
 
         if (!Physics.Raycast(ray, out RaycastHit hit, _settings.Distance, _settings.LayerMask)) return;
@@ -50,6 +49,7 @@ public class Gun : Weapon<SOGun>
         if (!hit.transform.TryGetComponent(out target)) return;
 
         target.OnHit();
+
     }
 
     private void FireProjectile(ItemHolder owner)
@@ -63,7 +63,7 @@ public class Gun : Weapon<SOGun>
         do
         {
             // Init Bullet
-            UBPool<Bullet> bullet = UBPool<Bullet>.GetInstancePrefab(_settings.Bullet);
+            UBPool<Bullet> bullet = UBPool<Bullet>.GetInstancePrefab(_settings.Bullet, transform);
 
             // Init Direction And Position
             bullet.transform.position = aim.position;
