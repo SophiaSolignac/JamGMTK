@@ -184,12 +184,17 @@ namespace UnBocal.CookingProject.Utilities
             _poolContainerObject = new GameObject($"Pool : {typeof(T).Name}");
             _poolContainer = _poolContainerObject.AddComponent<UBPoolContainer>();
             _poolContainerTransform = _poolContainerObject.transform;
-            UnityEngine.Object.DontDestroyOnLoad(_poolContainerObject);
 
             // Store Pool
             UBPoolContainer.onPoolCreated?.Invoke(_pool);
         }
 
+        private static void SetDontDestroyOnLoad()
+        {
+            InitPoolContainer();
+
+            UnityEngine.Object.DontDestroyOnLoad(_poolContainerObject);
+        }
         // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Component Instantiation 
         public static UBPool<T> GetInstanceComponent() => GetInstanceComponent(null);
 
