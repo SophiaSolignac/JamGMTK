@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour
     bool _isJumping;
     bool _canJump;
 
+    // Default
+    Vector3 CameraStartLocation;
     // -------~~~~~~~~~~================# // Physics
     [Header("Physics")]
     [SerializeField] AnimationCurve _jumpCurve;
@@ -58,6 +60,7 @@ public class PlayerController : MonoBehaviour
         InputManager.onLook.AddListener(OnLook);
         InputManager.onJump.AddListener(OnJump);
         InputManager.onMove.AddListener(OnMove);
+        CameraStartLocation = _camera.transform.localPosition;
     }
 
     private void Update()
@@ -172,5 +175,24 @@ public class PlayerController : MonoBehaviour
 
         _jumpStart = Time.time;
         _verticalVelocity = _jumpForce;
+    }
+
+    public void OnRagdoll()
+    {
+        _cameraTransform.parent = null;
+        Rigidbody body = _camera.GetComponent<Rigidbody>();
+        if (body == null)
+            return;
+        body.isKinematic = false;
+        body.linearVelocity = _body.linearVelocity;
+        InputManager.onLook.RemoveListener(OnLook);
+    }
+    public void OnPlayerDeath()
+    {
+        _cameraTransform.parent = transform;
+        _camera.GetComponent<Rigidbody>().isKinematic = true;
+        _cameraTransform.localPosition = CameraStartLocation;
+        _cameraTransform.localRotation = Quaternion.identity;
+        InputManager.onLook.AddListener(OnLook);    
     }
 }

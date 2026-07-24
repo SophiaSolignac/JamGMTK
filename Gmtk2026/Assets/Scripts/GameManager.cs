@@ -17,7 +17,7 @@ public class GameManager : PersistentSingleton<GameManager>
 
     private async void LoadShopScene()
     {
-        await SceneManager.LoadSceneAsync("Shop");
+        await SceneManager.LoadSceneAsync("Game");
         OnReset.Invoke();
     }
 }

@@ -23,7 +23,7 @@ public class Gun : Weapon<SOGun>
         if (!aim) return;
 
         Ray ray = new(aim.position, aim.forward);
-        I_BulletOrRaycastTarget target;
+        I_BulletOrRaycastTarget[] targets;
 
         // Can Touch Multiple Target
         if (_settings.Perssing)
@@ -35,9 +35,13 @@ public class Gun : Weapon<SOGun>
                 // Exclude Owner
                 if (currentHit.collider == owner.Collider) continue;
 
-                if (currentHit.transform.TryGetComponent(out target)) continue;
+                targets = currentHit.transform.GetComponents<I_BulletOrRaycastTarget>();
+                if (targets.Length <= 0) continue;
 
-                target.OnHit();
+                foreach (I_BulletOrRaycastTarget target in targets)
+                {
+                    target.OnHit();
+                }
             }
             return;
         }
@@ -46,9 +50,13 @@ public class Gun : Weapon<SOGun>
 
         if (!Physics.Raycast(ray, out RaycastHit hit, _settings.Distance, _settings.LayerMask)) return;
 
-        if (!hit.transform.TryGetComponent(out target)) return;
+        targets = hit.transform.GetComponents<I_BulletOrRaycastTarget>();
+        if (targets.Length <= 0) return;
 
-        target.OnHit();
+        foreach (I_BulletOrRaycastTarget target in targets)
+        {
+            target.OnHit();
+        }
 
     }
 

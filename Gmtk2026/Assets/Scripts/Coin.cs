@@ -68,4 +68,12 @@ public class Coin : Collectible, IUBPooledObject
         OnAddMoneyToPlayer.Invoke(coinValue);
         PoolSelf.Store();
     }
+    /// <summary>
+    /// Add a force to the coin's rigidbody
+    /// Default mode is Impulse
+    /// </summary>
+    public void AddForce(Vector3 pForce, ForceMode pMode = ForceMode.Impulse)
+    {
+        physicsBody.AddForce(pForce, pMode);
+    }
 }

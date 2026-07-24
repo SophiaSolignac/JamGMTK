@@ -15,4 +15,4 @@ MonoBehaviour:
   _title: new bullet
   _despawnDistance: 10
   _LifeTimie: 10
-  _speed: 30
+  _speed: 20
