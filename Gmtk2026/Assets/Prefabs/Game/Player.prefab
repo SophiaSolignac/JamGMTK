@@ -648,14 +648,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7749554629106127551}
+  - component: {fileID: 8949976965649774745}
   - component: {fileID: 7559420904856526282}
   - component: {fileID: 2117324534918981934}
+  - component: {fileID: 690112082604355314}
   - component: {fileID: 7483706308596956511}
   - component: {fileID: 4545559106734119095}
   - component: {fileID: 1943581034833407759}
   - component: {fileID: 6817787844863990863}
   - component: {fileID: 2725310525957410355}
-  - component: {fileID: 8949976965649774745}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -680,6 +681,28 @@ Transform:
   - {fileID: 363101068415148787}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &8949976965649774745
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Material: {fileID: 13400000, guid: 6465906ffd10669488d9917adf009580, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2534964839176971238, guid: 9c9f1ed726f454646a50f9f054a7f0a3, type: 3}
 --- !u!54 &7559420904856526282
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -724,7 +747,7 @@ MonoBehaviour:
   timerHealth: {fileID: 1943581034833407759}
   playerHUD: {fileID: 5915707284579349319}
   ressourceSystem: {fileID: 2725310525957410355}
---- !u!114 &7483706308596956511
+--- !u!114 &690112082604355314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -732,6 +755,46 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4945690322330585742}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c652bc5d7d90084888ea62150e500d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NewPlayerMovement
+  _body: {fileID: 7559420904856526282}
+  _pivot: {fileID: 1185466099965179735}
+  _camera: {fileID: 3731956912657310255}
+  _thresholdInput: 0.01
+  _lookStrength: {x: 5, y: 5}
+  _lookAngle: {x: -90, y: 90}
+  _cutSpeedCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _maxMovementSpeed: 10
+  _movementForce: 10000
+  _groundMaxAngle: 25
+  _counterMovement: 0.1
+  _jumpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _jumpForce: 13
+  _jumpDuration: 2
+  _jumpBuffer: 0.2
+  _jumpCoyote: 0.2
+  _dashForce: 100
+  _gravityForce: 1500
+--- !u!114 &7483706308596956511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d591e27e9f4bad4282653210015d102, type: 3}
   m_Name: 
@@ -833,28 +896,6 @@ MonoBehaviour:
   OnCoinsChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!64 &8949976965649774745
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4945690322330585742}
-  m_Material: {fileID: 13400000, guid: 6465906ffd10669488d9917adf009580, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &5522613428346550971
 GameObject:
   m_ObjectHideFlags: 0
