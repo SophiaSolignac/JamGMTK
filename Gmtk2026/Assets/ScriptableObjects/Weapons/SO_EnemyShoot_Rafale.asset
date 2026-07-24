@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7d0b85bdcdd3fc4f8e0e9af749ede0d, type: 3}
-  m_Name: SO_EnemyShoot_Spiral
+  m_Name: SO_EnemyShoot_Rafale
   m_EditorClassIdentifier: Assembly-CSharp::SOGun
-  _title: Enemy Classic Gun
+  _title: Enemy Rafale Gun
   _reloadDuration: 1
   _waitBetweenInput: 0
   _input: 0
   _type: 1
   _amoMax: 1
-  _fireRate: 1
+  _fireRate: 2
   _distance: 999
   _layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   _perssing: 0
-  _bullet: {fileID: 8691619753847483437, guid: 8d4a07dd026aec14a90f6cbc1cb384f2, type: 3}
-  _speedMultipler: {x: 1, y: 1}
+  _bullet: {fileID: 8691619753847483437, guid: 508e0db83a12c4d45bace4722de47243, type: 3}
+  _speedMultipler: {x: 0.8, y: 1.2}
   _angleOpening: 0
   _bulletPerShot: 1
