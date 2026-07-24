@@ -206,8 +206,9 @@ namespace GMTK.Enemy
         
         public void OnHit(int damage)
         {
-            int lFinalDamage = Mathf.RoundToInt(_BaseDamage * _DamageTakenMultiplier);
-            TakeDamage(lFinalDamage);
+            // désolé flo tuvametape
+            // int lFinalDamage = Mathf.RoundToInt(_BaseDamage * _DamageTakenMultiplier);
+            TakeDamage(damage);
         }
 
         public void TakeDamage(int pAmount)
