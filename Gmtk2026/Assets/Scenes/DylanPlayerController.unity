@@ -1315,18 +1315,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 20
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_ActionId
       value: de1173d3-9fd0-4d35-b135-c00a3b8bc776
       objectReference: {fileID: 0}
     - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionId
+      value: bf909c26-be84-4ccb-afd8-020f69ab2dd5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_ActionName
       value: 'Player/Drop[/Keyboard/a]'
       objectReference: {fileID: 0}
     - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionName
+      value: 'Player/Dash[/Keyboard/shift]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
@@ -1334,7 +1346,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1157355500}
+    - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1157355500}
     - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
@@ -1342,15 +1362,31 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnDrop
+      objectReference: {fileID: 0}
+    - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDash
       objectReference: {fileID: 0}
     - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: GMTK.Inputs.InputManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GMTK.Inputs.InputManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5188926839601978645, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7238893903719977141, guid: 3fdea6e73fc41cd498bb0f355438d37e, type: 3}
