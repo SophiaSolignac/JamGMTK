@@ -22,10 +22,12 @@ public class SOGun : SOWeapon
 
     // -------~~~~~~~~~~================# // Scan
     [Header("Raycast")]
+    [SerializeField] int _damage;
     [SerializeField] float _distance = 999f;
     [SerializeField] LayerMask _layerMask = Physics.AllLayers;
     [SerializeField] bool _perssing;
 
+    public int Damage => _damage;
     public float Distance => _distance;
     public LayerMask LayerMask => _layerMask;
     public bool Perssing => _perssing;

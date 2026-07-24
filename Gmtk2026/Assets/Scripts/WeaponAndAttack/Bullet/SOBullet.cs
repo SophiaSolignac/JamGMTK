@@ -5,7 +5,9 @@ public class SOBullet : ScriptableObject
 {
     [Header("Settings")]
     [SerializeField] string _title = "new bullet";
+    [SerializeField] int _damage = 1;
     public string title => _title;
+    public int Damage => _damage;
 
     [Header("Despawning")]
     [SerializeField] float _despawnDistance = 1000f;
