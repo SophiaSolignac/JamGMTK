@@ -12,5 +12,6 @@ namespace GMTK.Enemy
     {
         CLASSIC,
         TRIPLE,
+        SPIRAL,
     }
 }
