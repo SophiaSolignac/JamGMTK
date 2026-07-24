@@ -79,6 +79,9 @@ namespace GMTK.Enemy
                     case E_ShootType.TRIPLE:
                         yield return this.TripleShootWithDelay();
                         break;
+                    case E_ShootType.SPIRAL:
+                        yield return this.CorkscrewShoot();
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(pShootType), pShootType, null);
                 }
