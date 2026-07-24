@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{05ce7653-3962-4f40-b4f7-e300284c999c}">
+		<property name="color">
+			<value>Yellow</value>
+		</property>
 		<property name="name">
 			<value>GS_Pistol</value>
 		</property>
@@ -99,7 +102,9 @@
 	<object class="MixerBusPanner" id="{5a9e4a1b-c394-4d39-a0b2-d318bc62ec64}" />
 	<object class="MixerBusEffectChain" id="{bbb3ea5d-96dc-4be1-a12e-34f9db1ff0ca}">
 		<relationship name="effects">
+			<destination>{f779189a-b22e-403c-9609-4b8dddbff9f6}</destination>
 			<destination>{31ceecb9-e32b-4c11-997a-5cdd6601d1d2}</destination>
+			<destination>{5ae9d59c-b8e2-4e57-b7fd-1402363d04ec}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{80bc7c4a-9a30-4a29-81a2-29b2c8f99381}" />
@@ -110,13 +115,35 @@
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{04aa3335-36e7-4c0a-8a2d-25fcad875143}" />
+	<object class="MultibandEqEffect" id="{f779189a-b22e-403c-9609-4b8dddbff9f6}">
+		<property name="filterTypeA">
+			<value>9</value>
+		</property>
+		<property name="frequencyA">
+			<value>88.899765</value>
+		</property>
+		<property name="gainA">
+			<value>16.9971542</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{31ceecb9-e32b-4c11-997a-5cdd6601d1d2}" />
+	<object class="SFXReverbEffect" id="{5ae9d59c-b8e2-4e57-b7fd-1402363d04ec}">
+		<property name="decayTime">
+			<value>290</value>
+		</property>
+		<property name="highCut">
+			<value>460</value>
+		</property>
+	</object>
 	<object class="SingleSound" id="{a61c6ffd-1e49-47eb-9a32-054d6c2ea89c}">
 		<relationship name="audioFile">
 			<destination>{7e11bccf-a0d7-49ee-9cb5-072894cc0a4f}</destination>
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{f0aa9cd0-8bf2-444c-af4d-491fd2941cf4}">
+		<property name="volume">
+			<value>-1</value>
+		</property>
 		<relationship name="audioFile">
 			<destination>{0666f812-f4e5-416a-929f-8069cd367b0c}</destination>
 		</relationship>

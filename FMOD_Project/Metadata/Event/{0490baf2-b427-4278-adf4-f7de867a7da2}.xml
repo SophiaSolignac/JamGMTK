@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{0490baf2-b427-4278-adf4-f7de867a7da2}">
+		<property name="color">
+			<value>Green</value>
+		</property>
 		<property name="name">
 			<value>AMB_Menu</value>
 		</property>
@@ -75,6 +78,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{f7729e4a-8876-441c-8a70-1218704a092f}">
+		<relationship name="modulators">
+			<destination>{5afb3362-f4dc-49ec-9289-0e88f11c40b9}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{0509351a-f55d-44b6-8c83-f3c9d0923005}</destination>
 		</relationship>
@@ -101,7 +107,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{d3620beb-fb42-4bdc-9c55-d813d99febd7}">
 		<property name="volume">
-			<value>-3.5</value>
+			<value>-4.5</value>
 		</property>
 		<property name="name">
 			<value>Audio 1</value>
@@ -129,6 +135,26 @@
 		<relationship name="markerTrack">
 			<destination>{3ad93ef1-dbb7-4190-95fe-2357c3e38fb1}</destination>
 		</relationship>
+	</object>
+	<object class="ADSRModulator" id="{5afb3362-f4dc-49ec-9289-0e88f11c40b9}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="initialValue">
+			<value>-80</value>
+		</property>
+		<property name="attackTime">
+			<value>3466.92407</value>
+		</property>
+		<property name="attackShape">
+			<value>-0.40773797</value>
+		</property>
+		<property name="releaseTime">
+			<value>180</value>
+		</property>
+		<property name="finalValue">
+			<value>-80</value>
+		</property>
 	</object>
 	<object class="MixerBusEffectChain" id="{0509351a-f55d-44b6-8c83-f3c9d0923005}">
 		<relationship name="effects">

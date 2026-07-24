@@ -151,7 +151,6 @@ namespace GMTK.Enemy
             while (_HasDetectedPlayer && _PlayerTransform)
             {
                 Vector3 lDirection = _PlayerTransform.position - transform.position;
-                lDirection.y = 0f;
 
                 if (lDirection.sqrMagnitude > MIN_MAGNITUDE)
                 {

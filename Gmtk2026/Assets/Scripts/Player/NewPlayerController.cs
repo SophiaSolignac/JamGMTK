@@ -7,9 +7,8 @@ public class NewPlayerMovement : MonoBehaviour
     // -------~~~~~~~~~~================# // Components
     [Header("Components")]
     [SerializeField] Rigidbody _body;
-    [SerializeField] Transform _pivot;
-    [SerializeField] Camera _camera;
-    Transform _cameraTransform;
+    [SerializeField] Transform _pivotY;
+    [SerializeField] Transform _pivotX;
     private Transform _transform;
 
     // -------~~~~~~~~~~================# // Inputs
@@ -23,7 +22,8 @@ public class NewPlayerMovement : MonoBehaviour
     [SerializeField] Vector2 _lookAngle = new Vector2(-90f, 90f);
     float _lookMultiplyer = .01f; // For Better Lisibility In Inspector
     float _currentVerticalRotation;
-    Quaternion _lookRotation = Quaternion.identity;
+    Quaternion _yRotation = Quaternion.identity;
+    Quaternion _xRotation = Quaternion.identity;
 
 
     // -------~~~~~~~~~~================# // Movement
@@ -51,26 +51,23 @@ public class NewPlayerMovement : MonoBehaviour
     bool _canJump;
 
     // -------~~~~~~~~~~================# // Jump
-    [Header("Jump")]
+    [Header("Dash")]
     [SerializeField] float _dashForce = 100f;
-
+    [SerializeField] float _dashCoolDown = .5f;
+    float _lastDashTime = float.NegativeInfinity;
 
     // -------~~~~~~~~~~================# // Physics
     [Header("Physics")]
     [SerializeField] float _gravityForce = 1500f;
     float _leftGroundTime = float.NegativeInfinity;
-    float _verticalVelocity;
 
     // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Unity
     private void Start()
     {
         // Init Components
         _transform = transform;
-        if (_camera)
-            _cameraTransform = _camera.transform;
-
-        if (!_pivot)
-            _pivot = _transform;
+        if (!_pivotY) _pivotY = _transform;
+        if (!_pivotX) _pivotX = _transform;
 
         // Set Cursor
         Cursor.lockState = CursorLockMode.Locked;
@@ -97,7 +94,7 @@ public class NewPlayerMovement : MonoBehaviour
 
         UpdateVerticalMovement();
 
-        Vector3 relativeVelocity = Quaternion.Inverse(_lookRotation) * _body.linearVelocity;
+        Vector3 relativeVelocity = Quaternion.Inverse(_yRotation) * _body.linearVelocity;
 
         ApplyCounterForce(relativeVelocity);
         ApplyMovement(relativeVelocity);
@@ -105,16 +102,16 @@ public class NewPlayerMovement : MonoBehaviour
 
     private void ApplyCounterForce(Vector3 relativeVelocity)
     {
-        Vector3 wantedDirection = _lookRotation * _inputDirection;
+        Vector3 wantedDirection = _yRotation * _inputDirection;
         Vector3 velocityDirection = relativeVelocity.normalized;
 
         // Add Horizontal Counter
         if (CheckDirection(_inputDirection.x, velocityDirection.x))
-            _body.AddForce(Time.fixedDeltaTime * _movementForce * _counterMovement * -relativeVelocity.x * _pivot.right);
+            _body.AddForce(Time.fixedDeltaTime * _movementForce * _counterMovement * -relativeVelocity.x * _pivotY.right);
 
         // Add Forward Counter
         if (CheckDirection(_inputDirection.z, velocityDirection.z))
-            _body.AddForce(Time.fixedDeltaTime * _movementForce * _counterMovement * -relativeVelocity.z * _pivot.forward);
+            _body.AddForce(Time.fixedDeltaTime * _movementForce * _counterMovement * -relativeVelocity.z * _pivotY.forward);
 
 
         // Add Diagonal Counter
@@ -128,7 +125,7 @@ public class NewPlayerMovement : MonoBehaviour
             if (Mathf.Abs(relativeVelocity.x) <= _maxMovementSpeed * Mathf.Cos(inputAngle)) relativeVelocity.x = 0;
             if (Mathf.Abs(relativeVelocity.z) <= _maxMovementSpeed * Mathf.Sin(inputAngle)) relativeVelocity.z = 0;
 
-            _body.AddForce(Time.fixedDeltaTime * _movementForce * _counterMovement * -(_lookRotation * relativeVelocity));
+            _body.AddForce(Time.fixedDeltaTime * _movementForce * _counterMovement * -(_yRotation * relativeVelocity));
         }
     }
 
@@ -146,11 +143,11 @@ public class NewPlayerMovement : MonoBehaviour
 
         // Only Apply Movement If It Isn't In The Same Direction Or If The Max Speed Is Not Reached Yet (X)
         if (!(isSameDirectionX && absRelVel.x > _maxMovementSpeed) || absRelVel.x <= 0)
-            movement += (1 - _cutSpeedCurve.Evaluate(ratioX)) * _inputDirection.x * _pivot.right;
+            movement += (1 - _cutSpeedCurve.Evaluate(ratioX)) * _inputDirection.x * _pivotY.right;
 
         // Only Apply Movement If It Isn't In The Same Direction Or If The Max Speed Is Not Reached Yet (Y)
         if (!(isSameDirectionZ && absRelVel.z > _maxMovementSpeed) || absRelVel.z <= 0)
-            movement += (1 - _cutSpeedCurve.Evaluate(ratioZ)) * _inputDirection.z * _pivot.forward;
+            movement += (1 - _cutSpeedCurve.Evaluate(ratioZ)) * _inputDirection.z * _pivotY.forward;
 
 
         _body.AddForce(Time.fixedDeltaTime * _movementForce * movement);
@@ -213,7 +210,6 @@ public class NewPlayerMovement : MonoBehaviour
         // Update Gravity
         _body.AddForce(Time.fixedDeltaTime * _gravityForce * -_groundNormal, ForceMode.Acceleration);
 
-
         float jumpmTime = Time.time - _jumpStart;
 
         // Update Jump
@@ -231,16 +227,18 @@ public class NewPlayerMovement : MonoBehaviour
     // -------~~~~~~~~~~================# // Look
     private void OnLook(Vector2 direction)
     {
-        if (!_camera || !_transform) return;
+        if (!_pivotY) return;
+
+        // Update Horizontal Rotation
+        _yRotation = Quaternion.AngleAxis(direction.x * _lookStrength.x * _lookMultiplyer, Vector3.up) * _yRotation;
+        _pivotY.rotation = _yRotation;
+
+        if (!_pivotX) return;
 
         // Update Vertical Rotation
         _currentVerticalRotation -= direction.y * _lookStrength.y * _lookMultiplyer;
         _currentVerticalRotation = Mathf.Clamp(_currentVerticalRotation, _lookAngle.x, _lookAngle.y);
-        _cameraTransform.localRotation = Quaternion.AngleAxis(_currentVerticalRotation, Vector3.right);
-
-        // Update Horizontal Rotation
-        _lookRotation = Quaternion.AngleAxis(direction.x * _lookStrength.x * _lookMultiplyer, Vector3.up) * _lookRotation;
-        _pivot.rotation = _lookRotation;
+        _pivotX.localRotation = Quaternion.AngleAxis(_currentVerticalRotation, Vector3.right);
     }
 
     // -------~~~~~~~~~~================# // Movement
@@ -251,10 +249,14 @@ public class NewPlayerMovement : MonoBehaviour
     // -------~~~~~~~~~~================# // Dash
     private void OnDash()
     {
-        Vector3 dashDirection = _cameraTransform.forward;
-        dashDirection.y = 0;
-        dashDirection = dashDirection.normalized;
+        if (!_pivotY || !_body) return;
 
+        // Cooldown
+        if (Time.time - _lastDashTime < _dashCoolDown) return;
+
+        // Dash
+        _lastDashTime = Time.time;
+        Vector3 dashDirection = _pivotY.rotation * _inputDirection;
         _body.linearVelocity = Vector3.ProjectOnPlane(_body.linearVelocity, dashDirection);
         _body.AddForce(dashDirection * _dashForce, ForceMode.Impulse);
     }
