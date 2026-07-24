@@ -249,12 +249,14 @@ public class NewPlayerMovement : MonoBehaviour
     // -------~~~~~~~~~~================# // Dash
     private void OnDash()
     {
+        if (!_pivotY || !_body) return;
+
         // Cooldown
         if (Time.time - _lastDashTime < _dashCoolDown) return;
 
         // Dash
         _lastDashTime = Time.time;
-        Vector3 dashDirection = _pivotY.forward;
+        Vector3 dashDirection = _pivotY.rotation * _inputDirection;
         _body.linearVelocity = Vector3.ProjectOnPlane(_body.linearVelocity, dashDirection);
         _body.AddForce(dashDirection * _dashForce, ForceMode.Impulse);
     }
