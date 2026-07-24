@@ -289,6 +289,9 @@ MonoBehaviour:
     m_Bits: 0
   _EnemyType: 0
   _ShootType: 2
+  _MaxHealth: 100
+  _BaseDamage: 25
+  _DamageTakenMultiplier: 1
 --- !u!114 &6238569279010549092
 MonoBehaviour:
   m_ObjectHideFlags: 0
