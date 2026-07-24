@@ -250,8 +250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00236acdfc7cc9245b3004352895da24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GMTK.Enemy.EnemyBehaviour
-  _ShootInterval: 1
-  _InitialShootDelay: 0.2
+  _ShootInterval: 2
+  _InitialShootDelay: 0.5
   _RadiusRange: 10
   _RotationSpeed: 5
   _DetectionCheckInterval: 0.1

@@ -12,6 +12,11 @@ namespace GMTK.Enemy
     public class EnemyBehaviour : MonoBehaviour, I_BulletOrRaycastTarget
     {
         // ----------------~~~~~~~~~~~~~~~~~~~==========================# // VARIABLES
+        [Header("Shooting Settings")]
+        [SerializeField] private float _ShootInterval = 2f; // Timer custom (ex: 2 secondes)
+        [SerializeField] private float _InitialShootDelay = 0.5f; // Petit temps de réaction avant le 1er tir
+        
+        [Header("General Settings")]
         [SerializeField] private float _RadiusRange;
         [SerializeField] private float _RotationSpeed = 5f;
         [SerializeField] private float _DetectionCheckInterval = .1f;
@@ -26,7 +31,9 @@ namespace GMTK.Enemy
         private bool _HasDetectedPlayer;
         
         private Transform _PlayerTransform, _ObstacleTransform;
-        private Coroutine _CheckSightCoroutine, _LookAtCoroutine;
+        private Coroutine _CheckSightCoroutine, _LookAtCoroutine, _ShootingCoroutine;
+
+        private ParticleSystem _ExplosionParticles;
 
         public Action onPlayerDetected, onPlayerLost;
         public Action<bool> onTryUseItem;
@@ -37,6 +44,36 @@ namespace GMTK.Enemy
             _CurrentSphereCollider = GetComponent<SphereCollider>();
             _CurrentSphereCollider.isTrigger = true;
             _CurrentSphereCollider.radius = _RadiusRange;
+            
+            onPlayerDetected += StartShootingLoop;
+            onPlayerLost += StopShootingLoop;
+        }
+        
+        // ----------------~~~~~~~~~~~~~~~~~~~==========================# // SHOOT LOOP
+        private void StartShootingLoop() => _ShootingCoroutine ??= StartCoroutine(ShootingRoutine());
+        
+        private void StopShootingLoop()
+        {
+            if (_ShootingCoroutine == null) 
+                return;
+            
+            StopCoroutine(_ShootingCoroutine);
+            _ShootingCoroutine = null;
+        }
+
+        private IEnumerator ShootingRoutine()
+        {
+            yield return new WaitForSeconds(_InitialShootDelay);
+            
+            WaitForSeconds lWaitInterval = new WaitForSeconds(Mathf.Max(.05f, _ShootInterval));
+
+            while (_HasDetectedPlayer)
+            {
+                this.ClassicShoot();
+                yield return lWaitInterval;
+            }
+
+            _ShootingCoroutine = null;
         }
         
         public void RequestUseItem(bool pStarted) => onTryUseItem?.Invoke(pStarted);
@@ -98,16 +135,19 @@ namespace GMTK.Enemy
         {
             while (_HasDetectedPlayer && _PlayerTransform)
             {
-                Vector3 lDirection = (_PlayerTransform.position - transform.position).normalized;
+                Vector3 lDirection = _PlayerTransform.position - transform.position;
+                lDirection.y = 0f;
 
-                if (!(lDirection.magnitude <= MIN_MAGNITUDE)) 
-                    continue;
-                
-                Quaternion lTargetRotation = Quaternion.LookRotation(lDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, lTargetRotation, Time.deltaTime * _RotationSpeed);
+                if (lDirection.sqrMagnitude > MIN_MAGNITUDE)
+                {
+                    Quaternion lTargetRotation = Quaternion.LookRotation(lDirection);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, lTargetRotation, Time.deltaTime * _RotationSpeed);
+                }
+
+                yield return null;
             }
 
-            yield return null;
+            _LookAtCoroutine = null;
         }
         
         private void StopAllDetectionCoroutines()
@@ -125,14 +165,20 @@ namespace GMTK.Enemy
             }
         }
 
-        private void OnDisable()
+        private void OnDisable() => StopAllDetectionCoroutines();
+        
+        private void OnDestroy()
         {
+            onPlayerDetected -= StartShootingLoop;
+            onPlayerLost -= StopShootingLoop;
+            
             StopAllDetectionCoroutines();
         }
-
+        
         public void OnHit()
         {
-            throw new NotImplementedException();
+            _ExplosionParticles?.Play();
+            Destroy(gameObject);
         }
     }
 }
