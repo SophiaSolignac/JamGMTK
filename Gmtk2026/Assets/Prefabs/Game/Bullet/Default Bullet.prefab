@@ -158,6 +158,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3987141042018181107, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1430954230421791912}
+    - targetCorrespondingSourceObject: {fileID: 3987141042018181107, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1235690919888189810}
   m_SourcePrefab: {fileID: 100100000, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
 --- !u!4 &6269629269063294093 stripped
 Transform:
@@ -231,3 +234,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &-1235690919888189810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585972051256913043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 97416787
+      Data2: 1329609058
+      Data3: 14940084
+      Data4: -1667675096
+    Path: event:/GUNS/GS_Pistol
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
