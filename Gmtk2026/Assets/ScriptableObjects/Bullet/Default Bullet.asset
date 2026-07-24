@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Default Bullet
   m_EditorClassIdentifier: Assembly-CSharp::SOBullet
   _title: new bullet
-  _despawnDistance: 10
+  _despawnDistance: 1000
   _LifeTimie: 10
   _speed: 30

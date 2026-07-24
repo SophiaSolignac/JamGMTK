@@ -236,6 +236,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Default Gun
       objectReference: {fileID: 0}
+    - target: {fileID: 6753527250212811624, guid: 8cad70be3b6335a479d8b4a40544545b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.711
+      objectReference: {fileID: 0}
+    - target: {fileID: 6753527250212811624, guid: 8cad70be3b6335a479d8b4a40544545b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.373
+      objectReference: {fileID: 0}
     - target: {fileID: 8840331575554067306, guid: 8cad70be3b6335a479d8b4a40544545b, type: 3}
       propertyPath: _linker
       value: 
