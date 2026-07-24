@@ -11,6 +11,8 @@ namespace GMTK.Inputs
 
         public static UnityEvent<bool> onJump { get; private set; } = new();
 
+        public static UnityEvent onDash{ get; private set; } = new();
+
         public static UnityEvent onInteract { get; private set; } = new();
         
         public static UnityEvent onDrop { get; private set; } = new();
