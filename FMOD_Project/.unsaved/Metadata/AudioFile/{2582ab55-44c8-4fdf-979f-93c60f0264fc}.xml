@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.03.00">
 	<object class="AudioFile" id="{2582ab55-44c8-4fdf-979f-93c60f0264fc}">
-		<property name="assetPath">
-			<value>Music_Truck_LoFi_FollowUs_Full.wav</value>
-		</property>
+		<property name="assetPath" />
 		<property name="isStreaming">
 			<value>true</value>
 		</property>
