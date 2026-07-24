@@ -57,7 +57,7 @@ namespace GMTK.Enemy
             pCurrentEnemy.transform.rotation = lOriginalRotation;
         }
 
-        public static Coroutine CorkscrewShoot(this EnemyBehaviour pCurrentEnemy, int pTotalShots = 15, float pRadius = 0.3f, float pAngleStep = 24f, float pDelay = 0.05f) 
+        public static Coroutine CorkscrewShoot(this EnemyBehaviour pCurrentEnemy, int pTotalShots = 15, float pRadius = .6f, float pAngleStep = 24f, float pDelay = 0.05f) 
             => pCurrentEnemy.StartCoroutine(CorkscrewShootRoutine(pCurrentEnemy, pTotalShots, pRadius, pAngleStep, pDelay));
 
         public static IEnumerator CorkscrewShootRoutine(EnemyBehaviour pEnemy, int pTotalShots, float pRadius, float pAngleStep, float pDelay)
