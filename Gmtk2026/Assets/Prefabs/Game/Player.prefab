@@ -59,13 +59,13 @@ Transform:
   m_GameObject: {fileID: 1453622062443257362}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5147906712431799715}
   - {fileID: 6035871690928739444}
-  m_Father: {fileID: 1185466099965179735}
+  m_Father: {fileID: 7254167111425268858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &3731956912657310255
 Camera:
@@ -760,8 +760,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewPlayerMovement
   _body: {fileID: 7559420904856526282}
-  _pivot: {fileID: 1185466099965179735}
-  _camera: {fileID: 3731956912657310255}
+  _pivotY: {fileID: 7749554629106127551}
+  _pivotX: {fileID: 7254167111425268858}
   _thresholdInput: 0.01
   _lookStrength: {x: 5, y: 5}
   _lookAngle: {x: -90, y: 90}
@@ -786,6 +786,7 @@ MonoBehaviour:
   _jumpBuffer: 0.2
   _jumpCoyote: 0.2
   _dashForce: 100
+  _dashCoolDown: 0.5
   _gravityForce: 1500
 --- !u!114 &7483706308596956511
 MonoBehaviour:
@@ -906,7 +907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1185466099965179735}
   m_Layer: 0
-  m_Name: Pivot
+  m_Name: PivotY
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -925,7 +926,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5856691665975908088}
+  - {fileID: 7254167111425268858}
   m_Father: {fileID: 7749554629106127551}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5771748704234599074
@@ -1142,6 +1143,38 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6149918813612306727
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7254167111425268858}
+  m_Layer: 0
+  m_Name: PivotX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7254167111425268858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6149918813612306727}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.8000002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5856691665975908088}
+  m_Father: {fileID: 1185466099965179735}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6768667981606147864
 GameObject:
   m_ObjectHideFlags: 0
