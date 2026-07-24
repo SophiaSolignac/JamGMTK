@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour, IUBPooledObject
     [SerializeField] SOBullet _settings;
     [SerializeField] Collider _collider;
 
+    public SOBullet Settings => _settings;
+
     Collider _shooterCollider;
     Item _shooter;
 
@@ -33,7 +35,7 @@ public class Bullet : MonoBehaviour, IUBPooledObject
 
         // Try Hit I_BulletTarget
         if (collision.transform.TryGetComponent(out I_BulletOrRaycastTarget hitTarget))
-            hitTarget.OnHit();
+            hitTarget.OnHit(_settings.Damage);
 
         StoreInPool();
     }

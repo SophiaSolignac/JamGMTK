@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using UnBocal.CookingProject.Utilities;
 using UnityEngine;
 
 public class Gun : Weapon<SOGun>
 {
+    List<Transform> _myBullets = new();
+
     protected override void Fire(ItemHolder owner)
     {
         switch (_settings.Type)
@@ -37,18 +40,17 @@ public class Gun : Weapon<SOGun>
 
                 if (currentHit.transform.TryGetComponent(out target)) continue;
 
-                target.OnHit();
+                target.OnHit(_settings.Damage);
             }
             return;
         }
 
         // Can Only Have One Target
-
         if (!Physics.Raycast(ray, out RaycastHit hit, _settings.Distance, _settings.LayerMask)) return;
 
         if (!hit.transform.TryGetComponent(out target)) return;
 
-        target.OnHit();
+        target.OnHit(_settings.Damage);
 
     }
 
@@ -58,19 +60,25 @@ public class Gun : Weapon<SOGun>
 
         int bulletCount = 0;
 
-        Transform aim = owner && owner.Aim ? owner.Aim : _aim;
+        Transform aim = GetAim(owner);
+        if (!aim) return;
+
+        Quaternion baseRotation = GetBaseRotation(owner, aim);
 
         do
         {
             // Init Bullet
             UBPool<Bullet> bullet = UBPool<Bullet>.GetInstancePrefab(_settings.Bullet);
+            _myBullets.Add(bullet.transform);
+            bullet.stored += OnBulletStored;
 
             // Init Direction And Position
             bullet.transform.position = aim.position;
+
             bullet.transform.rotation =
                 Quaternion.AngleAxis(_settings.AngleOpening * Random.Range(-1f, 1f), aim.right)
                 * Quaternion.AngleAxis(_settings.AngleOpening * Random.Range(-1f, 1f), aim.up)
-                * aim.rotation;
+                * baseRotation;
 
             // Init Bullet
             bullet.instance.Init(_settings, owner.Collider, this);
@@ -78,6 +86,48 @@ public class Gun : Weapon<SOGun>
             bulletCount++;
 
         } while (_settings.BulletPerShot > bulletCount);
+    }
 
+    private Transform GetAim(ItemHolder owner)
+    => _settings.Aim switch
+    {
+        SOGun.AimType.Auto => owner && owner.Aim ? owner.Aim : _aim,
+        SOGun.AimType.Self => _aim,
+        SOGun.AimType.Owner => owner.Aim,
+        _ => null
+    };
+
+    private Quaternion GetBaseRotation(ItemHolder owner, Transform aim)
+    {
+        if (!_settings.CorrectAimWithHolder || !_aim || !owner.Aim) return aim.rotation;
+
+        Ray ownerAimRay = new Ray(owner.Aim.position, owner.Aim.forward);
+        Vector3 fromSelfAimToPoint = default;
+
+        float distance = _settings.Bullet.Settings ? _settings.Bullet.Settings.DespawnDistance : SOGun.DEFAULT_CORRECTION_AIM_DISTANCE;
+
+        RaycastHit[] hits = Physics.RaycastAll(ownerAimRay);
+        if (hits.Length > 0)
+        {
+            foreach (RaycastHit hit in hits)
+            {
+                if (_myBullets.Contains(hit.transform)) continue;
+
+                fromSelfAimToPoint = hit.point - _aim.position;
+                break;
+            }
+        }
+
+        if (fromSelfAimToPoint == default)
+            fromSelfAimToPoint = (owner.Aim.position + owner.Aim.forward * distance) - _aim.position;
+
+        return _aim.rotation * Quaternion.FromToRotation(_aim.forward, fromSelfAimToPoint.normalized);
+    }
+
+    private void OnBulletStored(UBPool<Bullet> storedBullet)
+    {
+        _myBullets.Remove(storedBullet.transform);
+
+        storedBullet.stored -= OnBulletStored;
     }
 }

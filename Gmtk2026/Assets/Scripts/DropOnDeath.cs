@@ -7,7 +7,7 @@ public class DropOnDeath : MonoBehaviour, I_BulletOrRaycastTarget
     public Coin objectToDrop;
     private int nbCoins = 5;
 
-    public void OnHit()
+    public void OnHit(int damage)
     {
         UBPool<Coin> coin;
         for (int i = 0; i < nbCoins; i++)
