@@ -25,6 +25,17 @@ namespace GMTK.Inputs
                 onJump.Invoke(context.started);
         }
 
+        public void OnDash(InputAction.CallbackContext context)
+        {
+            if (context.started) onDash.Invoke();
+        }
+
+        public void OnCrouch(InputAction.CallbackContext context)
+        {
+            if (context.started || context.canceled)
+                onCrouch.Invoke(context.started);
+        }
+
         public void OnAttack(InputAction.CallbackContext context)
         {
             if (context.started || context.canceled)

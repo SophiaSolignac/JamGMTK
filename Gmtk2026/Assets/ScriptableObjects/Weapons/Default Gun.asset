@@ -16,13 +16,13 @@ MonoBehaviour:
   _reloadDuration: 1
   _waitBetweenInput: 0
   _input: 0
-  _type: 0
+  _type: 1
   _amoMax: 1
   _fireRate: 1
   _distance: 999
   _layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1
   _perssing: 0
   _bullet: {fileID: 6705885181896291156, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
   _speedMultipler: {x: 1, y: 1}
