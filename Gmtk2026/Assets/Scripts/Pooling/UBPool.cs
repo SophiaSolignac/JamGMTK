@@ -1,8 +1,10 @@
 // --~~~~======# Author : Lupon Dylan #======~~~~~~--- //
 // --~~~~======# Date   : 02 / 10 / 2026 #======~~~~-- //
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace UnBocal.CookingProject.Utilities
 {
@@ -22,6 +24,7 @@ namespace UnBocal.CookingProject.Utilities
     public class UBPool<T> : IUBPoolRef where T : Component
     {
         #region // ----------------~~~~~~~~~~~~~~~~~~~==========================# //  Instance
+        public Action<UBPool<T>> stored;
         public bool isValid => instance != null;
 
         public T _prefab = null;
@@ -241,6 +244,8 @@ namespace UnBocal.CookingProject.Utilities
 
             if (pObj.instance != null)
             {
+                pObj.stored?.Invoke(pObj);
+
                 List<T> lCurrentPool;
 
                 // If No Container For This Pool Then Create IT

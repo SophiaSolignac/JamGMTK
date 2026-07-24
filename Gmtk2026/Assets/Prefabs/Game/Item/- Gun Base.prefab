@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3076445961196502808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6753527250212811624}
+  m_Layer: 0
+  m_Name: Aim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6753527250212811624
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3076445961196502808}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1525769624760121565}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5366377741119676741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,7 +85,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6869585356810361240, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6753527250212811624}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2178813183492964743, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
       insertIndex: -1
@@ -63,6 +97,11 @@ PrefabInstance:
 --- !u!95 &510990478262863868 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5579488516166346425, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
+  m_PrefabInstance: {fileID: 5366377741119676741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1525769624760121565 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6869585356810361240, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
   m_PrefabInstance: {fileID: 5366377741119676741}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6072408194226397378 stripped
@@ -82,5 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82f18d8747e9494889ba3f4595d8e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gun
+  _aim: {fileID: 6753527250212811624}
+  _linker: {fileID: 0}
   _animator: {fileID: 510990478262863868}
   _settings: {fileID: 0}

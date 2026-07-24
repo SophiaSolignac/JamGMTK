@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour, IUBPooledObject
     [SerializeField] SOBullet _settings;
     [SerializeField] Collider _collider;
 
+    public SOBullet Settings => _settings;
+
     Collider _shooterCollider;
     Item _shooter;
 

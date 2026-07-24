@@ -3,14 +3,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new gun", menuName = "Scriptable Objects/Gun")]
 public class SOGun : SOWeapon
 {
+    public const float DEFAULT_CORRECTION_AIM_DISTANCE = 99999f;
+
     // -------~~~~~~~~~~================# // Weapon Type
     public enum HitType { Raycast, Bullet }
+    public enum AimType { Auto, Self, Owner}
 
     // -------~~~~~~~~~~================# // Settings
     [Header("Gun Settings")]
-    [SerializeField] HitType _type;
+    [SerializeField] HitType _type = HitType.Raycast;
+    [SerializeField] AimType _aim = AimType.Self;
+    [SerializeField] bool _correctAimWithHolder = true;
 
     public HitType Type => _type;
+    public AimType Aim => _aim;
+    public bool CorrectAimWithHolder => _correctAimWithHolder;
+
 
     // -------~~~~~~~~~~================# // Firing
     [Header("Firing")]

@@ -17,6 +17,8 @@ MonoBehaviour:
   _waitBetweenInput: 0.4
   _input: 0
   _type: 1
+  _aim: 1
+  _correctAimWithHolder: 1
   _amoMax: 1
   _fireRate: 1
   _distance: 999
