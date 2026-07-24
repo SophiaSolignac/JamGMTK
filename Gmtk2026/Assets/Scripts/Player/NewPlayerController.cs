@@ -20,6 +20,7 @@ public class NewPlayerMovement : MonoBehaviour
     [Header("Look")]
     [SerializeField] Vector2 _lookStrength = Vector2.one * 5f;
     [SerializeField] Vector2 _lookAngle = new Vector2(-90f, 90f);
+
     float _lookMultiplyer = .01f; // For Better Lisibility In Inspector
     float _currentVerticalRotation;
     Quaternion _yRotation = Quaternion.identity;
@@ -34,6 +35,7 @@ public class NewPlayerMovement : MonoBehaviour
     [SerializeField] float _movementForce = 10000f;
     [SerializeField] float _groundMaxAngle = 25f;
     [SerializeField, Range(0f, 1f)] float _counterMovement = .1f;
+
     Vector3 _groundNormal = Vector3.up;
     bool _isGrouded;
 
@@ -44,6 +46,7 @@ public class NewPlayerMovement : MonoBehaviour
     [SerializeField] float _jumpDuration = 2f;
     [SerializeField] float _jumpBuffer = .2f;
     [SerializeField] float _jumpCoyote = .2f;
+
     float _jumBufferpInputTime = float.NegativeInfinity;
     float _jumpStart;
     bool _jumpCoyoteAvailable;
@@ -52,13 +55,21 @@ public class NewPlayerMovement : MonoBehaviour
 
     // -------~~~~~~~~~~================# // Jump
     [Header("Dash")]
-    [SerializeField] float _dashForce = 100f;
-    [SerializeField] float _dashCoolDown = .5f;
-    float _lastDashTime = float.NegativeInfinity;
+    [SerializeField] AnimationCurve _dashCurve;
+    [SerializeField] float _dashForce = 10f;
+    [SerializeField] float _dashDuration = .5f;
+    [SerializeField] float _dashCoolDown = 2f;
+
+    float _dashLastTime = float.NegativeInfinity;
+    float _dashStartTime = float.NegativeInfinity;
+    Vector3 _dashDirection;
+
+    bool _isDashing => Time.time - _dashStartTime <= _dashDuration;
 
     // -------~~~~~~~~~~================# // Physics
     [Header("Physics")]
     [SerializeField] float _gravityForce = 1500f;
+
     float _leftGroundTime = float.NegativeInfinity;
 
     // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Unity
@@ -92,7 +103,7 @@ public class NewPlayerMovement : MonoBehaviour
     {
         if (!_body) return;
 
-        UpdateVerticalMovement();
+        UpdateDashJumpGravity();
 
         Vector3 relativeVelocity = Quaternion.Inverse(_yRotation) * _body.linearVelocity;
 
@@ -100,6 +111,7 @@ public class NewPlayerMovement : MonoBehaviour
         ApplyMovement(relativeVelocity);
     }
 
+    #region // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Physics
     private void ApplyCounterForce(Vector3 relativeVelocity)
     {
         Vector3 wantedDirection = _yRotation * _inputDirection;
@@ -204,13 +216,24 @@ public class NewPlayerMovement : MonoBehaviour
     }
     #endregion
 
-    #region // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Updates
-    private void UpdateVerticalMovement()
+    private void UpdateDashJumpGravity()
     {
+        float time = Time.time;
+        float dashTime = time - _dashStartTime;
+
+        if (_isDashing)
+        {
+            float ratio = dashTime / _dashDuration;
+
+            // _body.AddForce(Time.fixedDeltaTime * (1 - _dashCurve.Evaluate(ratio)) * _dashForce * _dashDirection, ForceMode.Impulse);
+            _body.MovePosition(_body.position + _dashDirection * _dashForce * (1 - _dashCurve.Evaluate(ratio)) * Time.fixedDeltaTime / _dashDuration);
+            return;
+        }
+
         // Update Gravity
         _body.AddForce(Time.fixedDeltaTime * _gravityForce * -_groundNormal, ForceMode.Acceleration);
 
-        float jumpmTime = Time.time - _jumpStart;
+        float jumpmTime = time - _jumpStart;
 
         // Update Jump
         if (jumpmTime <= _jumpDuration && _isJumpInputPressed)
@@ -223,45 +246,55 @@ public class NewPlayerMovement : MonoBehaviour
     }
     #endregion
 
-    #region // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Inputs
-    // -------~~~~~~~~~~================# // Look
+    #region // -------~~~~~~~~~~================# // Look
     private void OnLook(Vector2 direction)
     {
-        if (!_pivotY) return;
-
         // Update Horizontal Rotation
-        _yRotation = Quaternion.AngleAxis(direction.x * _lookStrength.x * _lookMultiplyer, Vector3.up) * _yRotation;
-        _pivotY.rotation = _yRotation;
+        if (_pivotY)
+        {
+            _yRotation = Quaternion.AngleAxis(direction.x * _lookStrength.x * _lookMultiplyer, Vector3.up) * _yRotation;
+            _pivotY.rotation = _yRotation;
+        }
 
-        if (!_pivotX) return;
-
-        // Update Vertical Rotation
-        _currentVerticalRotation -= direction.y * _lookStrength.y * _lookMultiplyer;
-        _currentVerticalRotation = Mathf.Clamp(_currentVerticalRotation, _lookAngle.x, _lookAngle.y);
-        _pivotX.localRotation = Quaternion.AngleAxis(_currentVerticalRotation, Vector3.right);
+        // Update Vertical 
+        if (_pivotX)
+        {
+            _currentVerticalRotation -= direction.y * _lookStrength.y * _lookMultiplyer;
+            _currentVerticalRotation = Mathf.Clamp(_currentVerticalRotation, _lookAngle.x, _lookAngle.y);
+            _pivotX.localRotation = Quaternion.AngleAxis(_currentVerticalRotation, Vector3.right);
+        }
     }
+    #endregion
 
-    // -------~~~~~~~~~~================# // Movement
+    #region // -------~~~~~~~~~~================# // Movement
     private void OnMove(Vector3 direction)
         // => Debug.LogWarning(_inputDirection = direction.magnitude <= _thresholdInput ? Vector3.zero : direction);
         => _inputDirection = direction.magnitude <= _thresholdInput ? Vector3.zero : direction;
+    #endregion
 
-    // -------~~~~~~~~~~================# // Dash
+    #region // -------~~~~~~~~~~================# // Dash
     private void OnDash()
     {
-        if (!_pivotY || !_body) return;
+        // Return If Null
+        if (!_pivotY || !_body ||
 
-        // Cooldown
-        if (Time.time - _lastDashTime < _dashCoolDown) return;
+        // Return If Cooldown Not Finished
+        Time.time - _dashLastTime < _dashCoolDown) return;
 
         // Dash
-        _lastDashTime = Time.time;
-        Vector3 dashDirection = _pivotY.rotation * _inputDirection;
-        _body.linearVelocity = Vector3.ProjectOnPlane(_body.linearVelocity, dashDirection);
-        _body.AddForce(dashDirection * _dashForce, ForceMode.Impulse);
+        _dashDirection = _pivotY.rotation * (_inputDirection.magnitude <= 0 ? Vector3.forward : _inputDirection.normalized);
+
+        _body.linearVelocity = Vector3.ProjectOnPlane(_body.linearVelocity, _groundNormal);
+
+        // Set Cooldown
+        _dashStartTime = _dashLastTime = Time.time;
     }
 
-    // -------~~~~~~~~~~================# // Jump
+    private void DashCancel()
+        => _dashStartTime = float.NegativeInfinity;
+    #endregion
+
+    #region // -------~~~~~~~~~~================# // Jump
     private void OnJump(bool started)
     {
         _isJumpInputPressed = started;
@@ -282,6 +315,8 @@ public class NewPlayerMovement : MonoBehaviour
 
         _body.linearVelocity = Vector3.ProjectOnPlane(_body.linearVelocity, _groundNormal);
         _body.AddForce(_groundNormal * _jumpForce, ForceMode.Impulse);
+
+        DashCancel();
     }
 
     private void CheckJumpBuffer()
@@ -290,6 +325,5 @@ public class NewPlayerMovement : MonoBehaviour
 
         OnJump(true);
     }
-
     #endregion
 }
