@@ -13,14 +13,16 @@ namespace GMTK.Enemy
     {
         // ----------------~~~~~~~~~~~~~~~~~~~==========================# // VARIABLES
         [Header("Shooting Settings")]
-        [SerializeField] private float _ShootInterval = 2f; // Timer custom (ex: 2 secondes)
-        [SerializeField] private float _InitialShootDelay = 0.5f; // Petit temps de réaction avant le 1er tir
+        [SerializeField] private float _ShootInterval = 2f;
+        [SerializeField] private float _InitialShootDelay = 0.5f;
         
         [Header("General Settings")]
         [SerializeField] private float _RadiusRange;
         [SerializeField] private float _RotationSpeed = 5f;
         [SerializeField] private float _DetectionCheckInterval = .1f;
         [SerializeField] private LayerMask _PlayerMask, _ObstacleMask;
+        [SerializeField] private E_EnemyType _EnemyType;
+        [SerializeField] private E_ShootType _ShootType;
 
         private const float MIN_MAGNITUDE = .0001f;
         
@@ -50,7 +52,7 @@ namespace GMTK.Enemy
         }
         
         // ----------------~~~~~~~~~~~~~~~~~~~==========================# // SHOOT LOOP
-        private void StartShootingLoop() => _ShootingCoroutine ??= StartCoroutine(ShootingRoutine());
+        private void StartShootingLoop() => _ShootingCoroutine ??= StartCoroutine(ShootingRoutine(_ShootType));
         
         private void StopShootingLoop()
         {
@@ -61,7 +63,7 @@ namespace GMTK.Enemy
             _ShootingCoroutine = null;
         }
 
-        private IEnumerator ShootingRoutine()
+        private IEnumerator ShootingRoutine(E_ShootType pShootType)
         {
             yield return new WaitForSeconds(_InitialShootDelay);
             
@@ -69,7 +71,17 @@ namespace GMTK.Enemy
 
             while (_HasDetectedPlayer)
             {
-                this.ClassicShoot();
+                switch (pShootType)
+                {
+                    case E_ShootType.CLASSIC:
+                        this.ClassicShoot();
+                        break;
+                    case E_ShootType.TRIPLE:
+                        yield return this.TripleShootWithDelay();
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(pShootType), pShootType, null);
+                }
                 yield return lWaitInterval;
             }
 

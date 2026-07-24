@@ -33,15 +33,26 @@ namespace GMTK.Enemy
         private static IEnumerator TripleShootRoutine(EnemyBehaviour pEnemy, float pDelay)
         {
             WaitForSeconds lWait = new WaitForSeconds(pDelay);
+            const float lSpreadAngle = 15f;
 
             for (int i = 0; i < NUMBER_SHOTS; i++)
             {
                 if (!pEnemy || !pEnemy.gameObject.activeInHierarchy) 
                     yield break;
-
-                pEnemy.ClassicShoot();
+                
+                float lCurrentAngle = (i - 1) * lSpreadAngle;
+                
+                pEnemy.ClassicShootWithAngle(lCurrentAngle);
                 yield return lWait;
             }
+        }
+        
+        public static void ClassicShootWithAngle(this EnemyBehaviour pCurrentEnemy, float pAngleOffset)
+        {
+            if (!pCurrentEnemy) return;
+
+            pCurrentEnemy.transform.Rotate(0f, pAngleOffset, 0f, Space.World);
+            pCurrentEnemy.ClassicShoot();
         }
 
         public static void StartContinuousShoot(this EnemyBehaviour pCurrentEnemy) => pCurrentEnemy?.RequestUseItem(true);
