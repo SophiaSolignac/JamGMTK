@@ -31,6 +31,54 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1525769624760121565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8216971896293981807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7405036555456563220}
+  - component: {fileID: 5050678765650905808}
+  m_Layer: 5
+  m_Name: Tilt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7405036555456563220
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8216971896293981807}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2338646601141596698}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5050678765650905808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8216971896293981807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4762513f820741994002752894cd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TiltOnVelocityChange
+  _maxAngle: 150
+  _maxDelta: 1
+  _applySpeed: 30
+  _targetSpeed: 10
 --- !u!1001 &5366377741119676741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -89,6 +137,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6869585356810361240, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6753527250212811624}
+    - targetCorrespondingSourceObject: {fileID: 7641973801046528863, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7405036555456563220}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2178813183492964743, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
       insertIndex: -1
@@ -102,6 +153,11 @@ Animator:
 --- !u!4 &1525769624760121565 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6869585356810361240, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
+  m_PrefabInstance: {fileID: 5366377741119676741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2338646601141596698 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7641973801046528863, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
   m_PrefabInstance: {fileID: 5366377741119676741}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6072408194226397378 stripped
