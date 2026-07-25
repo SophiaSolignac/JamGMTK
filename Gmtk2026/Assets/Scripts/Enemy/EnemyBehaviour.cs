@@ -17,14 +17,20 @@ namespace GMTK.Enemy
         [SerializeField] private float _InitialShootDelay = 0.5f;
         
         [Header("General Settings")]
-        [SerializeField] private float _RadiusRange;
         [SerializeField] private float _RotationSpeed = 5f;
         [SerializeField] private float _DetectionCheckInterval = .1f;
         [SerializeField] private LayerMask _PlayerMask, _ObstacleMask;
         [SerializeField] private E_EnemyType _EnemyType;
         [SerializeField] private E_ShootType _ShootType;
+        
+        [Header("Health & Defense Settings")]
+        [SerializeField] private int _MaxHealth = 100;
+        [SerializeField] private int _BaseDamage = 25;
+        [SerializeField] [Range(0f, 2f)] private float _DamageTakenMultiplier = 1f;
 
         private const float MIN_MAGNITUDE = .0001f;
+        
+        private int _CurrentHealth;
         
         private SphereCollider _CurrentSphereCollider;
         private PlayerController _PlayerController;
@@ -36,21 +42,27 @@ namespace GMTK.Enemy
         private Coroutine _CheckSightCoroutine, _LookAtCoroutine, _ShootingCoroutine;
 
         private ParticleSystem _ExplosionParticles;
+        
+        private bool _IsDead;
 
         public Action onPlayerDetected, onPlayerLost;
         public Action<bool> onTryUseItem;
+        public Action<int, int> onHealthChanged;
+        public Action onDeath;
 
         // ----------------~~~~~~~~~~~~~~~~~~~==========================# // READY
         private void Awake()
         {
+            _CurrentHealth = _MaxHealth;
+            
             _CurrentSphereCollider = GetComponent<SphereCollider>();
             _CurrentSphereCollider.isTrigger = true;
-            _CurrentSphereCollider.radius = _RadiusRange;
             
             onPlayerDetected += StartShootingLoop;
             onPlayerLost += StopShootingLoop;
+            onDeath += HandleDeath;
         }
-        
+
         // ----------------~~~~~~~~~~~~~~~~~~~==========================# // SHOOT LOOP
         private void StartShootingLoop() => _ShootingCoroutine ??= StartCoroutine(ShootingRoutine(_ShootType));
         
@@ -76,11 +88,14 @@ namespace GMTK.Enemy
                     case E_ShootType.CLASSIC:
                         this.ClassicShoot();
                         break;
-                    case E_ShootType.TRIPLE:
+                    case E_ShootType.TRIPLE_ARC_ANGLE:
                         yield return this.TripleShootWithDelay();
                         break;
                     case E_ShootType.SPIRAL:
                         yield return this.CorkscrewShoot();
+                        break;
+                    case E_ShootType.TRIPLE_SPRAY:
+                        yield return this.TripleShootWithSpread();
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(pShootType), pShootType, null);
@@ -151,7 +166,6 @@ namespace GMTK.Enemy
             while (_HasDetectedPlayer && _PlayerTransform)
             {
                 Vector3 lDirection = _PlayerTransform.position - transform.position;
-                lDirection.y = 0f;
 
                 if (lDirection.sqrMagnitude > MIN_MAGNITUDE)
                 {
@@ -190,8 +204,38 @@ namespace GMTK.Enemy
             StopAllDetectionCoroutines();
         }
         
-        public void OnHit()
+        public void OnHit(int damage)
         {
+            // désolé flo tuvametape
+            // int lFinalDamage = Mathf.RoundToInt(_BaseDamage * _DamageTakenMultiplier);
+            TakeDamage(damage);
+        }
+
+        public void TakeDamage(int pAmount)
+        {
+            if (_CurrentHealth <= 0) return;
+
+            _CurrentHealth -= pAmount;
+            onHealthChanged?.Invoke(_CurrentHealth, _MaxHealth);
+            
+            if (_CurrentHealth > 0) 
+                return;
+            
+            _CurrentHealth = 0;
+            HandleDeath();
+        }
+
+        private void HandleDeath()
+        {
+            if (_IsDead) 
+                return;
+            
+            StopAllDetectionCoroutines();
+            StopShootingLoop(); 
+            
+            if (_CurrentSphereCollider) 
+                _CurrentSphereCollider.enabled = false;
+
             _ExplosionParticles?.Play();
             Destroy(gameObject);
         }

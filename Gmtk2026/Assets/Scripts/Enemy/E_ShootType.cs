@@ -11,7 +11,8 @@ namespace GMTK.Enemy
     public enum E_ShootType 
     {
         CLASSIC,
-        TRIPLE,
+        TRIPLE_ARC_ANGLE,
+        TRIPLE_SPRAY,
         SPIRAL,
     }
 }

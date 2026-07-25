@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 // Author : Florian MAJCHER - Isart DIGITAL
 // DATE : 00/00/2026 - Beginning of the class
@@ -27,10 +28,33 @@ namespace GMTK.Enemy
             pCurrentEnemy.RequestUseItem(true);
             pCurrentEnemy.RequestUseItem(false);
         }
+        
+        public static Coroutine TripleShootWithSpread(this EnemyBehaviour pCurrentEnemy, float pMinAngle = -8f, float pMaxAngle = 8f, float pDelayBetweenShots = 0.08f)  
+            => pCurrentEnemy.StartCoroutine(TripleShootWithSpreadRoutine(pCurrentEnemy, pMinAngle, pMaxAngle, pDelayBetweenShots));
+        
+        private static IEnumerator TripleShootWithSpreadRoutine(EnemyBehaviour pEnemy, float pMinAngle, float pMaxAngle, float pDelay)
+        {
+            if (!pEnemy) yield break;
 
-        public static Coroutine TripleShootWithDelay(this EnemyBehaviour pCurrentEnemy, float pDelayBetweenShoots = DELAY_SHOTS) => pCurrentEnemy.StartCoroutine(TripleShootRoutine(pCurrentEnemy, pDelayBetweenShoots));
+            WaitForSeconds lWait = new WaitForSeconds(pDelay);
 
-        private static IEnumerator TripleShootRoutine(EnemyBehaviour pEnemy, float pDelay)
+            for (int i = 0; i < NUMBER_SHOTS; i++)
+            {
+                if (!pEnemy || !pEnemy.gameObject.activeInHierarchy)
+                    yield break;
+
+                Quaternion lOriginalRotation = pEnemy.transform.rotation;
+                float lRandomAngle = Random.Range(pMinAngle, pMaxAngle);
+                pEnemy.transform.rotation = lOriginalRotation * Quaternion.Euler(0f, lRandomAngle, 0f);
+                pEnemy.ClassicShoot();
+                pEnemy.transform.rotation = lOriginalRotation;
+                yield return lWait;
+            }
+        }
+
+        public static Coroutine TripleShootWithDelay(this EnemyBehaviour pCurrentEnemy, float pDelayBetweenShoots = DELAY_SHOTS) => pCurrentEnemy.StartCoroutine(TripleShootWithAngleRoutine(pCurrentEnemy, pDelayBetweenShoots));
+
+        private static IEnumerator TripleShootWithAngleRoutine(EnemyBehaviour pEnemy, float pDelay)
         {
             WaitForSeconds lWait = new WaitForSeconds(pDelay);
             const float lSpreadAngle = 15f;

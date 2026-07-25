@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour, IUBPooledObject
 
         // Try Hit I_BulletTarget
         if (collision.transform.TryGetComponent(out I_BulletOrRaycastTarget hitTarget))
-            hitTarget.OnHit();
+            hitTarget.OnHit(_settings.Damage);
 
         StoreInPool();
     }
