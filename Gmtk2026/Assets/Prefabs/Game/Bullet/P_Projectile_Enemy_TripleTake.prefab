@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4562847109513751569, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4624326145015744458, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -62,16 +66,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4624326145015744458, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6585972051256913043, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: m_Name
-      value: P_Projectile_TripleTake
+      value: P_Projectile_Enemy_TripleTake
       objectReference: {fileID: 0}
     - target: {fileID: 6705885181896291156, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: _settings
       value: 
-      objectReference: {fileID: 11400000, guid: e8dec4511e5e44e43b35c75286195cf6, type: 2}
+      objectReference: {fileID: 11400000, guid: d8351d9f8052acb48a4589112086963c, type: 2}
     - target: {fileID: 8427727569361243537, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
