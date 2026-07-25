@@ -6,5 +6,6 @@ public class PlayerItemHolder : ItemHolder
     {
         base.Awake();
         InputManager.onAttack.AddListener(TryUseItem);
+        InputManager.onDrop.AddListener(Drop);
     }
 }

@@ -9,9 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6869585356810361240}
+  - component: {fileID: 3217221432688591658}
+  - component: {fileID: 6127320029632004064}
   - component: {fileID: 5579488516166346425}
-  - component: {fileID: 6315695046995852521}
-  m_Layer: 5
+  - component: {fileID: 4298719147139867029}
+  - component: {fileID: 7411427601838829075}
+  m_Layer: 10
   m_Name: '- Item Base'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,6 +37,54 @@ Transform:
   - {fileID: 7641973801046528863}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &3217221432688591658
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2178813183492964743}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!135 &6127320029632004064
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2178813183492964743}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &5579488516166346425
 Animator:
   serializedVersion: 7
@@ -56,7 +107,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6315695046995852521
+--- !u!114 &4298719147139867029
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,24 +116,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 2178813183492964743}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf03df27d8e061243bf806b77348e63c, type: 3}
+  m_Script: {fileID: 11500000, guid: 8132cccc1daf00947994641f4890d91c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemComponentLinker
-  onItemUsed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5579488516166346425}
-        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
-        m_MethodName: SetTrigger
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Use
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_EditorClassIdentifier: Assembly-CSharp::ItemEquipAndDrop
+  _collider: {fileID: 0}
+  _whatIsGround:
+    serializedVersion: 2
+    m_Bits: 512
+  _distanceFromGround: 1
+--- !u!114 &7411427601838829075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2178813183492964743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8335d29195ccfe742b7f27dbaf7b0447, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemAnimator
+  _animator: {fileID: 5579488516166346425}
 --- !u!1 &7741252320251904980
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7641973801046528863}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

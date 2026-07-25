@@ -11,6 +11,8 @@ public class PlayerInteractor : MonoBehaviour, I_Interactor
 
     public float interactDistance = 3f;
 
+    public GameObject From => gameObject;
+
     private void Start()
     {
         InputManager.onInteract.AddListener(CheckForInteractables);
@@ -32,7 +34,7 @@ public class PlayerInteractor : MonoBehaviour, I_Interactor
             return;
         }
         Debug.Log($"Interacting with {interactable}");
-        interactable.Interact();
+        interactable.Interact(this);
     }
 }
 
