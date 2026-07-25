@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SCREAMWHENHIT : MonoBehaviour, I_BulletOrRaycastTarget
 {
-    public void OnHit(int damage)
+    public void OnHit(Damage damage)
     {
         Debug.Log($"AAAAAAAAAAAAAAAAAAAAAAAA");
     }

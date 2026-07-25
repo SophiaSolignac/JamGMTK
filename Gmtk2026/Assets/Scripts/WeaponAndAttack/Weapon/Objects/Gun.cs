@@ -40,7 +40,7 @@ public class Gun : Weapon<SOGun>
 
                 if (currentHit.transform.TryGetComponent(out target)) continue;
 
-                target.OnHit(_settings.Damage);
+                target.OnHit(_settings.Damages);
             }
             return;
         }
@@ -50,7 +50,7 @@ public class Gun : Weapon<SOGun>
 
         if (!hit.transform.TryGetComponent(out target)) return;
 
-        target.OnHit(_settings.Damage);
+        target.OnHit(_settings.Damages);
 
     }
 

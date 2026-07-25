@@ -204,11 +204,11 @@ namespace GMTK.Enemy
             StopAllDetectionCoroutines();
         }
         
-        public void OnHit(int damage)
+        public void OnHit(Damage damage)
         {
             // désolé flo tuvametape
             // int lFinalDamage = Mathf.RoundToInt(_BaseDamage * _DamageTakenMultiplier);
-            TakeDamage(damage);
+            TakeDamage(damage.Point);
         }
 
         public void TakeDamage(int pAmount)
