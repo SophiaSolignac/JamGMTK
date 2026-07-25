@@ -1,5 +1,3 @@
-using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +9,10 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] Sprite[] _crosshairRenderer;
     [SerializeField] HealthTimeUi _healthText;
     [SerializeField] CoinHud _coins;
- 
+    [SerializeField] Crosshair _crosshairType = Crosshair.Full;
+
+    private void Start()
+        => ChangeCrosshair(_crosshairType);
 
     public void ChangeCrosshair(Crosshair crosshair)
     {
@@ -21,6 +22,7 @@ public class PlayerHUD : MonoBehaviour
 
         _crosshair.sprite = _crosshairRenderer[index];
     }
+
     public void UpdateHealthUI(float time)
     {
         _healthText.UpdateHealthTime(time);
