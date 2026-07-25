@@ -1,9 +1,13 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable
+public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_BulletOrRaycastTarget
 {
+    private const float MILLISECOND = 1000f;
+
+    [SerializeField] float _hitCooldown = .1f;
+    float _lastTimeHit;
+
     public float maxTime = 100f; //in seconds
     private float currentTime;   //in milliseconds
     public bool isTimerActive = true;
@@ -39,7 +43,7 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable
 
     private void CountDown()
     {
-        CurrentTime -= Time.deltaTime * 1000;
+        CurrentTime -= Time.deltaTime * MILLISECOND;
         if (CurrentTime <= 0)
         {
             Die();
@@ -61,7 +65,16 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable
     public void ResetObj()
     {
         transform.position = Vector3.zero + Vector3.up * 5; //temporary tp
-        CurrentTime = maxTime * 1000;
+        CurrentTime = maxTime * MILLISECOND;
         isTimerActive = true;
+    }
+
+    public void OnHit(Damage damage)
+    {
+        float time = Time.time;
+        if (time - _lastTimeHit < _hitCooldown) return;
+
+        CurrentTime -= damage.Time * MILLISECOND;
+        _lastTimeHit = Time.time;
     }
 }

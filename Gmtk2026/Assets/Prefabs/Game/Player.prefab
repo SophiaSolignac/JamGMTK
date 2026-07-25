@@ -149,7 +149,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -180,7 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7449661551111060700}
   - component: {fileID: 5747668481556407247}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Item Container
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -204,7 +204,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -300, y: 100}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!95 &5747668481556407247
@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 5869047620993455500}
   - component: {fileID: 8384485389254534036}
   - component: {fileID: 3107381279007888597}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Item Holder
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -493,7 +493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8527502922685049007}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Item Container
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -649,6 +649,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7749554629106127551}
   - component: {fileID: 8949976965649774745}
+  - component: {fileID: 891997862289754950}
   - component: {fileID: 7559420904856526282}
   - component: {fileID: 2117324534918981934}
   - component: {fileID: 690112082604355314}
@@ -657,7 +658,7 @@ GameObject:
   - component: {fileID: 1943581034833407759}
   - component: {fileID: 6817787844863990863}
   - component: {fileID: 2725310525957410355}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -698,11 +699,34 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2534964839176971238, guid: 9c9f1ed726f454646a50f9f054a7f0a3, type: 3}
+--- !u!136 &891997862289754950
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Material: {fileID: 13400000, guid: 6465906ffd10669488d9917adf009580, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &7559420904856526282
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -827,18 +851,18 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -847,7 +871,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   _dashForce: 10
   _dashDuration: 0.5
-  _dashCoolDown: 2
+  _dashCoolDown: 1.5
   _gravityForce: 1500
 --- !u!114 &7483706308596956511
 MonoBehaviour:
@@ -1317,7 +1341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2362015487227851230}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Resizer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1509,10 +1533,6 @@ PrefabInstance:
     - target: {fileID: 7690752705744034704, guid: 019f08542a56fad40b1479931635cf23, type: 3}
       propertyPath: m_Name
       value: Default Gun
-      objectReference: {fileID: 0}
-    - target: {fileID: 7690752705744034704, guid: 019f08542a56fad40b1479931635cf23, type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,7 +1,10 @@
 using UnityEngine;
-using UnityEngine.Events;
 
-public class ItemComponentLinker : MonoBehaviour
+public partial class Item
 {
-    public UnityEvent onItemUsed = new();
+    public const string ASK_EQUIP = "BridgeAskEquip";
+
+    public const string ON_EQUIP = "BridgeOnEquip";
+    public const string ON_DROP = "BridgeOnDrop";
+    public const string ON_USE = "BridgeOnUse";
 }

@@ -25,17 +25,24 @@ public abstract class ItemHolder : MonoBehaviour
         Equip(_item);
     }
 
-    protected virtual void Equip(Item item)
+    public virtual void Equip(Item item)
     {
         if (!item) return;
 
-        item.Parent(_container);
+        // Drop Last Item
+        _item?.Drop();
+
+        // Get New
+        _item = item;
+        _item.Equip(_container, this);
         _animator?.SetTrigger(ANIM_EQUIP);
     }
 
     protected virtual void Drop()
     {
         if (!_item) return;
+        _item.Drop();
+        _item = null;
     }
 
     protected virtual void TryUseItem(bool started)
@@ -57,7 +64,7 @@ public abstract class ItemHolder : MonoBehaviour
     private IEnumerator HoldInput()
     {
         // loop Holding
-        while (_isHolding)
+        while (_isHolding && _item)
         {
             yield return new WaitForEndOfFrame();
             
@@ -71,7 +78,7 @@ public abstract class ItemHolder : MonoBehaviour
     {
         if (_item == null) return false;
         
-        _item.Use(started, this);
+        _item.Use(started);
 
         return true;
     }

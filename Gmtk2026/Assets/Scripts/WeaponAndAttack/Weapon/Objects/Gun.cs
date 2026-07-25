@@ -6,23 +6,23 @@ public class Gun : Weapon<SOGun>
 {
     List<Transform> _myBullets = new();
 
-    protected override void Fire(ItemHolder owner)
+    protected override void Fire()
     {
         switch (_settings.Type)
         {
             case SOGun.HitType.Bullet:
-                FireProjectile(owner);
+                FireProjectile();
                 break;
 
             case SOGun.HitType.Raycast:
-                FireScan(owner);
+                FireScan();
                 break;
         }
     }
 
-    private void FireScan(ItemHolder owner)
+    private void FireScan()
     {
-        Transform aim = owner.Aim ? owner.Aim : _aim;
+        Transform aim = _owner.Aim ? _owner.Aim : _aim;
         if (!aim) return;
 
         Ray ray = new(aim.position, aim.forward);
@@ -36,11 +36,11 @@ public class Gun : Weapon<SOGun>
             foreach (RaycastHit currentHit in hits)
             {
                 // Exclude Owner
-                if (currentHit.collider == owner.Collider) continue;
+                if (currentHit.collider == _owner.Collider) continue;
 
                 if (currentHit.transform.TryGetComponent(out target)) continue;
 
-                target.OnHit(_settings.Damage);
+                target.OnHit(_settings.Damages);
             }
             return;
         }
@@ -50,20 +50,20 @@ public class Gun : Weapon<SOGun>
 
         if (!hit.transform.TryGetComponent(out target)) return;
 
-        target.OnHit(_settings.Damage);
+        target.OnHit(_settings.Damages);
 
     }
 
-    private void FireProjectile(ItemHolder owner)
+    private void FireProjectile()
     {
         if (!_settings.Bullet) return;
 
         int bulletCount = 0;
 
-        Transform aim = GetAim(owner);
+        Transform aim = GetAim();
         if (!aim) return;
 
-        Quaternion baseRotation = GetBaseRotation(owner, aim);
+        Quaternion baseRotation = GetBaseRotation(aim);
 
         do
         {
@@ -81,27 +81,27 @@ public class Gun : Weapon<SOGun>
                 * baseRotation;
 
             // Init Bullet
-            bullet.instance.Init(_settings, owner.Collider, this);
+            bullet.instance.Init(_settings, _owner.Collider, this);
 
             bulletCount++;
 
         } while (_settings.BulletPerShot > bulletCount);
     }
 
-    private Transform GetAim(ItemHolder owner)
+    private Transform GetAim()
     => _settings.Aim switch
     {
-        SOGun.AimType.Auto => owner && owner.Aim ? owner.Aim : _aim,
+        SOGun.AimType.Auto => _owner && _owner.Aim ? _owner.Aim : _aim,
         SOGun.AimType.Self => _aim,
-        SOGun.AimType.Owner => owner.Aim,
+        SOGun.AimType.Owner => _owner.Aim,
         _ => null
     };
 
-    private Quaternion GetBaseRotation(ItemHolder owner, Transform aim)
+    private Quaternion GetBaseRotation(Transform aim)
     {
-        if (!_settings.CorrectAimWithHolder || !_aim || !owner.Aim) return aim.rotation;
+        if (!_settings.CorrectAimWithHolder || !_aim || !(_owner && _owner.Aim)) return aim.rotation;
 
-        Ray ownerAimRay = new Ray(owner.Aim.position, owner.Aim.forward);
+        Ray ownerAimRay = new Ray(_owner.Aim.position, _owner.Aim.forward);
         Vector3 fromSelfAimToPoint = default;
 
         float distance = _settings.Bullet.Settings ? _settings.Bullet.Settings.DespawnDistance : SOGun.DEFAULT_CORRECTION_AIM_DISTANCE;
@@ -119,7 +119,7 @@ public class Gun : Weapon<SOGun>
         }
 
         if (fromSelfAimToPoint == default)
-            fromSelfAimToPoint = (owner.Aim.position + owner.Aim.forward * distance) - _aim.position;
+            fromSelfAimToPoint = (_owner.Aim.position + _owner.Aim.forward * distance) - _aim.position;
 
         return _aim.rotation * Quaternion.FromToRotation(_aim.forward, fromSelfAimToPoint.normalized);
     }

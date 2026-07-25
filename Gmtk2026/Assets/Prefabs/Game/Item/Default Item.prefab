@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 748088315174359332}
   - component: {fileID: 7171788130764275424}
   - component: {fileID: 2667784163842614714}
-  - component: {fileID: 2766538531796542513}
   m_Layer: 5
   m_Name: Cube
   m_TagString: Untagged
@@ -91,27 +90,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2766538531796542513
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3614111656654674660}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2537300122174588213
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -192,21 +170,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96d70a2cab2896f438d3a09434812e99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
+  onEquip:
+    m_PersistentCalls:
+      m_Calls: []
+  onDrop:
+    m_PersistentCalls:
+      m_Calls: []
+  onUsed:
+    m_PersistentCalls:
+      m_Calls: []
   _aim: {fileID: 0}
-  _linker: {fileID: 8400222839241980380}
 --- !u!4 &5277079301827450474 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7641973801046528863, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
   m_PrefabInstance: {fileID: 2537300122174588213}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8400222839241980380 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6315695046995852521, guid: ec12a25b4bb0ec44fb8e9dfd429b0c69, type: 3}
-  m_PrefabInstance: {fileID: 2537300122174588213}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4398607328552469682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf03df27d8e061243bf806b77348e63c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemComponentLinker

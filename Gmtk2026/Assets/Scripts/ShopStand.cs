@@ -24,7 +24,7 @@ public class ShopStand : MonoBehaviour, I_Interactable, I_BulletOrRaycastTarget
         }
     }
 
-    public void Interact()
+    public void Interact(I_Interactor interactor = null)
     {
         if (!CanInteract())
         {
@@ -42,7 +42,7 @@ public class ShopStand : MonoBehaviour, I_Interactable, I_BulletOrRaycastTarget
         return true; // Implement your logic to determine if interaction is possible
     }
 
-    public void OnHit(int damage)
+    public void OnHit(Damage damage)
     {
         Interact();
     }
