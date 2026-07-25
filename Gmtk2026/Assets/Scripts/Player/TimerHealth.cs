@@ -1,3 +1,4 @@
+using UnBocal.Events;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -30,7 +31,15 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
     protected override void Awake()
     { 
         base.Awake();
+
         GameManager.OnReset.AddListener(ResetObj);
+        EventBus<GameState>.Connect(EventGame.OnStateChanged, OnStateChanged);
+    }
+
+    private void OnDestroy()
+    {
+        GameManager.OnReset.RemoveListener(ResetObj);
+        EventBus<GameState>.Disconnect(EventGame.OnStateChanged, OnStateChanged);
     }
 
     // Update is called once per frame
@@ -53,6 +62,9 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
     public void AddMaxTime(float timeToAdd)
     {
         maxTime += timeToAdd ; // Convert seconds to milliseconds
+
+        if (!isTimerActive)
+            CurrentTime = maxTime * MILLISECOND;
     }
 
     public void Die()
@@ -62,9 +74,21 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
         OnPlayerDeath.Invoke();
     }
 
+    private void OnStateChanged(GameState state)
+    {
+        if (state == GameState.Game)
+        {
+            isTimerActive = true;
+            CurrentTime = maxTime * MILLISECOND;
+            return;
+        }
+
+        isTimerActive = false;
+    }
+
     public void ResetObj()
     {
-        transform.position = Vector3.zero + Vector3.up * 5; //temporary tp
+        transform.position = Vector3.zero; //temporary tp
         CurrentTime = maxTime * MILLISECOND;
         isTimerActive = true;
     }

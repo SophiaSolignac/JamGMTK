@@ -212,10 +212,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -6615713752078074953, guid: fe4f66ed47f8a4f46bd834fc7fb7e37d, type: 3}
-      propertyPath: objectToDrop
-      value: 
-      objectReference: {fileID: 7304338187153077799, guid: e0c19f8fd42bfad4e9d7bbef0ceaa120, type: 3}
     - target: {fileID: 5315121350996956633, guid: fe4f66ed47f8a4f46bd834fc7fb7e37d, type: 3}
       propertyPath: m_Name
       value: Dummy
@@ -309,6 +305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 283ad197c1936a0408589a86ce069e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _restartOnDeath: 1
+  _gameState: 0
 --- !u!1 &612409551
 GameObject:
   m_ObjectHideFlags: 0

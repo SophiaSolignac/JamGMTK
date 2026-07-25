@@ -119,11 +119,11 @@ public class NewPlayerMovement : MonoBehaviour
 
         // Add Horizontal Counter
         if (CheckDirection(_inputDirection.x, velocityDirection.x))
-            _body.AddForce(Time.fixedDeltaTime * _movementForce * _counterMovement * -relativeVelocity.x * _pivotY.right);
+            _body.AddForce(Time.fixedDeltaTime * _body.mass * _movementForce * _counterMovement * -relativeVelocity.x * _pivotY.right);
 
         // Add Forward Counter
         if (CheckDirection(_inputDirection.z, velocityDirection.z))
-            _body.AddForce(Time.fixedDeltaTime * _movementForce * _counterMovement * -relativeVelocity.z * _pivotY.forward);
+            _body.AddForce(Time.fixedDeltaTime * _body.mass * _movementForce * _counterMovement * -relativeVelocity.z * _pivotY.forward);
 
 
         // Add Diagonal Counter
@@ -137,7 +137,7 @@ public class NewPlayerMovement : MonoBehaviour
             if (Mathf.Abs(relativeVelocity.x) <= _maxMovementSpeed * Mathf.Cos(inputAngle)) relativeVelocity.x = 0;
             if (Mathf.Abs(relativeVelocity.z) <= _maxMovementSpeed * Mathf.Sin(inputAngle)) relativeVelocity.z = 0;
 
-            _body.AddForce(Time.fixedDeltaTime * _movementForce * _counterMovement * -(_yRotation * relativeVelocity));
+            _body.AddForce(Time.fixedDeltaTime * _body.mass * _movementForce * _counterMovement * -(_yRotation * relativeVelocity));
         }
     }
 
@@ -162,7 +162,7 @@ public class NewPlayerMovement : MonoBehaviour
             movement += (1 - _cutSpeedCurve.Evaluate(ratioZ)) * _inputDirection.z * _pivotY.forward;
 
 
-        _body.AddForce(Time.fixedDeltaTime * _movementForce * movement);
+        _body.AddForce(Time.fixedDeltaTime * _body.mass * _movementForce * movement);
     }
 
     private bool CheckDirection(float wanted, float current)
@@ -239,7 +239,7 @@ public class NewPlayerMovement : MonoBehaviour
         if (jumpmTime <= _jumpDuration && _isJumpInputPressed)
         {
             float ratio = 1 - jumpmTime / _jumpDuration;
-            _body.AddForce(_jumpCurve.Evaluate(ratio) * _jumpForce * _groundNormal);
+            _body.AddForce(_jumpCurve.Evaluate(ratio) * _body.mass * _jumpForce * _groundNormal);
 
             return;
         }
@@ -314,7 +314,7 @@ public class NewPlayerMovement : MonoBehaviour
         _jumBufferpInputTime = float.NegativeInfinity;
 
         _body.linearVelocity = Vector3.ProjectOnPlane(_body.linearVelocity, _groundNormal);
-        _body.AddForce(_groundNormal * _jumpForce, ForceMode.Impulse);
+        _body.AddForce(_groundNormal * _body.mass * _jumpForce, ForceMode.Impulse);
 
         DashCancel();
     }
