@@ -6,11 +6,11 @@ public abstract class ItemHolder : MonoBehaviour
     public const string ANIM_EQUIP = "Equip";
 
     [SerializeField] protected Transform _aim;
-    [SerializeField] protected Animator _animator;
     [SerializeField] protected Transform _container;
     [SerializeField] protected Collider _collider;
     [SerializeField] protected Item _item;
 
+    public Item Item => _item;
     public Transform Aim => _aim;
     public Collider Collider => _collider;
 
@@ -35,7 +35,6 @@ public abstract class ItemHolder : MonoBehaviour
         // Get New
         _item = item;
         _item.Equip(_container, this);
-        _animator?.SetTrigger(ANIM_EQUIP);
     }
 
     protected virtual void Drop()

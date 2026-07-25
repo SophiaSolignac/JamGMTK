@@ -1,8 +1,29 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public partial class Item : MonoBehaviour
+public class Item : MonoBehaviour
 {
+    public const string ASK_EQUIP = "BridgeAskEquip";
+
+    public const string ON_EQUIP = "BridgeOnEquip";
+    public const string ON_DROP = "BridgeOnDrop";
+    public const string ON_USE = "BridgeOnUse";
+
+    private const string GLOBAL_PARENT_NAME = "[Item Container]";
+    static Transform _globalParent;
+    public static Transform GlobalParent
+    {
+        get
+        {
+            if (_globalParent) return _globalParent;
+
+            GameObject gameObject = new GameObject(GLOBAL_PARENT_NAME);
+            _globalParent = gameObject.transform;
+
+            return _globalParent;
+        }
+    }
+    
     public UnityEvent onEquip = new();
     public UnityEvent onDrop = new();
     public UnityEvent onUsed = new();
@@ -17,7 +38,7 @@ public partial class Item : MonoBehaviour
     private void Start()
     {
         if (_owner) return;
-        Drop();
+        Drop(transform.parent);
     }
 
     public void BridgeAskEquip(ItemHolder holder)
@@ -37,6 +58,7 @@ public partial class Item : MonoBehaviour
 
     public void Drop(Transform container = null)
     {
+        if (container == null) container = GlobalParent;
         _owner = null;
         transform.parent = container;
         transform.localScale = Vector3.one;

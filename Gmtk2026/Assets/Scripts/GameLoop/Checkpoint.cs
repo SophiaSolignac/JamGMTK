@@ -8,7 +8,10 @@ public class Checkpoint : MonoBehaviour
 
     [SerializeField] bool _canBeDefault = true;
     [SerializeField] Transform _point;
+    [SerializeField] bool _reset;
+
     public Transform Point => _point;
+    public bool Reset => _reset;
 
     private void Awake()
     {
@@ -20,7 +23,6 @@ public class Checkpoint : MonoBehaviour
 
     public void Register()
     {
-        Debug.Log("hey");
         HasBeenSet.Invoke();
         EventBus<Checkpoint>.Invoke(EventGame.NewCheckPoint, this);
     }
