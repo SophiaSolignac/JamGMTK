@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: SO_PlayerBullet_Pistol
   m_EditorClassIdentifier: Assembly-CSharp::SOBullet
   _title: Pistol Bullet
+  _damages:
+    Point: 35
+    Time: 1
   _despawnDistance: 50
   _LifeTimie: 50
   _speed: 50

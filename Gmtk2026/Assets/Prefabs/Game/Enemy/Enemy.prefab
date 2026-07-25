@@ -279,7 +279,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GMTK.Enemy.EnemyBehaviour
   _ShootInterval: 2
   _InitialShootDelay: 0.2
-  _RadiusRange: 30
   _RotationSpeed: 5
   _DetectionCheckInterval: 0.1
   _PlayerMask:
@@ -290,6 +289,9 @@ MonoBehaviour:
     m_Bits: 0
   _EnemyType: 0
   _ShootType: 0
+  _MaxHealth: 100
+  _BaseDamage: 0
+  _DamageTakenMultiplier: 1
 --- !u!114 &6238569279010549092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,6 +533,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2951678595423994395, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e9d97c6ae0f338f498e4c1d1e639e6ea, type: 2}
     - target: {fileID: -1468662180276524799, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -543,6 +549,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 6d2ac986d56bfb644b090cc98a386532, type: 2}
+    - target: {fileID: 2346011054020360518, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e9d97c6ae0f338f498e4c1d1e639e6ea, type: 2}
     - target: {fileID: 3575641881151511511, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

@@ -659,6 +659,10 @@ GameObject:
   - component: {fileID: 6817787844863990863}
   - component: {fileID: 2725310525957410355}
   - component: {fileID: 5387106526494758790}
+  - component: {fileID: 1257128723662469061}
+  - component: {fileID: 2968361208102673334}
+  - component: {fileID: 4232550458178246162}
+  - component: {fileID: 3953916245739179866}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -763,7 +767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewPlayerMovement
   _body: {fileID: 7559420904856526282}
-  _pivotY: {fileID: 7749554629106127551}
+  _pivotY: {fileID: 1185466099965179735}
   _pivotX: {fileID: 7254167111425268858}
   _thresholdInput: 0.01
   _lookStrength: {x: 5, y: 5}
@@ -848,7 +852,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _dashForce: 10
+  _dashForce: 6
   _dashDuration: 0.5
   _dashCoolDown: 1.5
   _gravityForce: 1500
@@ -976,6 +980,100 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CheckPointTarget
   target: {fileID: 7749554629106127551}
   Checkpoint: {fileID: 0}
+--- !u!114 &1257128723662469061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4260449928c0ee940be688a533830c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeyListener
+  Down:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2968361208102673334}
+        m_TargetAssemblyTypeName: GameSwitchState, Assembly-CSharp
+        m_MethodName: Trigger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Hold:
+    m_PersistentCalls:
+      m_Calls: []
+  Up:
+    m_PersistentCalls:
+      m_Calls: []
+  key: 282
+--- !u!114 &2968361208102673334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7854a93fd9599d419e0ce0d328b1dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameSwitchState
+  _state: 0
+--- !u!114 &4232550458178246162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4260449928c0ee940be688a533830c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KeyListener
+  Down:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3953916245739179866}
+        m_TargetAssemblyTypeName: GameSwitchState, Assembly-CSharp
+        m_MethodName: Trigger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Hold:
+    m_PersistentCalls:
+      m_Calls: []
+  Up:
+    m_PersistentCalls:
+      m_Calls: []
+  key: 282
+--- !u!114 &3953916245739179866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7854a93fd9599d419e0ce0d328b1dfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameSwitchState
+  _state: 0
 --- !u!1 &5522613428346550971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,12 +1622,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4922900001877110840, guid: 019f08542a56fad40b1479931635cf23, type: 3}
+      propertyPath: _settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 7ea2efa3c4ee910428ff422d609709e6, type: 2}
+    - target: {fileID: 7153920189336946746, guid: 019f08542a56fad40b1479931635cf23, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.491
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441445285447950353, guid: 019f08542a56fad40b1479931635cf23, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7690752705744034704, guid: 019f08542a56fad40b1479931635cf23, type: 3}
       propertyPath: m_Name
       value: Default Gun
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1270409559376308462, guid: 019f08542a56fad40b1479931635cf23, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 019f08542a56fad40b1479931635cf23, type: 3}
