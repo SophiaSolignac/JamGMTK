@@ -1,45 +1,65 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Item : MonoBehaviour, I_Interactable
+public partial class Item : MonoBehaviour
 {
+    public UnityEvent onEquip = new();
+    public UnityEvent onDrop = new();
+    public UnityEvent onUsed = new();
+
     public enum InputType { Tap, Hold }
 
     [SerializeField] protected Transform _aim;
-    [SerializeField] protected ItemComponentLinker _linker;
 
+    protected ItemHolder _owner;
     public virtual InputType Input { get; set; }
-    public bool IsInteractable { get; set; } = true;
 
-    public void Interact()
+    private void Start()
     {
-        
+        if (_owner) return;
+        Drop();
     }
 
-    public bool CanInteract() => IsInteractable;
+    public void BridgeAskEquip(ItemHolder holder)
+        => holder?.Equip(this);
 
-    public void Parent(Transform parent)
+    public void Equip(Transform parent, ItemHolder owner)
     {
+        _owner = owner;
         transform.parent = parent;
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         transform.localScale = Vector3.one;
+
+        gameObject.SendMessage(Item.ON_EQUIP, owner, SendMessageOptions.DontRequireReceiver);
+        onEquip.Invoke();
     }
 
-    public virtual void Use(bool started, ItemHolder owner)
+    public void Drop(Transform container = null)
     {
-        if (!IsInteractable) return;
+        _owner = null;
+        transform.parent = container;
+        transform.localScale = Vector3.one;
+        transform.rotation = Quaternion.FromToRotation(transform.forward, Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized) * transform.rotation;
 
+        gameObject.SendMessage(Item.ON_DROP, SendMessageOptions.DontRequireReceiver);
+        onDrop.Invoke();
+    }
+
+    public virtual void Use(bool started)
+    {
         if (Input == InputType.Hold)
         {
-            ApplyUse(owner);
+            ApplyUse();
             return;
         }
 
-        if (started) ApplyUse(owner);
+        if (started) ApplyUse();
     }
 
-    protected virtual void ApplyUse(ItemHolder owner)
+    protected virtual void ApplyUse()
     {
-        _linker?.onItemUsed?.Invoke();
+        gameObject.SendMessage(Item.ON_USE, SendMessageOptions.DontRequireReceiver);
+        onUsed.Invoke();
     }
 }

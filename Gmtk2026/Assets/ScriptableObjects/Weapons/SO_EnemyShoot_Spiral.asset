@@ -17,12 +17,15 @@ MonoBehaviour:
   _waitBetweenInput: 0
   _input: 0
   _type: 1
+  _aim: 1
+  _correctAimWithHolder: 1
   _amoMax: 1
   _fireRate: 1
+  _damage: 1
   _distance: 999
   _layerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1015
   _perssing: 0
   _bullet: {fileID: 8691619753847483437, guid: 1cbbc79f15242c2419c199316da381a4, type: 3}
   _speedMultipler: {x: 1, y: 1}
