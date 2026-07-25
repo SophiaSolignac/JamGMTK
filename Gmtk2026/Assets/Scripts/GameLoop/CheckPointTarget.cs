@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class CheckPointTarget : MonoBehaviour
 {
+    public const string ON_CHECKPOIN = "BridgeCheckpoint";
+
     [SerializeField] private Transform target;
     [SerializeField] public Checkpoint Checkpoint;
 
@@ -34,5 +36,7 @@ public class CheckPointTarget : MonoBehaviour
 
         target.position = checkpoint.Point.position;
         target.rotation = checkpoint.Point.rotation;
+
+        gameObject.SendMessage(ON_CHECKPOIN, checkpoint.Reset, SendMessageOptions.DontRequireReceiver);
     }
 }

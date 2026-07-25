@@ -11,6 +11,7 @@ public abstract class ItemHolder : MonoBehaviour
     [SerializeField] protected Collider _collider;
     [SerializeField] protected Item _item;
 
+    public Item Item => _item;
     public Transform Aim => _aim;
     public Collider Collider => _collider;
 

@@ -8,6 +8,7 @@ public class ItemEquipAndDrop : MonoBehaviour, I_Interactable
     // Ground 
     [SerializeField] LayerMask _whatIsGround = Physics.AllLayers;
     [SerializeField] float _distanceFromGround = 1f;
+    [SerializeField] float _offset = .5f;
     ItemHolder _owner;
 
     // Interation
@@ -35,7 +36,7 @@ public class ItemEquipAndDrop : MonoBehaviour, I_Interactable
         _owner = null;
 
         // Get Ground
-        Ray groundRay = new Ray(transform.position, Vector3.down);
+        Ray groundRay = new Ray(transform.position + Vector3.up * _offset, Vector3.down);
         if (!Physics.Raycast(groundRay, out RaycastHit info, float.PositiveInfinity, _whatIsGround)) return;
 
         // Put Self On Ground

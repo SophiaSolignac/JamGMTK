@@ -33,8 +33,10 @@ public class NewPlayerMovement : MonoBehaviour
     [SerializeField] AnimationCurve _cutSpeedCurve;
     [SerializeField] float _maxMovementSpeed = 10f;
     [SerializeField] float _movementForce = 10000f;
+    [SerializeField] float _movementForceAir = 5000f;
     [SerializeField] float _groundMaxAngle = 25f;
     [SerializeField, Range(0f, 1f)] float _counterMovement = .1f;
+    [SerializeField, Range(0f, 1f)] float _counterMovementAir = .01f;
 
     Vector3 _groundNormal = Vector3.up;
     bool _isGrouded;
@@ -117,13 +119,16 @@ public class NewPlayerMovement : MonoBehaviour
         Vector3 wantedDirection = _yRotation * _inputDirection;
         Vector3 velocityDirection = relativeVelocity.normalized;
 
+        float counterMovement = _isGrouded ? _counterMovement : _counterMovementAir;
+        float movmentForce = _isGrouded ?_movementForce : _movementForceAir;
+
         // Add Horizontal Counter
         if (CheckDirection(_inputDirection.x, velocityDirection.x))
-            _body.AddForce(Time.fixedDeltaTime * _body.mass * _movementForce * _counterMovement * -relativeVelocity.x * _pivotY.right);
+            _body.AddForce(Time.fixedDeltaTime * _body.mass * movmentForce * counterMovement * -relativeVelocity.x * _pivotY.right);
 
         // Add Forward Counter
         if (CheckDirection(_inputDirection.z, velocityDirection.z))
-            _body.AddForce(Time.fixedDeltaTime * _body.mass * _movementForce * _counterMovement * -relativeVelocity.z * _pivotY.forward);
+            _body.AddForce(Time.fixedDeltaTime * _body.mass * movmentForce * counterMovement * -relativeVelocity.z * _pivotY.forward);
 
 
         // Add Diagonal Counter
@@ -137,7 +142,7 @@ public class NewPlayerMovement : MonoBehaviour
             if (Mathf.Abs(relativeVelocity.x) <= _maxMovementSpeed * Mathf.Cos(inputAngle)) relativeVelocity.x = 0;
             if (Mathf.Abs(relativeVelocity.z) <= _maxMovementSpeed * Mathf.Sin(inputAngle)) relativeVelocity.z = 0;
 
-            _body.AddForce(Time.fixedDeltaTime * _body.mass * _movementForce * _counterMovement * -(_yRotation * relativeVelocity));
+            _body.AddForce(Time.fixedDeltaTime * _body.mass * movmentForce * counterMovement * -(_yRotation * relativeVelocity));
         }
     }
 
@@ -161,8 +166,8 @@ public class NewPlayerMovement : MonoBehaviour
         if (!(isSameDirectionZ && absRelVel.z > _maxMovementSpeed) || absRelVel.z <= 0)
             movement += (1 - _cutSpeedCurve.Evaluate(ratioZ)) * _inputDirection.z * _pivotY.forward;
 
-
-        _body.AddForce(Time.fixedDeltaTime * _body.mass * _movementForce * movement);
+        float movmentForce = _isGrouded ? _movementForce : _movementForceAir;
+        _body.AddForce(Time.fixedDeltaTime * _body.mass * movmentForce * movement);
     }
 
     private bool CheckDirection(float wanted, float current)
@@ -282,7 +287,7 @@ public class NewPlayerMovement : MonoBehaviour
         Time.time - _dashLastTime < _dashCoolDown) return;
 
         // Dash
-        _dashDirection = _pivotY.rotation * (_inputDirection.magnitude <= 0 ? Vector3.forward : _inputDirection.normalized);
+        _dashDirection = _pivotX.rotation * (_inputDirection.magnitude <= 0 ? Vector3.forward : _inputDirection.normalized);
 
         _body.linearVelocity = Vector3.ProjectOnPlane(_body.linearVelocity, _groundNormal);
 
@@ -326,4 +331,12 @@ public class NewPlayerMovement : MonoBehaviour
         OnJump(true);
     }
     #endregion
+
+    // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Brides
+
+    public void BridgeCheckpoint(bool reset)
+    {
+        _pivotY.rotation = _yRotation = Quaternion.identity;
+        _body.linearVelocity = Quaternion.Inverse(transform.rotation) * _body.linearVelocity;
+    }
 }
