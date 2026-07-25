@@ -639,6 +639,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9d1ab990081d580449c1c855a5c70d4c, type: 3}
   _healthText: {fileID: 6152365409150460649}
   _coins: {fileID: 152743016327652150}
+  _crosshairType: 1
 --- !u!1 &4945690322330585742
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,7 +870,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _dashForce: 10
+  _dashForce: 6
   _dashDuration: 0.5
   _dashCoolDown: 1.5
   _gravityForce: 1500
@@ -945,6 +946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f8b86d5132ba7498cbad67baedd7a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  _hitCooldown: 0.1
   maxTime: 10
   isTimerActive: 1
   OnTimeChanged:
