@@ -41,9 +41,4 @@ public class ItemEquipAndDrop : MonoBehaviour, I_Interactable
         // Put Self On Ground
         transform.position = info.point + Vector3.up * _distanceFromGround;
     }
-
-    private void DropLoop()
-    {
-
-    }
 }

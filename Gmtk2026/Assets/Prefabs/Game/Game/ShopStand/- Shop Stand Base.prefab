@@ -132,7 +132,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4311488343979679724}
   - component: {fileID: 7380419978005865381}
-  - component: {fileID: 4602015136941675229}
   - component: {fileID: 4489103745849449609}
   m_Layer: 0
   m_Name: '- Shop Stand Base'
@@ -170,18 +169,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopStand
   cost: 100
---- !u!114 &4602015136941675229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6703619082230588387}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 015d01ea21bef43498423a8a6fa84b2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SCREAMWHENHIT
 --- !u!65 &4489103745849449609
 BoxCollider:
   m_ObjectHideFlags: 0
