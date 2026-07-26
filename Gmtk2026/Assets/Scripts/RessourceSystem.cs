@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class RessourceSystem : MonoBehaviour
 {
-    private int currentCoins;
+    [SerializeField] private int currentCoins = 10;
     public UnityEvent<int> OnCoinsChanged = new UnityEvent<int>();
 
     public int CurrentCoins 
@@ -15,7 +15,12 @@ public class RessourceSystem : MonoBehaviour
             OnCoinsChanged.Invoke(currentCoins); // Notify listeners of the change
         }
     }
-    
+
+    private void Start()
+    {
+        OnCoinsChanged.Invoke(currentCoins);
+    }
+
     public void AddCoins(int amount)
     {
         CurrentCoins += amount;
