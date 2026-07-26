@@ -32,4 +32,4 @@ MonoBehaviour:
   _bullet: {fileID: -4176890893449403638, guid: 3f056c1b2be3611489e29dabb6b841d7, type: 3}
   _speedMultipler: {x: 0.8, y: 1.2}
   _angleOpening: 10
-  _bulletPerShot: 14
+  _bulletPerShot: 15

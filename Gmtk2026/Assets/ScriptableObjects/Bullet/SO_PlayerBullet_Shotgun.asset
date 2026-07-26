@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOBullet
   _title: Shotgun Bullet
   _damages:
-    Point: 6
+    Point: 7
     Time: 1
   _despawnDistance: 15
   _LifeTimie: 15
