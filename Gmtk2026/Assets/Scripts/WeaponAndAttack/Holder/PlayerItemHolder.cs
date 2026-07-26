@@ -11,6 +11,7 @@ public class PlayerItemHolder : ItemHolder
         base.Awake();
         InputManager.onAttack.AddListener(TryUseItem);
         InputManager.onDrop.AddListener(Drop);
+        InputManager.onSwitch.AddListener(Switch);
 
         EventBus<GameState>.Connect(EventGame.OnStateChanged, OnStateChanged);
     }
@@ -21,6 +22,12 @@ public class PlayerItemHolder : ItemHolder
         {
             Destroy(_item.gameObject);
             _item = null;
+        }
+
+        if (_secondaryItem)
+        {
+            Destroy(_secondaryItem.gameObject);
+            _secondaryItem = null;
         }
 
         if (!_baseItem) return;
