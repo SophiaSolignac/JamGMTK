@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOGun
   _title: Enemy Classic Gun
   _reloadDuration: 1
-  _waitBetweenInput: 0
+  _waitBetweenInput: 1
   _input: 0
   _type: 1
   _aim: 1
   _correctAimWithHolder: 1
   _amoMax: 1
   _fireRate: 1
-  _damage: 1
+  _damages:
+    Point: 1
+    Time: 1
   _distance: 999
   _layerMask:
     serializedVersion: 2

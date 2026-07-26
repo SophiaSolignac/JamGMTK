@@ -8,10 +8,9 @@ using UnityEngine;
 namespace GMTK.Enemy
 {
     
-    public enum E_EnemyType
+    public enum E_EnemyMovementType
     {
-        TYPE_ONE,
-        TYPE_TWO,
-        TYPE_THREE,
+        LERP,
+        CIRCULAR,
     }
 }

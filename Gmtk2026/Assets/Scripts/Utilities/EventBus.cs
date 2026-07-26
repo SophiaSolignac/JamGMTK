@@ -4,6 +4,29 @@ using UnityEngine.Events;
 
 namespace UnBocal.Events
 {
+    public static class GlobalEventBus
+    {
+        private static Dictionary<Enum, UnityEvent> _events = new();
+
+        public static void Connect(Enum pName, UnityAction pMethod)
+        {
+            if (!_events.ContainsKey(pName)) _events[pName] = new();
+            _events[pName].AddListener(pMethod);
+        }
+
+        public static void Disconnect(Enum pName, UnityAction pMethod)
+        {
+            if (!_events.ContainsKey(pName)) return;
+            _events[pName].RemoveListener(pMethod);
+        }
+
+        public static void Invoke(Enum pName)
+        {
+            if (!_events.ContainsKey(pName)) return;
+            _events[pName]?.Invoke();
+        }
+    }
+
     public static class EventBus
     {
         private static Dictionary<Enum, UnityEvent> _events = new();
@@ -24,6 +47,7 @@ namespace UnBocal.Events
         {
             if (!_events.ContainsKey(pName)) return;
             _events[pName]?.Invoke();
+            GlobalEventBus.Invoke(pName);
         }
     }
 
@@ -48,6 +72,7 @@ namespace UnBocal.Events
             if (_events.ContainsKey(pName))
                 _events[pName].Invoke(pArg01);
             EventBus.Invoke(pName);
+            GlobalEventBus.Invoke(pName);
         }
     }
 
@@ -72,6 +97,7 @@ namespace UnBocal.Events
             if (_events.ContainsKey(pName))
                 _events[pName].Invoke(pArg01, pArg02);
             EventBus.Invoke(pName);
+            GlobalEventBus.Invoke(pName);
         }
     }
 
@@ -96,6 +122,7 @@ namespace UnBocal.Events
             if (_events.ContainsKey(pName))
                 _events[pName].Invoke(pArg01, pArg02, pArg03);
             EventBus.Invoke(pName);
+            GlobalEventBus.Invoke(pName);
         }
     }
 
@@ -120,6 +147,7 @@ namespace UnBocal.Events
             if (_events.ContainsKey(pName))
                 _events[pName].Invoke(pArg01, pArg02, pArg03, pArg04);
             EventBus.Invoke(pName);
+            GlobalEventBus.Invoke(pName);
         }
     }
 

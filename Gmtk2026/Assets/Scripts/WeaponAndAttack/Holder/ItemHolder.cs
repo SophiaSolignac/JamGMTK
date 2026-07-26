@@ -1,4 +1,6 @@
 using System.Collections;
+using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public abstract class ItemHolder : MonoBehaviour
@@ -6,11 +8,14 @@ public abstract class ItemHolder : MonoBehaviour
     public const string ANIM_EQUIP = "Equip";
 
     [SerializeField] protected Transform _aim;
-    [SerializeField] protected Animator _animator;
     [SerializeField] protected Transform _container;
+    [SerializeField] protected Transform _secondaryContainer;
     [SerializeField] protected Collider _collider;
     [SerializeField] protected Item _item;
+    public Item _secondaryItem;
 
+    public Item SecondaryItem => _secondaryItem;
+    public Item Item => _item;
     public Transform Aim => _aim;
     public Collider Collider => _collider;
 
@@ -29,20 +34,49 @@ public abstract class ItemHolder : MonoBehaviour
     {
         if (!item) return;
 
-        // Drop Last Item
-        _item?.Drop();
+        if (_item)
+        {
+            // Drop Last Item
+            if (!_secondaryContainer || _secondaryItem) _item.Drop();
+
+            // Put Item In Secondary Slot
+            else
+            {
+                _secondaryItem = _item;
+                _item.Equip(_secondaryContainer, this);
+            }
+        }
 
         // Get New
         _item = item;
         _item.Equip(_container, this);
-        _animator?.SetTrigger(ANIM_EQUIP);
     }
 
     protected virtual void Drop()
     {
         if (!_item) return;
         _item.Drop();
-        _item = null;
+        
+        if (!_secondaryItem)
+        {
+            _item = null;
+            return;
+        }
+
+        Equip(_secondaryItem);
+        _secondaryItem = null;
+    }
+
+    protected void Switch()
+    {
+        if (!_secondaryItem || !_item) return;
+
+        Item item = _item;
+        _item = _secondaryItem;
+        _secondaryItem = item;
+
+        _item.Equip(_container, this);
+        _secondaryItem.Equip(_secondaryContainer, this);
     }
 
     protected virtual void TryUseItem(bool started)

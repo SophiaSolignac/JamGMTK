@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 2001174241207668516}
   - component: {fileID: 6238569279010549092}
   - component: {fileID: 121277856560518127}
+  - component: {fileID: 2429490565376726243}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -159,9 +160,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.58, y: 1, z: -15.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6608152354043550079}
+  - {fileID: 3377398772949995791}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &810732301308129818
@@ -263,7 +265,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 30
+  m_Radius: 25
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2001174241207668516
 MonoBehaviour:
@@ -277,10 +279,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00236acdfc7cc9245b3004352895da24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GMTK.Enemy.EnemyBehaviour
-  _ShootInterval: 2
+  _ShootInterval: 1
   _InitialShootDelay: 0.2
-  _RadiusRange: 30
-  _RotationSpeed: 5
+  _CanMyEnemyMove: 0
+  _SpeedMove: 5
+  _Radius: 10
+  _RefLerpTransform: {fileID: 6223219957076064759}
+  _MovementType: 0
+  _RotationSpeed: 3
   _DetectionCheckInterval: 0.1
   _PlayerMask:
     serializedVersion: 2
@@ -288,8 +294,10 @@ MonoBehaviour:
   _ObstacleMask:
     serializedVersion: 2
     m_Bits: 0
-  _EnemyType: 0
   _ShootType: 0
+  _MaxHealth: 100
+  _BaseDamage: 0
+  _DamageTakenMultiplier: 1
 --- !u!114 &6238569279010549092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,10 +311,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GMTK.Enemy.EnemyItemHolder
   _aim: {fileID: 805817818112505792}
-  _animator: {fileID: 5800808256900302425}
   _container: {fileID: 496264321046364826}
+  _secondaryContainer: {fileID: 0}
   _collider: {fileID: 7286285981066317797}
   _item: {fileID: 3461187286307794762}
+  _secondaryItem: {fileID: 0}
 --- !u!114 &121277856560518127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,6 +328,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 015d01ea21bef43498423a8a6fa84b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SCREAMWHENHIT
+--- !u!114 &2429490565376726243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5937975228908015825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f14f46db4df99440a193f56ae597c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropInstance
+  _objectToDrop: {fileID: 7304338187153077799, guid: e0c19f8fd42bfad4e9d7bbef0ceaa120, type: 3}
+  _count: 1
+--- !u!1 &6223219957076064759
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3377398772949995791}
+  m_Layer: 0
+  m_Name: LerpRef
+  m_TagString: Untagged
+  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3377398772949995791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6223219957076064759}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 13.2, z: -20.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4581693780337533584}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7904997985882045122
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,10 +585,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2951678595423994395, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e9d97c6ae0f338f498e4c1d1e639e6ea, type: 2}
     - target: {fileID: -1468662180276524799, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6d2ac986d56bfb644b090cc98a386532, type: 2}
+      objectReference: {fileID: 2100000, guid: fb10a179cc2f88f4884bbf022e9e38dd, type: 2}
     - target: {fileID: 919132149155446097, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: m_Name
       value: SM_Crane_Ennemie
@@ -542,11 +600,15 @@ PrefabInstance:
     - target: {fileID: 1790868808166937211, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6d2ac986d56bfb644b090cc98a386532, type: 2}
+      objectReference: {fileID: 2100000, guid: fb10a179cc2f88f4884bbf022e9e38dd, type: 2}
+    - target: {fileID: 2346011054020360518, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e9d97c6ae0f338f498e4c1d1e639e6ea, type: 2}
     - target: {fileID: 3575641881151511511, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6d2ac986d56bfb644b090cc98a386532, type: 2}
+      objectReference: {fileID: 2100000, guid: fb10a179cc2f88f4884bbf022e9e38dd, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

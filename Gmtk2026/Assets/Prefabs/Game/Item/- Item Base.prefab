@@ -122,8 +122,9 @@ MonoBehaviour:
   _collider: {fileID: 0}
   _whatIsGround:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 513
   _distanceFromGround: 1
+  _offset: 0.5
 --- !u!114 &7411427601838829075
 MonoBehaviour:
   m_ObjectHideFlags: 0

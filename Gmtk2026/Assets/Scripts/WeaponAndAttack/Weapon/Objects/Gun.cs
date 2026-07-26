@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using UnBocal.CookingProject.Utilities;
+using UnBocal.Utilities;
 using UnityEngine;
 
 public class Gun : Weapon<SOGun>

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: SO_PlayerBullet_SMG
   m_EditorClassIdentifier: Assembly-CSharp::SOBullet
   _title: SMG Bullet
-  _despawnDistance: 50
-  _LifeTimie: 50
+  _damages:
+    Point: 2
+    Time: 1
+  _despawnDistance: 20
+  _LifeTimie: 20
   _speed: 60

@@ -8,7 +8,6 @@ public abstract class GameStateManager : MonoBehaviour
     protected virtual void Awake()
     {
         EventBus<GameState>.Connect(EventGame.OnStateChanged, OnStateChanged);
-        Debug.Log("Listener");
     }
 
     protected virtual void OnDestroy()

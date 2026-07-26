@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: SO_EnemyBullet_Big
   m_EditorClassIdentifier: Assembly-CSharp::SOBullet
   _title: Enemy classic bullet
+  _damages:
+    Point: 1
+    Time: 3
   _despawnDistance: 30
   _LifeTimie: 30
-  _speed: 20
+  _speed: 15

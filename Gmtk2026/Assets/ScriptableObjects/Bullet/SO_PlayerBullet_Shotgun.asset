@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: SO_PlayerBullet_Shotgun
   m_EditorClassIdentifier: Assembly-CSharp::SOBullet
   _title: Shotgun Bullet
-  _despawnDistance: 30
-  _LifeTimie: 30
-  _speed: 40
+  _damages:
+    Point: 6
+    Time: 1
+  _despawnDistance: 15
+  _LifeTimie: 15
+  _speed: 50
