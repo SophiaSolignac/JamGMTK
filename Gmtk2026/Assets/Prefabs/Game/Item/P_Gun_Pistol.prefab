@@ -247,23 +247,23 @@ PrefabInstance:
     - target: {fileID: -4795165560744122111, guid: 7a229847b7ae88041b734cf719da33e1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 935c4212689d512439e49470d7bb83c0, type: 2}
+      objectReference: {fileID: 2100000, guid: e42ee1dd5869af645bd8820d1898d2fe, type: 2}
     - target: {fileID: -3838735271085949761, guid: 7a229847b7ae88041b734cf719da33e1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 935c4212689d512439e49470d7bb83c0, type: 2}
+      objectReference: {fileID: 2100000, guid: e42ee1dd5869af645bd8820d1898d2fe, type: 2}
     - target: {fileID: -3316209038747775882, guid: 7a229847b7ae88041b734cf719da33e1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 935c4212689d512439e49470d7bb83c0, type: 2}
+      objectReference: {fileID: 2100000, guid: e42ee1dd5869af645bd8820d1898d2fe, type: 2}
     - target: {fileID: -3035608602465568333, guid: 7a229847b7ae88041b734cf719da33e1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 935c4212689d512439e49470d7bb83c0, type: 2}
+      objectReference: {fileID: 2100000, guid: e42ee1dd5869af645bd8820d1898d2fe, type: 2}
     - target: {fileID: -2417094610102442147, guid: 7a229847b7ae88041b734cf719da33e1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 935c4212689d512439e49470d7bb83c0, type: 2}
+      objectReference: {fileID: 2100000, guid: e42ee1dd5869af645bd8820d1898d2fe, type: 2}
     - target: {fileID: 919132149155446097, guid: 7a229847b7ae88041b734cf719da33e1, type: 3}
       propertyPath: m_Name
       value: SM_Gun
@@ -275,23 +275,23 @@ PrefabInstance:
     - target: {fileID: 1170970068873931921, guid: 7a229847b7ae88041b734cf719da33e1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 935c4212689d512439e49470d7bb83c0, type: 2}
+      objectReference: {fileID: 2100000, guid: e42ee1dd5869af645bd8820d1898d2fe, type: 2}
     - target: {fileID: 2869344807088711131, guid: 7a229847b7ae88041b734cf719da33e1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 935c4212689d512439e49470d7bb83c0, type: 2}
+      objectReference: {fileID: 2100000, guid: e42ee1dd5869af645bd8820d1898d2fe, type: 2}
     - target: {fileID: 2929640277652407947, guid: 7a229847b7ae88041b734cf719da33e1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 935c4212689d512439e49470d7bb83c0, type: 2}
+      objectReference: {fileID: 2100000, guid: e42ee1dd5869af645bd8820d1898d2fe, type: 2}
     - target: {fileID: 5901893356585517859, guid: 7a229847b7ae88041b734cf719da33e1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 935c4212689d512439e49470d7bb83c0, type: 2}
+      objectReference: {fileID: 2100000, guid: e42ee1dd5869af645bd8820d1898d2fe, type: 2}
     - target: {fileID: 7483894711331120201, guid: 7a229847b7ae88041b734cf719da33e1, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 935c4212689d512439e49470d7bb83c0, type: 2}
+      objectReference: {fileID: 2100000, guid: e42ee1dd5869af645bd8820d1898d2fe, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -368,7 +368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6072408194226397378, guid: 8cad70be3b6335a479d8b4a40544545b, type: 3}
       propertyPath: m_Name
-      value: Default Gun 1
+      value: P_Gun_Pistol
       objectReference: {fileID: 0}
     - target: {fileID: 6072408194226397378, guid: 8cad70be3b6335a479d8b4a40544545b, type: 3}
       propertyPath: m_Layer
