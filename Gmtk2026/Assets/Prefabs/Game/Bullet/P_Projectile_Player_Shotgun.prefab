@@ -98,6 +98,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 210200987157001710, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
+      propertyPath: EventReference.Path
+      value: event:/GUNS/GS_Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 210200987157001710, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: -308265730
+      objectReference: {fileID: 0}
+    - target: {fileID: 210200987157001710, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1295269357
+      objectReference: {fileID: 0}
+    - target: {fileID: 210200987157001710, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: 1834241421
+      objectReference: {fileID: 0}
+    - target: {fileID: 210200987157001710, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: 199912220
+      objectReference: {fileID: 0}
     - target: {fileID: 3540724325859819572, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
       propertyPath: _settings
       value: 
@@ -172,15 +192,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3987141042018181107, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6705885181896291156}
-    - targetCorrespondingSourceObject: {fileID: 3987141042018181107, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2957809935160005912}
-    - targetCorrespondingSourceObject: {fileID: 3987141042018181107, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1430954230421791912}
-    - targetCorrespondingSourceObject: {fileID: 3987141042018181107, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -1235690919888189810}
   m_SourcePrefab: {fileID: 100100000, guid: dc2e2935951d4bb48a0d8be7774b9288, type: 3}
 --- !u!4 &6269629269063294093 stripped
 Transform:
@@ -205,83 +216,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   _settings: {fileID: 11400000, guid: e1cc0a6ba47567247a29167b85a4c91d, type: 2}
-  _collider: {fileID: 2957809935160005912}
---- !u!135 &2957809935160005912
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6585972051256913043}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &1430954230421791912
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6585972051256913043}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
---- !u!114 &-1235690919888189810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6585972051256913043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: -308265730
-      Data2: 1295269357
-      Data3: 1834241421
-      Data4: 199912220
-    Path: event:/GUNS/GS_Shotgun
-  Event: 
-  EventPlayTrigger: 1
-  EventStopTrigger: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  _collider: {fileID: 0}

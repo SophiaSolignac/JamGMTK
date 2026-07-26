@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
 public class PlayerHUD : MonoBehaviour
 {
     public enum Crosshair { Empty, Full }
 
+    public FMODUnity.EventReference PlayerStateEvent;
     [SerializeField] Image _crosshair;
     [SerializeField] Sprite[] _crosshairRenderer;
     [SerializeField] HealthTimeUi _healthText;
@@ -29,6 +31,8 @@ public class PlayerHUD : MonoBehaviour
     }
     public void UpdateCoinUI(int value)
     {
+        FMOD.Studio.EventInstance playerState = FMODUnity.RuntimeManager.CreateInstance(PlayerStateEvent);
+        playerState.start(); 
         _coins.UpdateCoinsUi(value);
     }
 }

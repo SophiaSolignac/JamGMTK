@@ -235,7 +235,7 @@ MonoBehaviour:
       Data4: -917080996
     Path: event:/OTHER/COIN_PickUp
   Event: 
-  EventPlayTrigger: 7
+  EventPlayTrigger: 11
   EventStopTrigger: 0
   AllowFadeout: 1
   TriggerOnce: 0
