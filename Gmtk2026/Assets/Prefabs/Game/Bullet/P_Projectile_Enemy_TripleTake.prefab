@@ -9956,7 +9956,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4562847109513751569, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4562847109513751569, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10029,6 +10029,10 @@ PrefabInstance:
     - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: OverrideMaxDistance
       value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
+      propertyPath: OverrideMinDistance
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: EventReference.Guid.Data1
