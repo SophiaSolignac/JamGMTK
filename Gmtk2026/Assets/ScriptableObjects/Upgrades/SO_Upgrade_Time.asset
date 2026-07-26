@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f22b342b0916c5c4a860d0bfc276a4c4, type: 3}
-  m_Name: SO_UpgradeTime
+  m_Name: SO_Upgrade_Time
   m_EditorClassIdentifier: Assembly-CSharp::SOUpgrade
-  _count: {x: 85, y: 0}
+  _count: {x: 1, y: 0}
   _upgrade:
     Price:
       _usage: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      _value: {x: 10, y: 100, z: 10}
+      _value: {x: 150, y: 350, z: 150}
     time:
       _usage: 2
       _curve:
@@ -108,7 +108,25 @@ MonoBehaviour:
       _usage: 0
       _curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4

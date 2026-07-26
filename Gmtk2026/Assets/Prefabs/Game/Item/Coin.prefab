@@ -165,6 +165,7 @@ MonoBehaviour:
   physicCollider: {fileID: 7836664218138826824}
   triggerCollider: {fileID: 8020099443657984826}
   physicsBody: {fileID: 2944356714500342732}
+  coinValue: 10
 --- !u!54 &2944356714500342732
 Rigidbody:
   m_ObjectHideFlags: 0
