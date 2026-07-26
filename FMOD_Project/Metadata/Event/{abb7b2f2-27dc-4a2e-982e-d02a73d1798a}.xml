@@ -125,13 +125,13 @@
 			<value>1</value>
 		</property>
 		<property name="soundSize">
-			<value>15.5</value>
+			<value>18</value>
 		</property>
 		<property name="minimumExtent">
-			<value>114</value>
+			<value>118</value>
 		</property>
 		<property name="userPanExtent">
-			<value>186</value>
+			<value>80</value>
 		</property>
 	</object>
 	<object class="SingleSound" id="{90b52233-11e2-4bd0-9d3b-b9f9f00253ec}">
