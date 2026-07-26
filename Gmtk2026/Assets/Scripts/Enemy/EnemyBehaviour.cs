@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,13 +16,19 @@ namespace GMTK.Enemy
         // ----------------~~~~~~~~~~~~~~~~~~~==========================# // VARIABLES
         [Header("Shooting Settings")]
         [SerializeField] private float _ShootInterval = 2f;
-        [SerializeField] private float _InitialShootDelay = 0.5f;
+        [SerializeField] private float _InitialShootDelay = .5f;
+        
+        [Header("Movements Management")]
+        [SerializeField] private bool _CanMyEnemyMove;
+        [SerializeField] private float _SpeedMove = 5f;
+        [SerializeField] private float _Radius = 10f;
+        [SerializeField] private GameObject _RefLerpTransform;
+        [SerializeField] private E_EnemyMovementType _MovementType;
         
         [Header("General Settings")]
         [SerializeField] private float _RotationSpeed = 5f;
         [SerializeField] private float _DetectionCheckInterval = .1f;
         [SerializeField] private LayerMask _PlayerMask, _ObstacleMask;
-        [SerializeField] private E_EnemyType _EnemyType;
         [SerializeField] private E_ShootType _ShootType;
         
         [Header("Health & Defense Settings")]
@@ -32,6 +39,7 @@ namespace GMTK.Enemy
         private const float MIN_MAGNITUDE = .0001f;
         
         private int _CurrentHealth;
+        private float _CurrentAngle, _CurrentLerpTimer;
         
         private SphereCollider _CurrentSphereCollider;
         private PlayerController _PlayerController;
@@ -41,6 +49,8 @@ namespace GMTK.Enemy
         
         private Transform _PlayerTransform, _ObstacleTransform;
         private Coroutine _CheckSightCoroutine, _LookAtCoroutine, _ShootingCoroutine;
+
+        private Vector3 _InitialPosition, _RefLerpPosition;
 
         private ParticleSystem _ExplosionParticles;
         
@@ -56,6 +66,10 @@ namespace GMTK.Enemy
         private void Awake()
         {
             _CurrentHealth = _MaxHealth;
+            _InitialPosition = transform.position;
+            
+            if (_RefLerpTransform != null)
+                _RefLerpPosition = _RefLerpTransform.transform.position;
             
             _CurrentSphereCollider = GetComponent<SphereCollider>();
             _CurrentSphereCollider.isTrigger = true;
@@ -66,6 +80,8 @@ namespace GMTK.Enemy
             onPlayerLost += StopShootingLoop;
             onDeath += HandleDeath;
         }
+
+        private void Update() => ApplyMovement();
 
         // ----------------~~~~~~~~~~~~~~~~~~~==========================# // SHOOT LOOP
         private void StartShootingLoop() => _ShootingCoroutine ??= StartCoroutine(ShootingRoutine(_ShootType));
@@ -215,6 +231,26 @@ namespace GMTK.Enemy
             TakeDamage(damage.Point);
         }
 
+        private void ApplyMovement()
+        {
+            switch (_MovementType, _CanMyEnemyMove)
+            {
+                case (E_EnemyMovementType.LERP, true):
+                    if (!_RefLerpTransform) break;
+                    _CurrentLerpTimer += Time.deltaTime * _SpeedMove;
+                    float lPingPong = Mathf.PingPong(_CurrentLerpTimer, 1f);
+                    float lSmoothTime = Mathf.SmoothStep(0f, 1f, lPingPong);
+                    transform.position = EnemyMoves.LerpBetweenPositions(_InitialPosition, _RefLerpPosition, lSmoothTime);                    
+                    break;
+                case (E_EnemyMovementType.CIRCULAR, true):
+                    _CurrentAngle += Time.deltaTime * _SpeedMove;
+                    transform.position = EnemyMoves.CircularMovement(_InitialPosition, _CurrentAngle, _Radius);
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public void TakeDamage(int pAmount)
         {
             if (_CurrentHealth <= 0) return;
@@ -243,6 +279,14 @@ namespace GMTK.Enemy
             _DeathDrop?.Drop();
             _ExplosionParticles?.Play();
             Destroy(gameObject);
+        }
+        
+        private void OnDrawGizmos()
+        {
+#if UNITY_EDITOR
+            Handles.color = Color.red;
+            Handles.DrawWireDisc(transform.position, Vector3.up, _Radius);
+#endif
         }
     }
 }
