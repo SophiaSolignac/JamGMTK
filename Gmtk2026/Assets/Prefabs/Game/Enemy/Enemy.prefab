@@ -158,7 +158,7 @@ Transform:
   m_GameObject: {fileID: 5937975228908015825}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.58, y: 1, z: -15.03}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -282,11 +282,11 @@ MonoBehaviour:
   _ShootInterval: 1
   _InitialShootDelay: 0.2
   _CanMyEnemyMove: 0
-  _SpeedMove: 5
-  _Radius: 10
+  _SpeedMove: 0.5
+  _Radius: 5
   _RefLerpTransform: {fileID: 6223219957076064759}
   _MovementType: 0
-  _RotationSpeed: 3
+  _RotationSpeed: 5
   _DetectionCheckInterval: 0.1
   _PlayerMask:
     serializedVersion: 2
@@ -367,7 +367,7 @@ Transform:
   m_GameObject: {fileID: 6223219957076064759}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.2, z: -20.8}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

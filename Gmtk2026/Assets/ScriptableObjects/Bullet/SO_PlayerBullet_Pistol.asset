@@ -18,4 +18,4 @@ MonoBehaviour:
     Time: 1
   _despawnDistance: 25
   _LifeTimie: 25
-  _speed: 70
+  _speed: 80
