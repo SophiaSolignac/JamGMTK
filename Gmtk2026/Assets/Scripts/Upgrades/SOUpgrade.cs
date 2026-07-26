@@ -94,6 +94,7 @@ public class SOUpgrade : ScriptableObject
         }
     }
     
+    [SerializeField] public string Title = "Shop";
     [SerializeField] Vector2Int _count = Vector2Int.right;
     [SerializeField] Upgrade _upgrade = new();
 

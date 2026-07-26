@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f22b342b0916c5c4a860d0bfc276a4c4, type: 3}
   m_Name: SO_Upgrade_JumpForce
   m_EditorClassIdentifier: Assembly-CSharp::SOUpgrade
+  Title: Jump
   _count: {x: 85, y: 0}
   _upgrade:
     Price:

@@ -21,8 +21,6 @@ public class ComponentLinker : MonoBehaviour
         ShopStand.OnAddMaxTime.AddListener(timerHealth.AddMaxTime);
         Deathzone.OnPlayerEnterDeathZone.AddListener(timerHealth.Die);
         Coin.OnAddMoneyToPlayer.AddListener(ressourceSystem.AddCoins);
-        TimerHealth.OnPlayerRagdoll.AddListener(playerMovement.OnRagdoll);
-        TimerHealth.OnPlayerDeath.AddListener(playerMovement.OnPlayerDeath);
 
         //instance Events subscription
         timerHealth.OnTimeChanged.AddListener(playerHUD.UpdateHealthUI);
@@ -36,8 +34,6 @@ public class ComponentLinker : MonoBehaviour
         ShopStand.OnTrySpendMoney -= (ressourceSystem.TrySpendCoins);
         ShopStand.OnAddMaxTime.RemoveListener(timerHealth.AddMaxTime);
         Coin.OnAddMoneyToPlayer.RemoveListener(ressourceSystem.AddCoins);
-        TimerHealth.OnPlayerRagdoll.RemoveListener(playerMovement.OnRagdoll);
-        TimerHealth.OnPlayerDeath.RemoveListener(playerMovement.OnPlayerDeath);
 
         //instance Events unsubscription
         timerHealth.OnTimeChanged.RemoveListener(playerHUD.UpdateHealthUI);
