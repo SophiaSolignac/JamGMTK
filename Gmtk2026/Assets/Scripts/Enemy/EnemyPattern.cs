@@ -110,26 +110,12 @@ namespace GMTK.Enemy
 
         public static void StopContinuousShoot(this EnemyBehaviour pCurrentEnemy) => pCurrentEnemy?.RequestUseItem(false);
 
-        public static void ForwardAndBackwardMovement()
-        {
-
-        }
-
-        public static void SinusMovementOnAnAxis(this EnemyBehaviour pCurrentEnemy, Vector3 pCurrentDirection, Vector3 pAxis)
-        {
-
-        }
-
-        public static void JumpMovement()
-        {
-
-        }
-
         private static Vector3 GetSpiralOffsetDirection(Transform pEnemyTransform, float pAngleInDegrees, float pRadius = 0.5f)
         {
             float lRad = pAngleInDegrees * Mathf.Deg2Rad;
             Vector3 lLocalDirection = new Vector3(Mathf.Cos(lRad) * pRadius, Mathf.Sin(lRad) * pRadius, 1f).normalized;
             return pEnemyTransform.TransformDirection(lLocalDirection);
         }
+        
     }
 }

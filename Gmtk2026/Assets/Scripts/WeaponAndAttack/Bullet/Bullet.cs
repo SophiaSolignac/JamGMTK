@@ -1,4 +1,4 @@
-using UnBocal.CookingProject.Utilities;
+using UnBocal.Utilities;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour, IUBPooledObject
