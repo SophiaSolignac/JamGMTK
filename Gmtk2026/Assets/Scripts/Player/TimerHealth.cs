@@ -2,7 +2,7 @@ using UnBocal.Events;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_BulletOrRaycastTarget, I_Upgradable
+public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_BulletOrRaycastTarget
 {
     private const float MILLISECOND = 1000f;
 
@@ -12,7 +12,6 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
     public float maxTime = 100f; //in seconds
     private float currentTime;   //in milliseconds
     public bool isTimerActive = true;
-
 
     public float CurrentTime { 
         get => currentTime; 
@@ -24,6 +23,7 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
     }
     // Events (static)
     public static UnityEvent OnPlayerDeath = new UnityEvent();
+    public static UnityEvent OnPlayerRagdoll = new UnityEvent();
     // Events (instance)
     public UnityEvent<float> OnTimeChanged = new UnityEvent<float>();
 
@@ -49,16 +49,14 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
         // Count down the timer
         CountDown();
     }
-
     private void CountDown()
     {
         CurrentTime -= Time.deltaTime * MILLISECOND;
         if (CurrentTime <= 0)
         {
-            Die();
+            Ragdoll();
         }
     }
-
     public void AddMaxTime(float timeToAdd)
     {
         maxTime += timeToAdd ; // Convert seconds to milliseconds
@@ -66,7 +64,6 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
         if (!isTimerActive)
             CurrentTime = maxTime * MILLISECOND;
     }
-
     public void Die()
     {
         CurrentTime = 0;
@@ -93,6 +90,7 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
         isTimerActive = true;
     }
 
+
     public void OnHit(Damage damage)
     {
         float time = Time.time;
@@ -100,6 +98,16 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
 
         CurrentTime -= damage.Time * MILLISECOND;
         _lastTimeHit = Time.time;
+    }
+
+	private void Ragdoll()
+    {
+        if (!isTimerActive)
+            return;
+        CurrentTime = 0;
+        isTimerActive = false;
+        OnPlayerRagdoll.Invoke();
+        Invoke(nameof(Die), 5f);
     }
 
     public void ApplyUpgrade(SOUpgrade.Upgrade u)

@@ -67,7 +67,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      _value: {x: 0, y: 2, z: 2}
+      _value: {x: 0, y: 0, z: 0}
     movmentSpeed:
       _usage: 0
       _curve:

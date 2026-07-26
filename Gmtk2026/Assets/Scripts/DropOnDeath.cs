@@ -9,6 +9,7 @@ public class DropOnDeath : MonoBehaviour, I_BulletOrRaycastTarget
 
     public void OnHit(Damage damage)
     {
+        Debug.Log("ewq");
         UBPool<Coin> coin;
         for (int i = 0; i < nbCoins; i++)
         {
@@ -20,9 +21,8 @@ public class DropOnDeath : MonoBehaviour, I_BulletOrRaycastTarget
     private void Drop(Coin coin)
     {
         coin.transform.position = transform.position;
-        coin.TryGetComponent<Rigidbody>(out Rigidbody body);
         Vector3 direction = UnityEngine.Random.insideUnitSphere + Vector3.up;
         coin.transform.position += direction.normalized;
-        body.AddForce(direction * 3,ForceMode.Impulse);
+        coin.AddForce(direction * 3,ForceMode.Impulse);
     }
 }

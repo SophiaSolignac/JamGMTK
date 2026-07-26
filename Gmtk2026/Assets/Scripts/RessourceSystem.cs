@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class RessourceSystem : MonoBehaviour
 {
-    private int currentCoins = 100;
+    private int currentCoins;
     public UnityEvent<int> OnCoinsChanged = new UnityEvent<int>();
 
     public int CurrentCoins 

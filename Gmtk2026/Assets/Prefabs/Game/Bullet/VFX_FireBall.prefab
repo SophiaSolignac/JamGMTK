@@ -9940,7 +9940,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7565492150714588311}
   m_Layer: 0
-  m_Name: FireBall
+  m_Name: VFX_FireBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

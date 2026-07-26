@@ -24,6 +24,8 @@ public class Coin : Collectible, IUBPooledObject
         get ; 
         set ;
     }
+    public float AttractionSpeed = 2;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -50,22 +52,26 @@ public class Coin : Collectible, IUBPooledObject
         {
             return false;
         }
-        Vector3 direction = (target.transform.position - transform.position).normalized;
-        float speed = 5000f; // Adjust the speed as needed
-        float vec = Vector3.Distance(target.transform.position,transform.position);
-        float ratio = 1- Mathf.Clamp01(vec / triggerCollider.radius);
-        physicsBody.AddForce(speed * ratio * Time.deltaTime * direction, ForceMode.Force);
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, AttractionSpeed * Time.deltaTime);
         return true;
     }
 
     private void RotateCoin()
     {
-        float rotationSpeed = 500f; // Adjust the rotation speed as needed
+        float rotationSpeed = 5f; // Adjust the rotation speed as needed
         transform.Rotate(Vector3.up, rotationSpeed * Time.deltaTime);
     }
     protected override void OnCollisionWithPlayer()
     {
         OnAddMoneyToPlayer.Invoke(coinValue);
         PoolSelf.Store();
+    }
+    /// <summary>
+    /// Add a force to the coin's rigidbody
+    /// Default mode is Impulse
+    /// </summary>
+    public void AddForce(Vector3 pForce, ForceMode pMode = ForceMode.Impulse)
+    {
+        physicsBody.AddForce(pForce, pMode);
     }
 }
