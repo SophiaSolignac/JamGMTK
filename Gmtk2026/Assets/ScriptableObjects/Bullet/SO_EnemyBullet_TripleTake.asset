@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: SO_EnemyBullet_TripleTake
   m_EditorClassIdentifier: Assembly-CSharp::SOBullet
   _title: Triple Take
-  _despawnDistance: 20
-  _LifeTimie: 20
-  _speed: 20
+  _damages:
+    Point: 1
+    Time: 2
+  _despawnDistance: 25
+  _LifeTimie: 25
+  _speed: 15

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOGun
   _title: Pistol
   _reloadDuration: 1
-  _waitBetweenInput: 0.6
+  _waitBetweenInput: 0.5
   _input: 1
   _type: 1
   _aim: 1

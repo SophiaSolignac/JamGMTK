@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2957809935160005912, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 3072
+      objectReference: {fileID: 0}
     - target: {fileID: 4562847109513751569, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -66,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6585972051256913043, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: m_Name
-      value: P_Projectile_EnemyClassic
+      value: P_Projectile_Enemy_Classic
       objectReference: {fileID: 0}
     - target: {fileID: 6705885181896291156, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: _settings
