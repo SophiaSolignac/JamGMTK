@@ -17477,6 +17477,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4861382064438264, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861382064438264, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861382064438264, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861382064438264, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861382064438264, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861382064438264, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1916389536219621553, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
       propertyPath: m_Name
       value: '- Shop Stand Timer'
@@ -17531,6 +17555,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3525302541892518307, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282258321039564166, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282258321039564166, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282258321039564166, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282258321039564166, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282258321039564166, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282258321039564166, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4559641464119261659, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
@@ -33265,6 +33313,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6703619082230588387, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
       propertyPath: m_Name
       value: '- Shop Stand Jump'
@@ -33276,6 +33348,30 @@ PrefabInstance:
     - target: {fileID: 8707553647531094665, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36702,6 +36798,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6703619082230588387, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
       propertyPath: m_Name
       value: '- Shop Stand Dash Speed'
@@ -36713,6 +36833,30 @@ PrefabInstance:
     - target: {fileID: 8707553647531094665, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -50945,6 +51089,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6703619082230588387, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
       propertyPath: m_Name
       value: '- Shop Stand Speed'
@@ -50956,6 +51124,30 @@ PrefabInstance:
     - target: {fileID: 8707553647531094665, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -60012,6 +60204,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5152449262714777770, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6703619082230588387, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
       propertyPath: m_Name
       value: '- Shop Stand Dash Countdown'
@@ -60023,6 +60239,30 @@ PrefabInstance:
     - target: {fileID: 8707553647531094665, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9006578484365039316, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -71937,63 +72177,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4581693780337533584, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
   m_PrefabInstance: {fileID: 2108118803}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2108797636
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1935629008345445224, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 35.758396
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935629008345445224, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7.73
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935629008345445224, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.1062979
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935629008345445224, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935629008345445224, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935629008345445224, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935629008345445224, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935629008345445224, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935629008345445224, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1935629008345445224, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9144791836013016042, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
-      propertyPath: m_Name
-      value: P_Projectile_Enemy_Classic
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 07c1f15e3291ea049969fc27981043cc, type: 3}
 --- !u!1 &2111287141
 GameObject:
   m_ObjectHideFlags: 0
@@ -73775,4 +73958,3 @@ SceneRoots:
   - {fileID: 2031943415}
   - {fileID: 43196305}
   - {fileID: 1402742958}
-  - {fileID: 2108797636}
