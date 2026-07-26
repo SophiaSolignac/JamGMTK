@@ -1,5 +1,5 @@
 using System;
-using UnBocal.CookingProject.Utilities;
+using UnBocal.Utilities;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;

@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 2001174241207668516}
   - component: {fileID: 6238569279010549092}
   - component: {fileID: 121277856560518127}
+  - component: {fileID: 2429490565376726243}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -321,6 +322,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 015d01ea21bef43498423a8a6fa84b2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SCREAMWHENHIT
+--- !u!114 &2429490565376726243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5937975228908015825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f14f46db4df99440a193f56ae597c2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropInstance
+  _objectToDrop: {fileID: 7304338187153077799, guid: e0c19f8fd42bfad4e9d7bbef0ceaa120, type: 3}
+  _count: 1
 --- !u!1 &7904997985882045122
 GameObject:
   m_ObjectHideFlags: 0

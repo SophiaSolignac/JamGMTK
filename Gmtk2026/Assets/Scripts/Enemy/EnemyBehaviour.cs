@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Author : Florian MAJCHER - Isart DIGITAL
 // DATE : 00/00/2026 - Beginning of the class
@@ -44,6 +45,7 @@ namespace GMTK.Enemy
         private ParticleSystem _ExplosionParticles;
         
         private bool _IsDead;
+        private DropInstance _DeathDrop;
 
         public Action onPlayerDetected, onPlayerLost;
         public Action<bool> onTryUseItem;
@@ -57,7 +59,9 @@ namespace GMTK.Enemy
             
             _CurrentSphereCollider = GetComponent<SphereCollider>();
             _CurrentSphereCollider.isTrigger = true;
-            
+
+            TryGetComponent(out _DeathDrop);
+
             onPlayerDetected += StartShootingLoop;
             onPlayerLost += StopShootingLoop;
             onDeath += HandleDeath;
@@ -236,6 +240,7 @@ namespace GMTK.Enemy
             if (_CurrentSphereCollider) 
                 _CurrentSphereCollider.enabled = false;
 
+            _DeathDrop?.Drop();
             _ExplosionParticles?.Play();
             Destroy(gameObject);
         }

@@ -1,5 +1,5 @@
 using System;
-using UnBocal.CookingProject.Utilities;
+using UnBocal.Utilities;
 using UnityEngine;
 
 public class DropOnDeath : MonoBehaviour, I_BulletOrRaycastTarget
