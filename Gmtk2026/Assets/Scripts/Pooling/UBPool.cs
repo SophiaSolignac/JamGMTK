@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
-namespace UnBocal.CookingProject.Utilities
+namespace UnBocal.Utilities
 {
     // -------~~~~~~~~~~================# // Interfaces
     public interface IUBPool { public void Reset(); }
