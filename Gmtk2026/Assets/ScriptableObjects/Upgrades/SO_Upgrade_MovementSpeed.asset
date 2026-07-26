@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f22b342b0916c5c4a860d0bfc276a4c4, type: 3}
-  m_Name: SO_Upgrade_JumpForce
+  m_Name: SO_Upgrade_MovementSpeed
   m_EditorClassIdentifier: Assembly-CSharp::SOUpgrade
-  _count: {x: 85, y: 0}
+  _count: {x: 2, y: 0}
   _upgrade:
     Price:
       _usage: 0
@@ -40,7 +40,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      _value: {x: 30, y: 70, z: 30}
+      _value: {x: 200, y: 300, z: 200}
     time:
       _usage: 0
       _curve:
@@ -69,14 +69,32 @@ MonoBehaviour:
         m_RotationOrder: 4
       _value: {x: 0, y: 0, z: 0}
     movmentSpeed:
-      _usage: 0
+      _usage: 2
       _curve:
         serializedVersion: 2
-        m_Curve: []
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      _value: {x: 0, y: 0, z: 0}
+      _value: {x: 0, y: 1, z: 1}
     dashForce:
       _usage: 0
       _curve:
@@ -105,7 +123,7 @@ MonoBehaviour:
         m_RotationOrder: 4
       _value: {x: 0, y: 0, z: 0}
     jumpForce:
-      _usage: 2
+      _usage: 0
       _curve:
         serializedVersion: 2
         m_Curve:
@@ -130,4 +148,4 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      _value: {x: 0, y: 1, z: 1}
+      _value: {x: 0, y: 0, z: 0}

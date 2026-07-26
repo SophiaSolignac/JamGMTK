@@ -1133,6 +1133,10 @@ PrefabInstance:
       propertyPath: _jumpForce
       value: 13
       objectReference: {fileID: 0}
+    - target: {fileID: 690112082604355314, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
+      propertyPath: _maxMovementSpeed
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 980551240067507755, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1151,7 +1155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1943581034833407759, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
       propertyPath: maxTime
-      value: 60
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1943581034833407759, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
       propertyPath: m_Enabled
@@ -17086,6 +17090,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1916389536219621553, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      propertyPath: m_Name
+      value: '- Shop Stand Timer'
+      objectReference: {fileID: 0}
     - target: {fileID: 2449092836113213687, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
       propertyPath: _uprade
       value: 
@@ -17164,6 +17172,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8057796171901044349, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1066743849}
+    - targetCorrespondingSourceObject: {fileID: 8057796171901044349, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1641964882}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4efb8481e97e71445bcc97e3d6c287af, type: 3}
 --- !u!1001 &648536221
@@ -32259,7 +32270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6703619082230588387, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
       propertyPath: m_Name
-      value: '- Shop Stand Base (1)'
+      value: '- Shop Stand Jump'
       objectReference: {fileID: 0}
     - target: {fileID: 7380419978005865381, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
       propertyPath: _uprade
@@ -49308,6 +49319,92 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1001 &1641964881
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 888117589}
+    m_Modifications:
+    - target: {fileID: 851419163370228899, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 851419163370228899, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6703619082230588387, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_Name
+      value: '- Shop Stand Speed'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7380419978005865381, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: _uprade
+      value: 
+      objectReference: {fileID: 11400000, guid: 88c380a9c87cfdf49837cc19bc910351, type: 2}
+    - target: {fileID: 8707553647531094665, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.48
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+--- !u!4 &1641964882 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4311488343979679724, guid: ec329d0f580a6ea4fad0be93d53b8886, type: 3}
+  m_PrefabInstance: {fileID: 1641964881}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1647675958
 PrefabInstance:
   m_ObjectHideFlags: 0
