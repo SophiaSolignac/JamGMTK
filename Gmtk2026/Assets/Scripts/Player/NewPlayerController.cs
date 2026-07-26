@@ -352,4 +352,31 @@ public class NewPlayerMovement : MonoBehaviour, I_Upgradable
         u.dashCooldown.TryChange(ref _dashCoolDown);
         u.jumpForce.TryChange(ref _jumpForce);
     }
+
+    [SerializeField] Camera _camera;
+
+    public void OnRagdoll()
+    {
+        if (!_camera) return;
+
+        _camera.transform.parent = null;
+
+        Rigidbody body = _camera.GetComponent<Rigidbody>();
+        if (body == null)
+            return;
+        body.isKinematic = false;
+        body.linearVelocity = _body.linearVelocity;
+        InputManager.onLook.RemoveListener(OnLook);
+    }
+
+    public void OnPlayerDeath()
+    {
+        if (!_camera) return;
+
+        _camera.transform.parent = _pivotX;
+        _camera.GetComponent<Rigidbody>().isKinematic = true;
+        _camera.transform.localPosition = Vector3.zero;
+        _camera.transform.localRotation = Quaternion.identity;
+        InputManager.onLook.AddListener(OnLook);
+    }
 }

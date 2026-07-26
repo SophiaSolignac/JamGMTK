@@ -1,5 +1,6 @@
 using UnBocal.Utilities;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Bullet : MonoBehaviour, IUBPooledObject
 {
@@ -33,9 +34,14 @@ public class Bullet : MonoBehaviour, IUBPooledObject
         // Return If Bullet From Same Shooter
         if (_shooter != null && collision.transform.TryGetComponent(out Bullet ohterBullet) && ohterBullet._shooter == _shooter) return;
 
-        // Try Hit I_BulletTarget
-        if (collision.transform.TryGetComponent(out I_BulletOrRaycastTarget hitTarget))
-            hitTarget.OnHit(_settings.Damages);
+        I_BulletOrRaycastTarget[] targets = collision.transform.GetComponents<I_BulletOrRaycastTarget>();
+        if (targets.Length > 0)
+        {
+            foreach (I_BulletOrRaycastTarget target in targets)
+            {
+                target.OnHit(_settings.Damages);
+            }
+        }
 
         StoreInPool();
     }
