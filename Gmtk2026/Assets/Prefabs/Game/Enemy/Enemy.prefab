@@ -341,7 +341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropInstance
   _objectToDrop: {fileID: 7304338187153077799, guid: e0c19f8fd42bfad4e9d7bbef0ceaa120, type: 3}
-  _count: 1
+  _count: 3
 --- !u!114 &5493597630456794406
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -66,6 +66,9 @@
 		<property name="isPersistent">
 			<value>true</value>
 		</property>
+		<property name="maxVoices">
+			<value>1</value>
+		</property>
 	</object>
 	<object class="MarkerTrack" id="{d9e6612d-3162-4bc8-8ebe-a28f24f0b0d6}" />
 	<object class="Timeline" id="{8c637902-3692-4859-a731-1986b24731df}">
