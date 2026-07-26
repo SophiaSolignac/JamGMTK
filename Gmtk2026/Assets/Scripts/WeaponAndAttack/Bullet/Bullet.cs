@@ -1,11 +1,14 @@
+using System;
 using UnBocal.Utilities;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using static UnityEngine.GraphicsBuffer;
 
 public class Bullet : MonoBehaviour, IUBPooledObject
 {
     [SerializeField] SOBullet _settings;
     [SerializeField] Collider _collider;
+    [SerializeField] GameObject _vfxExplosionPrefab;
 
     public SOBullet Settings => _settings;
 
@@ -18,7 +21,10 @@ public class Bullet : MonoBehaviour, IUBPooledObject
 
     public IUBPoolRef PoolSelf { get; set; }
 
+    private ParticleSystem[] _particles;
 
+    private void Awake() => _particles = GetComponentsInChildren<ParticleSystem>();
+    
     private void Update()
     {
         CheckForDestroy();
@@ -34,6 +40,7 @@ public class Bullet : MonoBehaviour, IUBPooledObject
         // Return If Bullet From Same Shooter
         if (_shooter != null && collision.transform.TryGetComponent(out Bullet ohterBullet) && ohterBullet._shooter == _shooter) return;
 
+
         I_BulletOrRaycastTarget[] targets = collision.transform.GetComponents<I_BulletOrRaycastTarget>();
         if (targets.Length > 0)
         {
@@ -41,6 +48,15 @@ public class Bullet : MonoBehaviour, IUBPooledObject
             {
                 target.OnHit(_settings.Damages);
             }
+        // Try Hit I_BulletTarget
+        if (collision.transform.TryGetComponent(out I_BulletOrRaycastTarget hitTarget))
+            hitTarget.OnHit(_settings.Damages);
+        
+        if (_vfxExplosionPrefab != null)
+        {
+            ContactPoint contact = collision.contacts[0];
+            GameObject vfx = Instantiate(_vfxExplosionPrefab, contact.point, Quaternion.LookRotation(contact.normal));
+            Destroy(vfx, 2f); 
         }
 
         StoreInPool();

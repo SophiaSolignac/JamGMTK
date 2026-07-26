@@ -18,7 +18,7 @@ public class Coin : Collectible, IUBPooledObject
     public static UnityEvent<int> OnAddMoneyToPlayer = new();
 
     GameObject target;
-    private int coinValue = 20;
+    public int coinValue = 20;
     public IUBPoolRef PoolSelf 
     { 
         get ; 

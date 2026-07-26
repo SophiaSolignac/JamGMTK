@@ -1,10 +1,14 @@
 using GMTK.Inputs;
 using System;
-using UnBocal.Events;
 using UnityEngine;
 
 public class NewPlayerMovement : MonoBehaviour, I_Upgradable
 {
+    public const string BRIDGE_WALK = "BridgePlayerWalk";
+    public const string BRIDGE_JUMP = "BridgePlayerJump";
+    public const string BRIDGE_LAND = "BridgePlayerLand";
+    public const string BRIDGE_DASH = "BridgePlayerDash";
+
     // -------~~~~~~~~~~================# // Components
     [Header("Components")]
     [SerializeField] Rigidbody _body;
@@ -205,6 +209,8 @@ public class NewPlayerMovement : MonoBehaviour, I_Upgradable
         // If At Least One Is Ground Then Update Ground Properties
         if (result)
         {
+            if (!_isGrouded) gameObject.SendMessage(BRIDGE_LAND, SendMessageOptions.DontRequireReceiver);
+
             _groundNormal = _groundNormal.normalized;
             _canJump = true;
             _isGrouded = true;
@@ -277,8 +283,14 @@ public class NewPlayerMovement : MonoBehaviour, I_Upgradable
 
     #region // -------~~~~~~~~~~================# // Movement
     private void OnMove(Vector3 direction)
-        // => Debug.LogWarning(_inputDirection = direction.magnitude <= _thresholdInput ? Vector3.zero : direction);
-        => _inputDirection = direction.magnitude <= _thresholdInput ? Vector3.zero : direction;
+    {
+        _inputDirection = direction.magnitude <= _thresholdInput ? Vector3.zero : direction;
+
+        if (!_isGrouded) return;
+
+        if (_inputDirection.magnitude <= 0) gameObject.SendMessage(BRIDGE_WALK, false, SendMessageOptions.DontRequireReceiver);
+        else gameObject.SendMessage(BRIDGE_WALK, true, SendMessageOptions.DontRequireReceiver);
+    }
     #endregion
 
     #region // -------~~~~~~~~~~================# // Dash
@@ -297,6 +309,8 @@ public class NewPlayerMovement : MonoBehaviour, I_Upgradable
 
         // Set Cooldown
         _dashStartTime = _dashLastTime = Time.time;
+
+        gameObject.SendMessage(BRIDGE_DASH, SendMessageOptions.DontRequireReceiver);
     }
 
     private void DashCancel()
@@ -324,6 +338,8 @@ public class NewPlayerMovement : MonoBehaviour, I_Upgradable
 
         _body.linearVelocity = Vector3.ProjectOnPlane(_body.linearVelocity, _groundNormal);
         _body.AddForce(_groundNormal * _body.mass * _jumpForce, ForceMode.Impulse);
+
+        gameObject.SendMessage(BRIDGE_JUMP, SendMessageOptions.DontRequireReceiver);
 
         DashCancel();
     }

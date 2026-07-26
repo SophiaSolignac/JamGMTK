@@ -24,6 +24,10 @@ PrefabInstance:
       propertyPath: _RotationSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2429490565376726243, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: _count
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3461187286307794762, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
       propertyPath: _settings
       value: 
