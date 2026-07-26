@@ -64,5 +64,6 @@ public enum EventGame
     NewCheckPoint,
     GoToLastCheckPoint,
     GoToCheckPoint,
-    End
+    End,
+    Upgrade
 }
