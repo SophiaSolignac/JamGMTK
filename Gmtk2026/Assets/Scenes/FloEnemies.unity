@@ -607,6 +607,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2001174241207668516, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: _Radius
+      value: 11.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 2001174241207668516, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: _MovementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2001174241207668516, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: _CanMyEnemyMove
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4581693780337533584, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.58
