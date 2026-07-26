@@ -2,7 +2,7 @@ using UnBocal.Events;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_BulletOrRaycastTarget
+public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_BulletOrRaycastTarget, I_Upgradable
 {
     private const float MILLISECOND = 1000f;
 
@@ -54,7 +54,7 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
         CurrentTime -= Time.deltaTime * MILLISECOND;
         if (CurrentTime <= 0)
         {
-            Ragdoll();
+            Die();
         }
     }
     public void AddMaxTime(float timeToAdd)

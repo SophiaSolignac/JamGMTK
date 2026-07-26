@@ -73,10 +73,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5856691665975908088}
   - component: {fileID: 3731956912657310255}
-  - component: {fileID: 8691843185278821230}
   - component: {fileID: 4198543535093376420}
-  - component: {fileID: 8067594594525148022}
-  - component: {fileID: 8560239104880489742}
+  - component: {fileID: 8403954713162875998}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Player
@@ -152,14 +150,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8691843185278821230
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1453622062443257362}
-  m_Enabled: 1
 --- !u!114 &4198543535093376420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,55 +194,20 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!64 &8067594594525148022
-MeshCollider:
+--- !u!114 &8403954713162875998
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1453622062443257362}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6983104161162651869, guid: 943cdbe4f6af7714492692f854739d57, type: 3}
---- !u!54 &8560239104880489742
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1453622062443257362}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0.1
-  m_AngularDamping: 0.3
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 1920
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
 --- !u!1 &1762238816499176826
 GameObject:
   m_ObjectHideFlags: 0
@@ -976,7 +931,6 @@ MonoBehaviour:
   _dashDuration: 0.5
   _dashCoolDown: 1.5
   _gravityForce: 1500
-  _camera: {fileID: 3731956912657310255}
 --- !u!114 &4545559106734119095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,6 +994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1174fc6412bd2cd4eb1801b29ed2b74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  currentCoins: 10
   OnCoinsChanged:
     m_PersistentCalls:
       m_Calls: []

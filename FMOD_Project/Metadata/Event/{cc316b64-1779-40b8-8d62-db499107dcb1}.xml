@@ -60,6 +60,9 @@
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{d6e7a3c5-cd4a-462b-9cc0-0a8dfab8b6d8}">
+		<property name="dopplerEnabled">
+			<value>true</value>
+		</property>
 		<property name="minimumDistance">
 			<value>0</value>
 		</property>
@@ -124,13 +127,13 @@
 			<value>1</value>
 		</property>
 		<property name="soundSize">
-			<value>15.5</value>
+			<value>18</value>
 		</property>
 		<property name="minimumExtent">
-			<value>114</value>
+			<value>118</value>
 		</property>
 		<property name="userPanExtent">
-			<value>186</value>
+			<value>80</value>
 		</property>
 	</object>
 	<object class="SingleSound" id="{e38b06ee-4306-4e68-9f88-7b24862da59a}">
