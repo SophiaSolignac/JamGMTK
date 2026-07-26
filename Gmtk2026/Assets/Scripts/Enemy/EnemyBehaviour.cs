@@ -34,7 +34,6 @@ namespace GMTK.Enemy
         [Header("Health & Defense Settings")]
         [SerializeField] private int _MaxHealth = 100;
         [SerializeField] private int _BaseDamage = 25;
-        [SerializeField] [Range(0f, 2f)] private float _DamageTakenMultiplier = 1f;
 
         private const float MIN_MAGNITUDE = .0001f;
         
@@ -61,6 +60,8 @@ namespace GMTK.Enemy
         public Action<bool> onTryUseItem;
         public Action<int, int> onHealthChanged;
         public Action onDeath;
+        
+        private HitBlink _HitBlink;
 
         // ----------------~~~~~~~~~~~~~~~~~~~==========================# // READY
         private void Awake()
@@ -75,6 +76,7 @@ namespace GMTK.Enemy
             _CurrentSphereCollider.isTrigger = true;
 
             TryGetComponent(out _DeathDrop);
+            TryGetComponent(out _HitBlink);
 
             onPlayerDetected += StartShootingLoop;
             onPlayerLost += StopShootingLoop;
@@ -227,7 +229,7 @@ namespace GMTK.Enemy
         public void OnHit(Damage damage)
         {
             // désolé flo tuvametape
-            // int lFinalDamage = Mathf.RoundToInt(_BaseDamage * _DamageTakenMultiplier);
+            //non tékaté dylan le goat
             TakeDamage(damage.Point);
         }
 
@@ -256,6 +258,7 @@ namespace GMTK.Enemy
             if (_CurrentHealth <= 0) return;
 
             _CurrentHealth -= pAmount;
+            _HitBlink?.TriggerBlink();
             onHealthChanged?.Invoke(_CurrentHealth, _MaxHealth);
             
             if (_CurrentHealth > 0) 
