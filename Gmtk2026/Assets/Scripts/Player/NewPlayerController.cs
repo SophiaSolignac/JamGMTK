@@ -286,6 +286,8 @@ public class NewPlayerMovement : MonoBehaviour, I_Upgradable
     {
         _inputDirection = direction.magnitude <= _thresholdInput ? Vector3.zero : direction;
 
+        if (!_isGrouded) return;
+
         if (_inputDirection.magnitude <= 0) gameObject.SendMessage(BRIDGE_WALK, false, SendMessageOptions.DontRequireReceiver);
         else gameObject.SendMessage(BRIDGE_WALK, true, SendMessageOptions.DontRequireReceiver);
     }

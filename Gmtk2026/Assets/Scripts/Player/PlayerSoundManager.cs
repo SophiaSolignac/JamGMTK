@@ -1,34 +1,47 @@
 using UnityEngine;
+using FMOD.Studio;
+using System;
 
 public class PlayerSoundManager : MonoBehaviour
 {
-    [SerializeField] GameObject _walk;
-    [SerializeField] GameObject _jump;
-    [SerializeField] GameObject _land;
-    [SerializeField] GameObject _dash;
+    [Serializable]
+    private class FMODSound
+    {
+        [SerializeField] FMODUnity.EventReference _reference;
+        public EventInstance instance;
 
+        public void Init()
+        {
+            instance = FMODUnity.RuntimeManager.CreateInstance(_reference);
+        }
+    }
+
+    [SerializeField] FMODSound _walk;
+    [SerializeField] FMODSound _jump;
+    [SerializeField] FMODSound _land;
+    [SerializeField] FMODSound _dash;
+
+    private void Start()
+    {
+        _walk.Init();
+        _jump.Init();
+        _land.Init();
+        _dash.Init();
+    }
+
+    
     public void BridgePlayerWalk(bool isWalking)
     {
-        _walk?.SetActive(isWalking);
+        if (isWalking) _walk.instance.start();
+        else _walk.instance.stop(STOP_MODE.ALLOWFADEOUT);
     }
 
     public void BridgePlayerJump()
-    {
-
-        _jump.SetActive(false);
-        _jump.SetActive(true);
-    }
+        => _jump.instance.start();
 
     public void BridgePlayerLand()
-    {
-        _land.SetActive(false);
-        _land.SetActive(true);
-    }
+        => _land.instance.start();
 
     public void BridgePlayerDash()
-    {
-        _dash.SetActive(false);
-        _dash.SetActive(true);
-    }
-
+        => _dash.instance.start();
 }
