@@ -265,11 +265,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 97416787
-      Data2: 1329609058
-      Data3: 14940084
-      Data4: -1667675096
-    Path: event:/GUNS/GS_Pistol
+      Data1: -308265730
+      Data2: 1295269357
+      Data3: 1834241421
+      Data4: 199912220
+    Path: event:/GUNS/GS_Shotgun
   Event: 
   EventPlayTrigger: 1
   EventStopTrigger: 0
