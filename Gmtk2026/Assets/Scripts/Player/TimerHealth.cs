@@ -2,7 +2,7 @@ using UnBocal.Events;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_BulletOrRaycastTarget
+public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_BulletOrRaycastTarget, I_Upgradable
 {
     private const float MILLISECOND = 1000f;
 
@@ -100,5 +100,11 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
 
         CurrentTime -= damage.Time * MILLISECOND;
         _lastTimeHit = Time.time;
+    }
+
+    public void ApplyUpgrade(SOUpgrade.Upgrade u)
+    {
+        u.time.TryChange(ref maxTime);
+        CurrentTime = maxTime * MILLISECOND;
     }
 }

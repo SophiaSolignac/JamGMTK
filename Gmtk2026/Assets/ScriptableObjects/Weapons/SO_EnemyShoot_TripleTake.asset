@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOGun
   _title: Enemy Classic Gun
   _reloadDuration: 1
-  _waitBetweenInput: 1
+  _waitBetweenInput: 0
   _input: 0
   _type: 1
   _aim: 1

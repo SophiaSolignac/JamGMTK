@@ -724,6 +724,7 @@ GameObject:
   - component: {fileID: 5387106526494758790}
   - component: {fileID: 1257128723662469061}
   - component: {fileID: 2968361208102673334}
+  - component: {fileID: 4951980661745564774}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1092,6 +1093,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSwitchState
   _state: 0
+--- !u!114 &4951980661745564774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a246e4531700a242ad391cf07cd81b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeCatcher
 --- !u!1 &5522613428346550971
 GameObject:
   m_ObjectHideFlags: 0

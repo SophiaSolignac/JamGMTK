@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8132cccc1daf00947994641f4890d91c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemEquipAndDrop
-  _collider: {fileID: 0}
+  _collider: {fileID: 6127320029632004064}
   _whatIsGround:
     serializedVersion: 2
     m_Bits: 513

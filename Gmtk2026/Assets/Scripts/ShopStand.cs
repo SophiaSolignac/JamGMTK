@@ -1,45 +1,63 @@
-using System;
+using UnBocal.Events;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Rendering;
 
 public class ShopStand : MonoBehaviour, I_Interactable, I_BulletOrRaycastTarget
 {
-    private bool isInteractable = true;
-    public int cost = 100;
+    // -------~~~~~~~~~~================# // Events
+    public UnityEvent NoMoreUpgrade = new();
 
+    // -------~~~~~~~~~~================# // Money
     public delegate bool OnTrySpendMoneyHandler(int amount);
     public static event OnTrySpendMoneyHandler OnTrySpendMoney;
 
+
+    // -------~~~~~~~~~~================# // Upgrade
+    [SerializeField] SOUpgrade _uprade;
+    bool _lock;
+    int _count = 0;
+
     #region I_Interactable implementation
-    bool I_Interactable.IsInteractable
-    {
-        get
-        {
-            return isInteractable;
-        }
-        set
-        {
-            isInteractable = value;
-        }
-    }
+    bool I_Interactable.IsInteractable { get; set; } = true;
 
     public void Interact(I_Interactor interactor = null)
     {
-        if (!CanInteract())
+        if (!CanInteract()) return;
+
+        SOUpgrade.Upgrade u = _uprade[_count];
+
+        // If No More Upgrade Then Lock
+        if (u == null)
         {
-            Debug.Log("Cannot interact with the shop stand right now.");
+            Lock();
             return;
         }
+
         // If the player has enough money, spend it and add time to the timer
-        if (OnTrySpendMoney != null && OnTrySpendMoney.Invoke(cost))
-        {
-            OnAddMaxTime?.Invoke(10f); // Add 10 seconds to the timer
-        }
+        if (!(OnTrySpendMoney != null && OnTrySpendMoney.Invoke(Mathf.RoundToInt(u.Price.Value)))) return;
+        
+        // Buy Upgrade
+        EventBus<SOUpgrade.Upgrade>.Invoke(EventGame.Upgrade, u);
+        _count++;
+
+        if (_uprade.CountMax < _count) Lock();
     }
+
+    private void Lock()
+    {
+        _lock = true;
+        NoMoreUpgrade.Invoke();
+    }
+
     public bool CanInteract()
     {
-        return true; // Implement your logic to determine if interaction is possible
+        if (_lock) return false;
+
+        if (_uprade != null) return true;
+
+        Debug.Log("Cannot interact with the shop stand right now.");
+
+        return false;
     }
 
     public void OnHit(Damage damage)
