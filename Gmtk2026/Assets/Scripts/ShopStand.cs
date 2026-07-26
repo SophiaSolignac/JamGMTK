@@ -34,7 +34,6 @@ public class ShopStand : MonoBehaviour, I_Interactable, I_BulletOrRaycastTarget
         UpdateDisplay();
     }
 
-
     public void Interact(I_Interactor interactor = null)
     {
         if (!CanInteract()) return;
