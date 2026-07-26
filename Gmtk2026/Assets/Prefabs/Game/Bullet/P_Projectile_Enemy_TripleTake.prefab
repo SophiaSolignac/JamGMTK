@@ -10023,20 +10023,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d8351d9f8052acb48a4589112086963c, type: 2}
     - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
-      propertyPath: EventStopTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: EventReference.Path
       value: event:/ENEMIES/NMI_Spell_1
       objectReference: {fileID: 0}
     - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: OverrideMaxDistance
       value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
-      propertyPath: OverrideMinDistance
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: EventReference.Guid.Data1

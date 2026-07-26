@@ -20,10 +20,6 @@ public class Bullet : MonoBehaviour, IUBPooledObject
     float _speedMultipler;
 
     public IUBPoolRef PoolSelf { get; set; }
-
-    private ParticleSystem[] _particles;
-
-    private void Awake() => _particles = GetComponentsInChildren<ParticleSystem>();
     
     private void Update()
     {
@@ -39,8 +35,7 @@ public class Bullet : MonoBehaviour, IUBPooledObject
     {
         // Return If Bullet From Same Shooter
         if (_shooter != null && collision.transform.TryGetComponent(out Bullet ohterBullet) && ohterBullet._shooter == _shooter) return;
-
-
+        
         I_BulletOrRaycastTarget[] targets = collision.transform.GetComponents<I_BulletOrRaycastTarget>();
         if (targets.Length > 0)
         {
@@ -48,6 +43,8 @@ public class Bullet : MonoBehaviour, IUBPooledObject
             {
                 target.OnHit(_settings.Damages);
             }
+        }
+        
         // Try Hit I_BulletTarget
         if (collision.transform.TryGetComponent(out I_BulletOrRaycastTarget hitTarget))
             hitTarget.OnHit(_settings.Damages);
@@ -56,12 +53,12 @@ public class Bullet : MonoBehaviour, IUBPooledObject
         {
             ContactPoint contact = collision.contacts[0];
             GameObject vfx = Instantiate(_vfxExplosionPrefab, contact.point, Quaternion.LookRotation(contact.normal));
-            Destroy(vfx, 2f); 
+            Destroy(vfx, 2f);
         }
 
         StoreInPool();
     }
-
+    
     public void Init(SOGun gunSettings, Collider shooterCollider, Item shooter)
     {
         // Init Properties
