@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3976439914916927548, guid: efe057314ce58aa4aac37fbc4761bf8d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3976439914916927548, guid: efe057314ce58aa4aac37fbc4761bf8d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8208497886915318055, guid: efe057314ce58aa4aac37fbc4761bf8d, type: 3}
       propertyPath: m_Name
-      value: P_Brick_2x6x9 Variant
+      value: P_Brick_2x6x9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -14,20 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOGun
   _title: Shot Gun
   _reloadDuration: 1
-  _waitBetweenInput: 0.8
+  _waitBetweenInput: 1
   _input: 0
   _type: 1
   _aim: 1
   _correctAimWithHolder: 1
   _amoMax: 1
   _fireRate: 1
-  _damage: 1
+  _damages:
+    Point: 1
+    Time: 1
   _distance: 999
   _layerMask:
     serializedVersion: 2
     m_Bits: 1015
   _perssing: 0
-  _bullet: {fileID: 6705885181896291156, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
+  _bullet: {fileID: -4176890893449403638, guid: 3f056c1b2be3611489e29dabb6b841d7, type: 3}
   _speedMultipler: {x: 0.8, y: 1.2}
   _angleOpening: 10
-  _bulletPerShot: 15
+  _bulletPerShot: 14

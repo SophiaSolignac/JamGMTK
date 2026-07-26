@@ -15,7 +15,7 @@ MonoBehaviour:
   _title: Enemy classic bullet
   _damages:
     Point: 1
-    Time: 10
-  _despawnDistance: 20
-  _LifeTimie: 20
-  _speed: 10
+    Time: 1.5
+  _despawnDistance: 25
+  _LifeTimie: 25
+  _speed: 30
