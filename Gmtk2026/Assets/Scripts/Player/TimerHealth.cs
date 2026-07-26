@@ -106,8 +106,8 @@ public class TimerHealth : PersistentSingleton<TimerHealth>, I_Resettable, I_Bul
             return;
         CurrentTime = 0;
         isTimerActive = false;
-        OnPlayerRagdoll.Invoke();
-        Invoke(nameof(Die), 5f);
+        //OnPlayerRagdoll.Invoke();
+        Invoke(nameof(Die), 0.5f);
     }
 
     public void ApplyUpgrade(SOUpgrade.Upgrade u)
