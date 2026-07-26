@@ -698,11 +698,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHUD
   PlayerStateEvent:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1925126476
+      Data2: 1214762886
+      Data3: 1859404191
+      Data4: -917080996
+    Path: event:/OTHER/COIN_PickUp
   _crosshair: {fileID: 4995328953747363205}
   _crosshairRenderer:
   - {fileID: 21300000, guid: c805174fb300f6947a6d74da0c7bec4a, type: 3}
