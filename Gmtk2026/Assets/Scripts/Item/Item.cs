@@ -3,12 +3,13 @@ using UnityEngine.Events;
 
 public class Item : MonoBehaviour
 {
+    // -------~~~~~~~~~~================# // Bridges
     public const string ASK_EQUIP = "BridgeAskEquip";
-
     public const string ON_EQUIP = "BridgeOnEquip";
     public const string ON_DROP = "BridgeOnDrop";
     public const string ON_USE = "BridgeOnUse";
 
+    // -------~~~~~~~~~~================# // Global Parent
     private const string GLOBAL_PARENT_NAME = "[Item Container]";
     static Transform _globalParent;
     public static Transform GlobalParent
@@ -23,11 +24,8 @@ public class Item : MonoBehaviour
             return _globalParent;
         }
     }
-    
-    public UnityEvent onEquip = new();
-    public UnityEvent onDrop = new();
-    public UnityEvent onUsed = new();
 
+    // -------~~~~~~~~~~================# // Events
     public enum InputType { Tap, Hold }
     public enum Hand { Left, Right }
 
@@ -54,7 +52,6 @@ public class Item : MonoBehaviour
         transform.localScale = Vector3.one;
 
         gameObject.SendMessage(Item.ON_EQUIP, owner, SendMessageOptions.DontRequireReceiver);
-        onEquip.Invoke();
     }
 
     public void Drop(Transform container = null)
@@ -66,7 +63,6 @@ public class Item : MonoBehaviour
         transform.rotation = Quaternion.FromToRotation(transform.forward, Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized) * transform.rotation;
 
         gameObject.SendMessage(Item.ON_DROP, SendMessageOptions.DontRequireReceiver);
-        onDrop.Invoke();
     }
 
     public virtual void Use(bool started)
@@ -83,6 +79,5 @@ public class Item : MonoBehaviour
     protected virtual void ApplyUse()
     {
         gameObject.SendMessage(Item.ON_USE, SendMessageOptions.DontRequireReceiver);
-        onUsed.Invoke();
     }
 }
