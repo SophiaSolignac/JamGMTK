@@ -51,7 +51,6 @@ public class GameManager : PersistentSingleton<GameManager>
 
         EventBus<GameState>.Invoke(EventGame.OnStateChanged, _gameState);
 
-        Debug.Log("Manager");
     }
 }
 

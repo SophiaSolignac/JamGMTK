@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class RessourceSystem : MonoBehaviour, I_Resettable
+public class RessourceSystem : MonoBehaviour
 {
-    private int currentCoins = 100;
+    [SerializeField] private int currentCoins = 10;
     public UnityEvent<int> OnCoinsChanged = new UnityEvent<int>();
 
     public int CurrentCoins 
@@ -15,14 +15,12 @@ public class RessourceSystem : MonoBehaviour, I_Resettable
             OnCoinsChanged.Invoke(currentCoins); // Notify listeners of the change
         }
     }
-    private void Awake()
+
+    private void Start()
     {
-        GameManager.OnReset.AddListener(ResetObj);
+        OnCoinsChanged.Invoke(currentCoins);
     }
-    public void ResetObj()
-    {
-        CurrentCoins = 100; // Reset coins to 100
-    }
+
     public void AddCoins(int amount)
     {
         CurrentCoins += amount;

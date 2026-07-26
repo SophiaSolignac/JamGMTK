@@ -49,7 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   _settings: {fileID: 11400000, guid: b3a0ab9019bc25e43962c4167a77ecb9, type: 2}
-  _collider: {fileID: 0}
+  _collider: {fileID: 4989840502332008056}
+  _vfxExplosionPrefab: {fileID: 8540427757575921915, guid: d77183e2cc80ee74f81676dad53506ef, type: 3}
 --- !u!135 &4989840502332008056
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -60,10 +61,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 3063
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 5120
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

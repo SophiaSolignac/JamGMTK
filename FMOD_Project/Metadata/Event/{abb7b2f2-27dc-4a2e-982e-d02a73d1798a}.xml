@@ -60,6 +60,9 @@
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{8929b4d0-917c-48b5-951a-b1c454ec47a5}">
+		<property name="minimumDistance">
+			<value>0</value>
+		</property>
 		<property name="maximumDistance">
 			<value>35</value>
 		</property>
@@ -122,7 +125,7 @@
 			<value>1</value>
 		</property>
 		<property name="soundSize">
-			<value>19</value>
+			<value>15.5</value>
 		</property>
 		<property name="minimumExtent">
 			<value>114</value>
