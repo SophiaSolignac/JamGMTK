@@ -501,12 +501,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5283887999211995953, guid: d77183e2cc80ee74f81676dad53506ef, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6624833983797328342, guid: d77183e2cc80ee74f81676dad53506ef, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7007762622569815954, guid: d77183e2cc80ee74f81676dad53506ef, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8540427757575921915, guid: d77183e2cc80ee74f81676dad53506ef, type: 3}
       propertyPath: m_Name
       value: VFX_Explosion
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6805410701131308685, guid: d77183e2cc80ee74f81676dad53506ef, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d77183e2cc80ee74f81676dad53506ef, type: 3}

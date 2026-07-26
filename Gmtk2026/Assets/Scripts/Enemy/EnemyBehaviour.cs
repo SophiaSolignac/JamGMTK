@@ -33,7 +33,9 @@ namespace GMTK.Enemy
         
         [Header("Health & Defense Settings")]
         [SerializeField] private int _MaxHealth = 100;
-        [SerializeField] private int _BaseDamage = 25;
+        [SerializeField] private int _BaseDamage = 25; 
+        
+        private ParticleSystem[] _DeathParticles;
 
         private const float MIN_MAGNITUDE = .0001f;
         
@@ -74,6 +76,8 @@ namespace GMTK.Enemy
             
             _CurrentSphereCollider = GetComponent<SphereCollider>();
             _CurrentSphereCollider.isTrigger = true;
+
+            _DeathParticles = GetComponentsInChildren<ParticleSystem>();
 
             TryGetComponent(out _DeathDrop);
             TryGetComponent(out _HitBlink);
@@ -209,11 +213,11 @@ namespace GMTK.Enemy
                 _CheckSightCoroutine = null;
             }
 
-            if (_LookAtCoroutine != null)
-            {
-                StopCoroutine(_LookAtCoroutine);
-                _LookAtCoroutine = null;
-            }
+            if (_LookAtCoroutine == null) 
+                return;
+            
+            StopCoroutine(_LookAtCoroutine);
+            _LookAtCoroutine = null;
         }
 
         private void OnDisable() => StopAllDetectionCoroutines();
@@ -280,8 +284,34 @@ namespace GMTK.Enemy
                 _CurrentSphereCollider.enabled = false;
 
             _DeathDrop?.Drop();
-            _ExplosionParticles?.Play();
+            
+            ManageDeathParticles();
             Destroy(gameObject);
+        }
+
+        private void ManageDeathParticles()
+        {
+            if (_DeathParticles is not { Length: > 0 }) 
+                return;
+
+            Transform lVFXParent = _DeathParticles[0].transform.parent != transform 
+                ? _DeathParticles[0].transform.parent 
+                : _DeathParticles[0].transform;
+
+            lVFXParent.SetParent(null);
+
+            float lMaxLifetime = 0f;
+
+            foreach (ParticleSystem lParticleSystem in _DeathParticles)
+            {
+                lParticleSystem.Play();
+                ParticleSystem.MainModule main = lParticleSystem.main;
+                float lDuration = main.duration + main.startLifetime.constantMax;
+                if (lDuration > lMaxLifetime) 
+                    lMaxLifetime = lDuration;
+            }
+
+            Destroy(lVFXParent.gameObject, lMaxLifetime);
         }
         
         private void OnDrawGizmos()
