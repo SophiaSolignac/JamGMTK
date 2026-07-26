@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOBullet
   _title: Triple Take
   _damages:
-    Point: 1
+    Point: 0
     Time: 2
   _despawnDistance: 25
   _LifeTimie: 25
