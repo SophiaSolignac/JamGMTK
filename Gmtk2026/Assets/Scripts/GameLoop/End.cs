@@ -9,7 +9,8 @@ public class End : MonoBehaviour
     {
         if (!collider.TryGetComponent(out PlayerItemHolder holder)) return;
 
-        if (!holder.Item && !holder.Item.CompareTag(_endTag)) return;
+        if (!holder.Item && !holder.Item.CompareTag(_endTag)
+            || !holder.SecondaryItem && !holder.SecondaryItem.CompareTag(_endTag)) return;
 
         EventBus.Invoke(EventGame.End);
     }

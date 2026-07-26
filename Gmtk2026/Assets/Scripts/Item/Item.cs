@@ -29,6 +29,7 @@ public class Item : MonoBehaviour
     public UnityEvent onUsed = new();
 
     public enum InputType { Tap, Hold }
+    public enum Hand { Left, Right }
 
     [SerializeField] protected Transform _aim;
 
