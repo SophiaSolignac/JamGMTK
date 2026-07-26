@@ -1,8 +1,9 @@
 using GMTK.Inputs;
 using System;
+using UnBocal.Events;
 using UnityEngine;
 
-public class NewPlayerMovement : MonoBehaviour
+public class NewPlayerMovement : MonoBehaviour, I_Upgradable
 {
     // -------~~~~~~~~~~================# // Components
     [Header("Components")]
@@ -75,6 +76,15 @@ public class NewPlayerMovement : MonoBehaviour
     float _leftGroundTime = float.NegativeInfinity;
 
     // ----------------~~~~~~~~~~~~~~~~~~~==========================# // Unity
+    private void Awake()
+    {
+        // Connect Inputs
+        InputManager.onLook.AddListener(OnLook);
+        InputManager.onMove.AddListener(OnMove);
+        InputManager.onJump.AddListener(OnJump);
+        InputManager.onDash.AddListener(OnDash);
+    }
+
     private void Start()
     {
         // Init Components
@@ -84,12 +94,6 @@ public class NewPlayerMovement : MonoBehaviour
 
         // Set Cursor
         Cursor.lockState = CursorLockMode.Locked;
-
-        // Connect Inputs
-        InputManager.onLook.AddListener(OnLook);
-        InputManager.onMove.AddListener(OnMove);
-        InputManager.onJump.AddListener(OnJump);
-        InputManager.onDash.AddListener(OnDash);
     }
 
     private void OnDestroy()
@@ -338,5 +342,14 @@ public class NewPlayerMovement : MonoBehaviour
     {
         _pivotY.rotation = _yRotation = Quaternion.identity;
         _body.linearVelocity = Quaternion.Inverse(transform.rotation) * _body.linearVelocity;
+    }
+
+    public void ApplyUpgrade(SOUpgrade.Upgrade u)
+    {
+        u.movmentSpeed.TryChange(ref _maxMovementSpeed);
+        u.dashForce.TryChange(ref _dashForce);
+        u.dashDuration.TryChange(ref _dashDuration);
+        u.dashCooldown.TryChange(ref _dashCoolDown);
+        u.jumpForce.TryChange(ref _jumpForce);
     }
 }

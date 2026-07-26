@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOBullet
   _title: Spiral
   _damages:
-    Point: 1
+    Point: 0
     Time: 0.5
   _despawnDistance: 20
   _LifeTimie: 20

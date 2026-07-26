@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOBullet
   _title: Enemy classic bullet
   _damages:
-    Point: 1
+    Point: 0
     Time: 1.5
   _despawnDistance: 25
   _LifeTimie: 25
