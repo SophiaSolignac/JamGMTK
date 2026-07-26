@@ -16,6 +16,7 @@ public class ShopStand : MonoBehaviour, I_Interactable, I_BulletOrRaycastTarget
     bool I_Interactable.IsInteractable { get; set; } = true;
 
     // -------~~~~~~~~~~================# // Component
+    [SerializeField] TextMeshProUGUI _nameRenderer;
     [SerializeField] TextMeshProUGUI _priceRenderer;
 
     // -------~~~~~~~~~~================# // Upgrade
@@ -27,6 +28,9 @@ public class ShopStand : MonoBehaviour, I_Interactable, I_BulletOrRaycastTarget
     private void Start()
     {
         _current = _uprade[_count];
+
+        if (_uprade && _nameRenderer) _nameRenderer.text = _uprade.Title;
+
         UpdateDisplay();
     }
 
