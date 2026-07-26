@@ -696,6 +696,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12d35de4dfea2341a5ead8c4ab980d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHUD
+  PlayerStateEvent:
+    Guid:
+      Data1: 1925126476
+      Data2: 1214762886
+      Data3: 1859404191
+      Data4: -917080996
+    Path: event:/OTHER/COIN_PickUp
   _crosshair: {fileID: 4995328953747363205}
   _crosshairRenderer:
   - {fileID: 21300000, guid: c805174fb300f6947a6d74da0c7bec4a, type: 3}
@@ -725,6 +732,7 @@ GameObject:
   - component: {fileID: 1257128723662469061}
   - component: {fileID: 2968361208102673334}
   - component: {fileID: 4951980661745564774}
+  - component: {fileID: 5053301232024808835}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1105,6 +1113,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a246e4531700a242ad391cf07cd81b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeCatcher
+--- !u!114 &5053301232024808835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945690322330585742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f8a45b1287b3045b598be92f1c8828, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSoundManager
+  _walk:
+    _reference:
+      Guid:
+        Data1: -889792616
+        Data2: 1329012359
+        Data3: 991717795
+        Data4: 167809794
+      Path: event:/PLAYER/PLYR_StepLoop
+  _jump:
+    _reference:
+      Guid:
+        Data1: -132906067
+        Data2: 1273159648
+        Data3: 1371595909
+        Data4: 1896927901
+      Path: event:/PLAYER/PLYR_Jump
+  _land:
+    _reference:
+      Guid:
+        Data1: -1720067107
+        Data2: 1261139614
+        Data3: 765522100
+        Data4: -1264333792
+      Path: event:/PLAYER/PLYR_Land
+  _dash:
+    _reference:
+      Guid:
+        Data1: -1051730732
+        Data2: 1263414061
+        Data3: 1874632345
+        Data4: -1116355924
+      Path: event:/PLAYER/PLYR_Dash
 --- !u!1 &5522613428346550971
 GameObject:
   m_ObjectHideFlags: 0
