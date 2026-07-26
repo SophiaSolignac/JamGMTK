@@ -76,6 +76,26 @@ PrefabInstance:
       propertyPath: _settings
       value: 
       objectReference: {fileID: 11400000, guid: b3a311b2f51f46648a381ffe89715818, type: 2}
+    - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
+      propertyPath: EventReference.Path
+      value: event:/ENEMIES/NMI_Spell_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: -1414024462
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1244538844
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: 718286488
+      objectReference: {fileID: 0}
+    - target: {fileID: 7987681116966585998, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: -1971728013
+      objectReference: {fileID: 0}
     - target: {fileID: 8427727569361243537, guid: a4f14be38badc3d4c9ff0b5ddf988d48, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
