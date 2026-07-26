@@ -168,7 +168,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff96eec6dfbf9c479134757c0565b16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopStand
-  cost: 100
+  NoMoreUpgrade:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6703619082230588387}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _uprade: {fileID: 11400000, guid: 104a996a78e0ee949ae3351a5c798ef9, type: 2}
 --- !u!65 &4489103745849449609
 BoxCollider:
   m_ObjectHideFlags: 0
