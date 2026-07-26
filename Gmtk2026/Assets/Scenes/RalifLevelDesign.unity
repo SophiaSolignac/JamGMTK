@@ -1143,7 +1143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 690112082604355314, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
       propertyPath: _maxMovementSpeed
-      value: 13
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 980551240067507755, guid: d7cd0340b2ab70a419b0f96510df89ca, type: 3}
       propertyPath: m_AnchorMax.y
