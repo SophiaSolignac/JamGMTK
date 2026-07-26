@@ -1,10 +1,13 @@
+using System;
 using UnBocal.Utilities;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Bullet : MonoBehaviour, IUBPooledObject
 {
     [SerializeField] SOBullet _settings;
     [SerializeField] Collider _collider;
+    [SerializeField] GameObject _vfxExplosionPrefab;
 
     public SOBullet Settings => _settings;
 
@@ -17,7 +20,10 @@ public class Bullet : MonoBehaviour, IUBPooledObject
 
     public IUBPoolRef PoolSelf { get; set; }
 
+    private ParticleSystem[] _particles;
 
+    private void Awake() => _particles = GetComponentsInChildren<ParticleSystem>();
+    
     private void Update()
     {
         CheckForDestroy();
@@ -36,6 +42,13 @@ public class Bullet : MonoBehaviour, IUBPooledObject
         // Try Hit I_BulletTarget
         if (collision.transform.TryGetComponent(out I_BulletOrRaycastTarget hitTarget))
             hitTarget.OnHit(_settings.Damages);
+        
+        if (_vfxExplosionPrefab != null)
+        {
+            ContactPoint contact = collision.contacts[0];
+            GameObject vfx = Instantiate(_vfxExplosionPrefab, contact.point, Quaternion.LookRotation(contact.normal));
+            Destroy(vfx, 2f); 
+        }
 
         StoreInPool();
     }
