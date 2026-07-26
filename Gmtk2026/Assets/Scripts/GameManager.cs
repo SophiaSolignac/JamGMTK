@@ -13,6 +13,7 @@ public class GameManager : PersistentSingleton<GameManager>
         base.Awake();
         TimerHealth.OnPlayerDeath.AddListener(OnPlayerDeath);
         EventBus<GameState>.Connect(EventGame.AskChangeState, SwitchState);
+        EventBus.Connect(EventGame.End, OnEnd);
     }
 
     private void Start()
@@ -20,6 +21,11 @@ public class GameManager : PersistentSingleton<GameManager>
         OnReset.Invoke();
 
         EventBus<GameState>.Invoke(EventGame.OnStateChanged, _gameState);
+    }
+
+    private void OnEnd()
+    {
+        Destroy(gameObject);
     }
 
     private void OnPlayerDeath() => SwitchState(GameState.Shop);
@@ -57,5 +63,6 @@ public enum EventGame
     OnStateChanged,
     NewCheckPoint,
     GoToLastCheckPoint,
-    GoToCheckPoint
+    GoToCheckPoint,
+    End
 }

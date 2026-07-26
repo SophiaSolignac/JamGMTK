@@ -30,6 +30,11 @@ namespace GMTK.Inputs
             if (context.started) onDash.Invoke();
         }
 
+        public void OnSwitch(InputAction.CallbackContext context)
+        {
+            if (context.started) onSwitch.Invoke();
+        }
+
         public void OnAttack(InputAction.CallbackContext context)
         {
             if (context.started || context.canceled)

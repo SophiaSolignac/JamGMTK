@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 
 public class KeyListener : MonoBehaviour
 {
@@ -13,8 +12,7 @@ public class KeyListener : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(key)) Down.Invoke();
-        else if (Input.GetKeyUp(key)) Up.Invoke();
-        else if (Input.GetKey(key)) Hold.Invoke();
+        if (Input.GetKeyUp(key)) Up.Invoke();
+        if (Input.GetKey(key)) Hold.Invoke();
     }
-
 }
