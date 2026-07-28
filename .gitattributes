@@ -1,0 +1,55 @@
+# Binary assets are stored in Git LFS rather than committed directly.
+#
+# Without this, a single uncompressed .wav is enough to hit GitHub's limits:
+# it warns above 50 MiB and rejects the push outright above 100 MiB.
+#
+# This applies to commits made from here on. Files already in history keep
+# their existing form until someone runs `git lfs migrate import`.
+#
+# Requires git-lfs installed (`git lfs install`) on every machine that clones
+# this repo, otherwise these paths check out as ~130 byte pointer files.
+
+# --- Audio: FMOD sources and built banks ---
+*.wav  filter=lfs diff=lfs merge=lfs -text
+*.aif  filter=lfs diff=lfs merge=lfs -text
+*.aiff filter=lfs diff=lfs merge=lfs -text
+*.flac filter=lfs diff=lfs merge=lfs -text
+*.mp3  filter=lfs diff=lfs merge=lfs -text
+*.ogg  filter=lfs diff=lfs merge=lfs -text
+*.bank filter=lfs diff=lfs merge=lfs -text
+*.fobj filter=lfs diff=lfs merge=lfs -text
+
+# --- FMOD native libraries shipped with the Unity integration ---
+*.a      filter=lfs diff=lfs merge=lfs -text
+*.lib    filter=lfs diff=lfs merge=lfs -text
+*.dll    filter=lfs diff=lfs merge=lfs -text
+*.so     filter=lfs diff=lfs merge=lfs -text
+*.dylib  filter=lfs diff=lfs merge=lfs -text
+*.bundle filter=lfs diff=lfs merge=lfs -text
+
+# --- 3D and source art ---
+*.fbx   filter=lfs diff=lfs merge=lfs -text
+*.obj   filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+*.psd   filter=lfs diff=lfs merge=lfs -text
+*.psb   filter=lfs diff=lfs merge=lfs -text
+*.tif   filter=lfs diff=lfs merge=lfs -text
+*.tiff  filter=lfs diff=lfs merge=lfs -text
+*.exr   filter=lfs diff=lfs merge=lfs -text
+*.tga   filter=lfs diff=lfs merge=lfs -text
+
+# --- Video ---
+*.mp4  filter=lfs diff=lfs merge=lfs -text
+*.mov  filter=lfs diff=lfs merge=lfs -text
+
+# --- Unity ---
+*.unitypackage filter=lfs diff=lfs merge=lfs -text
+
+# Unity scenes and prefabs are text (YAML) and must stay diffable -- do not
+# put them in LFS. They are only text if Asset Serialization is set to
+# "Force Text" in Project Settings > Editor.
+*.unity  text
+*.prefab text
+*.asset  text
+*.mat    text
+*.meta   text
