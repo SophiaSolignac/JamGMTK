@@ -763,11 +763,19 @@ PrefabInstance:
     - target: {fileID: -2951678595423994395, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 891d710adce398244b21697ab9b28e2a, type: 2}
+      objectReference: {fileID: 2100000, guid: a0a29734a9e06c94bb712a1a46de038e, type: 2}
+    - target: {fileID: -2005254371454720145, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 665004fa51b09964485c944b9a33c728, type: 2}
     - target: {fileID: -1468662180276524799, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: fb10a179cc2f88f4884bbf022e9e38dd, type: 2}
+    - target: {fileID: 692447249871354435, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 665004fa51b09964485c944b9a33c728, type: 2}
     - target: {fileID: 919132149155446097, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: m_Name
       value: SM_Crane_Ennemie
@@ -775,11 +783,11 @@ PrefabInstance:
     - target: {fileID: 1790868808166937211, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: fb10a179cc2f88f4884bbf022e9e38dd, type: 2}
+      objectReference: {fileID: 2100000, guid: 665004fa51b09964485c944b9a33c728, type: 2}
     - target: {fileID: 2346011054020360518, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 891d710adce398244b21697ab9b28e2a, type: 2}
+      objectReference: {fileID: 2100000, guid: a0a29734a9e06c94bb712a1a46de038e, type: 2}
     - target: {fileID: 3575641881151511511, guid: 9e9a0629275ab7449982bd492c2f96a2, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

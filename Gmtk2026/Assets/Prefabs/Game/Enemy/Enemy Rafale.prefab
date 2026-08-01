@@ -24,10 +24,18 @@ PrefabInstance:
       propertyPath: _RotationSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2304594985364436327, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5dfa6086f49b121479012c9478edf7a3, type: 2}
     - target: {fileID: 2429490565376726243, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
       propertyPath: _count
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3231879048322854893, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e9f1ce0d231d1fb4f86336e87a6b32cc, type: 2}
     - target: {fileID: 3461187286307794762, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
       propertyPath: _settings
       value: 
@@ -96,10 +104,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6583914885118864206, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e9f1ce0d231d1fb4f86336e87a6b32cc, type: 2}
     - target: {fileID: 7136523820213551219, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: df8f5a5183f7dff44858a66bd7b6a3a6, type: 2}
+      objectReference: {fileID: 2100000, guid: 5dfa6086f49b121479012c9478edf7a3, type: 2}
+    - target: {fileID: 8236070179976013899, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5dfa6086f49b121479012c9478edf7a3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

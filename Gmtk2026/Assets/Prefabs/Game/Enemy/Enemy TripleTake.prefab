@@ -36,10 +36,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2304594985364436327, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 559ad5980713d104ca16a760cb297037, type: 2}
     - target: {fileID: 2429490565376726243, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
       propertyPath: _count
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3231879048322854893, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5302b0faa3bb3584893d5ff5b575ee3c, type: 2}
     - target: {fileID: 3461187286307794762, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
       propertyPath: _settings
       value: 
@@ -108,14 +116,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6583914885118864206, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5302b0faa3bb3584893d5ff5b575ee3c, type: 2}
     - target: {fileID: 7136523820213551219, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c967d48567c61fb4d9e8554f13f4bd65, type: 2}
+      objectReference: {fileID: 2100000, guid: 559ad5980713d104ca16a760cb297037, type: 2}
     - target: {fileID: 7759972786325440177, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8236070179976013899, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 559ad5980713d104ca16a760cb297037, type: 2}
     - target: {fileID: 8602081103361987353, guid: bc967aecd62911445980b6ae59ad7aae, type: 3}
       propertyPath: m_Radius
       value: 25
