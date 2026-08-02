@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_Grass_Reeds
+  m_Shader: {fileID: 4800000, guid: 413ad92ed1c784746a27389c4ba294b8, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: 2450
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: d95acf48caa01f840803ed49fd906a8e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AmbientBoost: 3
+    - _Cull: 0
+    - _Cutoff: 0.309
+    - _GradientPower: 0.1
+    - _Height: 2.1
+    - _NormalUp: 1
+    - _RandomHeight: 0.9
+    - _WindScale: 1.21
+    - _WindSpeed: 4.46
+    - _WindStrength: 0.83
+    - _WindSway: 3.94
+    m_Colors:
+    - _BottomColor: {r: 0.6666667, g: 0.7411765, b: 0.8156863, a: 1}
+    - _TopColor: {r: 0.8503916, g: 0.9245283, b: 0.9218197, a: 1}
+    - _WindDirection: {r: 1, g: 0.35, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

@@ -35,11 +35,14 @@ public class NordicTreeScatter : EditorWindow
     float navMeshClearance = 5f;
     float maxSlope = 30f;
 
-    bool limitToMountains = true;
+    NordicScatterCore.BoundarySource boundarySource = NordicScatterCore.BoundarySource.GameplayObjects;
+    float boundaryAmount = 45f;
+    bool keepOffMountains = true;
     string mountainsPath = NordicScatterCore.MountainsPath;
-    float boundaryInset = 10f;
     bool showBoundary = true;
     List<Vector2> boundary;
+    Transform mountainT;
+    int rejectedByBoundary;
 
     float alignToNormal = 0.12f;      // trees grow up, not perpendicular to the hill
     float randomTilt = 4f;
@@ -94,14 +97,27 @@ public class NordicTreeScatter : EditorWindow
         areaSize = EditorGUILayout.Vector2Field("Area size (X, Z)", areaSize);
         if (GUILayout.Button("Fit area to the level")) FitArea();
         EditorGUILayout.Space(4);
-        limitToMountains = EditorGUILayout.Toggle("Stay inside the mountains", limitToMountains);
-        using (new EditorGUI.DisabledScope(!limitToMountains))
+        var newSource = (NordicScatterCore.BoundarySource)EditorGUILayout.EnumPopup("Boundary", boundarySource);
+        if (newSource != boundarySource) { boundarySource = newSource; RefreshBoundary(); }
+
+        using (new EditorGUI.DisabledScope(boundarySource == NordicScatterCore.BoundarySource.None))
         {
-            mountainsPath = EditorGUILayout.TextField("  Mountain root", mountainsPath);
-            boundaryInset = EditorGUILayout.Slider("  Pull inward by (m)", boundaryInset, -50f, 80f);
+            if (boundarySource == NordicScatterCore.BoundarySource.GameplayObjects)
+            {
+                boundaryAmount = EditorGUILayout.Slider("  Reach past gameplay (m)", boundaryAmount, 5f, 250f);
+                EditorGUILayout.HelpBox("Wraps the spawns, gun spawners, doors and structures, then grows " +
+                    "outward by this much. The mountain group is a bad boundary here — it mixes the arena " +
+                    "walls with background mountains 230 m out.", MessageType.None);
+            }
+            else
+            {
+                mountainsPath = EditorGUILayout.TextField("  Mountain root", mountainsPath);
+                boundaryAmount = EditorGUILayout.Slider("  Pull inward by (m)", boundaryAmount, -50f, 200f);
+            }
             showBoundary = EditorGUILayout.Toggle("  Show the line", showBoundary);
             if (GUILayout.Button("Refresh boundary")) RefreshBoundary();
         }
+        keepOffMountains = EditorGUILayout.Toggle("Never on the mountains", keepOffMountains);
         gameplayClearance = EditorGUILayout.Slider("Away from gameplay", gameplayClearance, 0f, 80f);
         structureClearance = EditorGUILayout.Slider("Away from buildings", structureClearance, 0f, 80f);
         navMeshClearance = EditorGUILayout.Slider("Away from walkable navmesh", navMeshClearance, 0f, 30f);
@@ -143,15 +159,16 @@ public class NordicTreeScatter : EditorWindow
 
     void OnScene(SceneView sv)
     {
-        if (!limitToMountains || !showBoundary) return;
+        if (!showBoundary) return;
         NordicScatterCore.DrawBoundary(boundary, areaCenter.y + 2f);
     }
 
     void RefreshBoundary()
     {
-        boundary = limitToMountains ? NordicScatterCore.BuildBoundary(mountainsPath, boundaryInset) : null;
-        if (limitToMountains && boundary == null)
-            Debug.LogWarning($"[Trees] No mountains under \"{mountainsPath}\" — the boundary is off.");
+        boundary = NordicScatterCore.BuildBoundary(boundarySource, mountainsPath, boundaryAmount);
+        if (boundarySource != NordicScatterCore.BoundarySource.None && boundary == null)
+            Debug.LogWarning($"[Trees] Could not build a \"{boundarySource}\" boundary — it is off, " +
+                             "so nothing will be rejected for being outside.");
         SceneView.RepaintAll();
     }
 
@@ -181,6 +198,12 @@ public class NordicTreeScatter : EditorWindow
         }
 
         RefreshBoundary();
+        rejectedByBoundary = 0;
+
+        var mountainRoot = keepOffMountains ? GameObject.Find(mountainsPath) : null;
+        mountainT = mountainRoot != null ? mountainRoot.transform : null;
+        if (keepOffMountains && mountainT == null)
+            Debug.LogWarning($"[Trees] No \"{mountainsPath}\" — cannot tell mountain ground apart.");
 
         var hidden = NordicScatterCore.HideScatters();
         var keepOut = NordicScatterCore.BuildKeepOut(NordicScatterCore.DefaultAvoid,
@@ -265,7 +288,7 @@ public class NordicTreeScatter : EditorWindow
         Dirty();
         Selection.activeGameObject = root;
         Debug.Log($"[Trees] {placed} trees in {groves.Count} groves — about {tris:N0} triangles. " +
-                  $"Boundary: {(boundary != null ? boundary.Count + "-sided mountain ring" : "off")}. " +
+                  $"Boundary: {(boundary != null ? $"{boundarySource}, {boundary.Count} sides, rejected {rejectedByBoundary} samples" : "OFF")}. " +
                   $"NavMesh check: {(nav ? "on" : "no navmesh baked")}.", root);
     }
 
@@ -280,7 +303,8 @@ public class NordicTreeScatter : EditorWindow
                 List<Vector3> taken, out NordicScatterCore.Ground g)
     {
         if (!NordicScatterCore.SampleGround(xz, out g)) return false;
-        if (!NordicScatterCore.Inside(g.pos, boundary)) return false;
+        if (!NordicScatterCore.Inside(g.pos, boundary)) { rejectedByBoundary++; return false; }
+        if (NordicScatterCore.IsUnder(g.hit, mountainT)) return false;
         if (g.slope > maxSlope) return false;
         if (NordicScatterCore.IsAvoided(g.hit, NordicScatterCore.DefaultAvoid, NordicScatterCore.DefaultStructures)) return false;
         if (NordicScatterCore.TooClose(g.pos, keepOut)) return false;

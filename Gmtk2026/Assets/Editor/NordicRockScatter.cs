@@ -17,6 +17,7 @@ public class NordicRockScatter : EditorWindow
 {
     // ---------- settings ----------
     string prefabFolder = "Assets/Prefabs/Environment";
+    string excludeNames = "Arbre, Tree, Bush, Plant";
     string containerName = "Rocks_Scatter";
     string parentPath = "Environnement";
 
@@ -27,9 +28,13 @@ public class NordicRockScatter : EditorWindow
     Vector2 areaSize = new Vector2(560f, 560f);
     bool areaInitialised = false;
 
-    bool limitToMountains = true;
+    NordicScatterCore.BoundarySource boundarySource = NordicScatterCore.BoundarySource.GameplayObjects;
+    float boundaryAmount = 70f;
+    bool terrainOnly = true;        // ground means the terrain, not a mountain and not a prop
+    bool keepOffMountains = true;
     string mountainsPath = NordicScatterCore.MountainsPath;
-    float boundaryInset = 10f;
+    Transform mountainT;
+    int rejectedNotGround;
     bool showBoundary = true;
     List<Vector2> boundary;
 
@@ -81,6 +86,8 @@ public class NordicRockScatter : EditorWindow
 
         EditorGUILayout.LabelField("Source", EditorStyles.boldLabel);
         prefabFolder = EditorGUILayout.TextField("Prefab folder", prefabFolder);
+        excludeNames = EditorGUILayout.TextField("Never use (name contains)", excludeNames);
+        EditorGUILayout.LabelField(" ", $"{LoadPrefabs().Count} rock prefab(s) match");
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("How many, and where", EditorStyles.boldLabel);
@@ -91,14 +98,27 @@ public class NordicRockScatter : EditorWindow
         if (GUILayout.Button("Fit area to the level")) GuessArea();
 
         EditorGUILayout.Space(4);
-        limitToMountains = EditorGUILayout.Toggle("Stay inside the mountains", limitToMountains);
-        using (new EditorGUI.DisabledScope(!limitToMountains))
+        var newSource = (NordicScatterCore.BoundarySource)EditorGUILayout.EnumPopup("Boundary", boundarySource);
+        if (newSource != boundarySource) { boundarySource = newSource; RefreshBoundary(); }
+
+        using (new EditorGUI.DisabledScope(boundarySource == NordicScatterCore.BoundarySource.None))
         {
-            mountainsPath = EditorGUILayout.TextField("  Mountain root", mountainsPath);
-            boundaryInset = EditorGUILayout.Slider("  Pull inward by (m)", boundaryInset, -50f, 80f);
+            if (boundarySource == NordicScatterCore.BoundarySource.GameplayObjects)
+                boundaryAmount = EditorGUILayout.Slider("  Reach past gameplay (m)", boundaryAmount, 5f, 250f);
+            else
+            {
+                mountainsPath = EditorGUILayout.TextField("  Mountain root", mountainsPath);
+                boundaryAmount = EditorGUILayout.Slider("  Pull inward by (m)", boundaryAmount, -50f, 200f);
+            }
             showBoundary = EditorGUILayout.Toggle("  Show the line", showBoundary);
             if (GUILayout.Button("Refresh boundary")) RefreshBoundary();
         }
+        terrainOnly = EditorGUILayout.Toggle("Only on the terrain", terrainOnly);
+        keepOffMountains = EditorGUILayout.Toggle("Never on the mountains", keepOffMountains);
+        EditorGUILayout.HelpBox("\"Only on the terrain\" refuses any spot where the ray lands on " +
+                                "something other than a Terrain — mountains, platforms, walls, other props. " +
+                                "It is the rule that stops rocks stacking on top of things.",
+                                MessageType.None);
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Keep out of the way", EditorStyles.boldLabel);
@@ -152,15 +172,15 @@ public class NordicRockScatter : EditorWindow
 
     void OnScene(SceneView sv)
     {
-        if (!limitToMountains || !showBoundary) return;
+        if (!showBoundary) return;
         NordicScatterCore.DrawBoundary(boundary, areaCenter.y + 2f);
     }
 
     void RefreshBoundary()
     {
-        boundary = limitToMountains ? NordicScatterCore.BuildBoundary(mountainsPath, boundaryInset) : null;
-        if (limitToMountains && boundary == null)
-            Debug.LogWarning($"[Rock Scatter] No mountains under \"{mountainsPath}\" — the boundary is off.");
+        boundary = NordicScatterCore.BuildBoundary(boundarySource, mountainsPath, boundaryAmount);
+        if (boundarySource != NordicScatterCore.BoundarySource.None && boundary == null)
+            Debug.LogWarning($"[Rock Scatter] Could not build a \"{boundarySource}\" boundary — it is off.");
         SceneView.RepaintAll();
     }
 
@@ -222,6 +242,10 @@ public class NordicRockScatter : EditorWindow
         if (oldContainer != null) oldContainer.SetActive(false);
 
         RefreshBoundary();
+        rejectedNotGround = 0;
+
+        var mr = keepOffMountains ? GameObject.Find(mountainsPath) : null;
+        mountainT = mr != null ? mr.transform : null;
 
         var keepOut = BuildKeepOutList();
         bool hasNavMesh = NavMesh.CalculateTriangulation().vertices.Length > 0;
@@ -245,6 +269,11 @@ public class NordicRockScatter : EditorWindow
                 continue;
 
             if (!NordicScatterCore.Inside(point, boundary)) continue;
+
+            // ground means the terrain itself — never a mountain, never on top of a prop
+            if (terrainOnly && (hitObj == null || hitObj.GetComponent<Terrain>() == null))
+            { rejectedNotGround++; continue; }
+            if (NordicScatterCore.IsUnder(hitObj, mountainT)) { rejectedNotGround++; continue; }
 
             float slope = Vector3.Angle(normal, Vector3.up);
             if (slope < minSlope || slope > maxSlope) continue;
@@ -354,7 +383,8 @@ public class NordicRockScatter : EditorWindow
 
         Debug.Log($"[Rock Scatter] {picks.Count} rocks placed " +
                   $"(small {small}, medium {medium}, cliff {large}) — about {tris:N0} triangles, " +
-                  $"{attempts} tries. Boundary: {(boundary != null ? boundary.Count + "-sided mountain ring" : "off")}. " +
+                  $"{attempts} tries, {rejectedNotGround} refused for not being on the terrain. " +
+                  $"Boundary: {(boundary != null ? $"{boundarySource}, {boundary.Count} sides" : "OFF")}. " +
                   $"NavMesh check: {(hasNavMesh ? "on" : "no navmesh baked")}.", container);
     }
 
@@ -449,6 +479,19 @@ public class NordicRockScatter : EditorWindow
         return false;
     }
 
+    // Environment/ is a shared folder — trees live there too. Anything whose name matches
+    // one of these is not a rock and is left to its own tool.
+    bool IsExcluded(string prefabName)
+    {
+        foreach (var raw in excludeNames.Split(','))
+        {
+            var key = raw.Trim();
+            if (key.Length == 0) continue;
+            if (prefabName.IndexOf(key, System.StringComparison.OrdinalIgnoreCase) >= 0) return true;
+        }
+        return false;
+    }
+
     // ---------- prefabs ----------
     enum RockSize { Small, Medium, Large }
     class Entry { public GameObject prefab; public RockSize size; }
@@ -465,6 +508,7 @@ public class NordicRockScatter : EditorWindow
             var go = AssetDatabase.LoadAssetAtPath<GameObject>(path);
             if (go == null) continue;
             if (go.GetComponentInChildren<MeshRenderer>() == null) continue;
+            if (IsExcluded(go.name)) continue;   // the folder holds more than rocks now
 
             string n = go.name.ToLowerInvariant();
             RockSize size;

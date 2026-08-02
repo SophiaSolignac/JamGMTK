@@ -18,8 +18,15 @@ public class NordicNightLighting : EditorWindow
 {
     // ---------- paths ----------
     const string SkyFolder = "Assets/Settings/Sky";
-    const string HdriSource = "Assets/Editor/kloppenheim_02_puresky_2k.hdr";
-    const string HdriTarget = SkyFolder + "/kloppenheim_02_puresky_2k.hdr";
+    // the HDRI has moved around; look in every place it has lived, newest first
+    static readonly string[] HdriCandidates =
+    {
+        "Assets/Assets/Meshs/HDRI.hdr",
+        "Assets/Settings/Sky/HDRI.hdr",
+        "Assets/Settings/Sky/kloppenheim_02_puresky_2k.hdr",
+        "Assets/Editor/kloppenheim_02_puresky_2k.hdr",
+    };
+    const string HdriTarget = SkyFolder + "/HDRI.hdr";
     const string SkyMatPath = SkyFolder + "/M_Sky_NordicNight.mat";
     const string FogMatPath = SkyFolder + "/M_Fog_Volumetric.mat";
     const string FogNoisePath = SkyFolder + "/T_FogNoise3D.asset";
@@ -123,6 +130,13 @@ public class NordicNightLighting : EditorWindow
             "commit in git before you run those.",
             MessageType.Info);
 
+        EditorGUILayout.Space(6);
+        GUI.backgroundColor = new Color(0.6f, 0.85f, 1f);
+        if (GUILayout.Button("Make this the scene's night lighting  (steps 1 + 2 + 5)", GUILayout.Height(32)))
+            ApplyWholeNight();
+        GUI.backgroundColor = Color.white;
+        EditorGUILayout.LabelField(" ", $"active scene: {UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}");
+
         // ---- 1 ----
         Header("1 — Sky, ambient, moon, global fog");
         skyTint = EditorGUILayout.ColorField("Sky tint", skyTint);
@@ -225,6 +239,23 @@ public class NordicNightLighting : EditorWindow
         EditorGUILayout.EndScrollView();
     }
 
+    /// Sky, ambient, moon, fog, the volumetric pass and the grade, in the right order,
+    /// then saves the scene so this really is its lighting and not just a preview.
+    void ApplyWholeNight()
+    {
+        var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+
+        ApplyEnvironment();
+        BuildVolumetricFog();
+        InstallFogFeature(true);
+        ApplyGrade();
+
+        EditorSceneManager.MarkSceneDirty(scene);
+        EditorSceneManager.SaveScene(scene);
+        Debug.Log($"[Night] Night lighting applied and \"{scene.name}\" saved. " +
+                  "This is now the scene's lighting — it loads this way every time.");
+    }
+
     // =====================================================================
     // 1 — environment
     // =====================================================================
@@ -232,17 +263,37 @@ public class NordicNightLighting : EditorWindow
     {
         EnsureFolder(SkyFolder);
 
-        // The HDRI sits in Assets/Editor, which Unity strips out of builds.
-        // Move it somewhere shipped. Moving keeps the GUID, so nothing breaks.
-        if (AssetDatabase.LoadAssetAtPath<Texture>(HdriSource) != null &&
-            AssetDatabase.LoadAssetAtPath<Texture>(HdriTarget) == null)
+        string hdriPath = null;
+        foreach (var c in HdriCandidates)
+            if (AssetDatabase.LoadAssetAtPath<Texture>(c) != null) { hdriPath = c; break; }
+
+        if (hdriPath == null)
         {
-            string err = AssetDatabase.MoveAsset(HdriSource, HdriTarget);
-            if (!string.IsNullOrEmpty(err)) Debug.LogError("[Night] Could not move the HDRI: " + err);
-            else Debug.Log("[Night] Moved the HDRI out of Assets/Editor — that folder never ships in a build.");
+            // last resort: any .hdr anywhere in the project
+            foreach (var guid in AssetDatabase.FindAssets("t:Texture"))
+            {
+                var p = AssetDatabase.GUIDToAssetPath(guid);
+                if (p.EndsWith(".hdr") || p.EndsWith(".exr")) { hdriPath = p; break; }
+            }
         }
 
-        string hdriPath = AssetDatabase.LoadAssetAtPath<Texture>(HdriTarget) != null ? HdriTarget : HdriSource;
+        if (hdriPath == null)
+        {
+            EditorUtility.DisplayDialog("Night Lighting",
+                "No .hdr found in the project. Drop the sky HDRI anywhere under Assets and run again.", "OK");
+            return;
+        }
+
+        // Assets/Editor never ships in a build, so a sky living there works in the editor
+        // and is missing in the finished game. Move it out if that is where it still is.
+        if (hdriPath.StartsWith("Assets/Editor/"))
+        {
+            string err = AssetDatabase.MoveAsset(hdriPath, HdriTarget);
+            if (!string.IsNullOrEmpty(err)) Debug.LogError("[Night] Could not move the HDRI: " + err);
+            else { hdriPath = HdriTarget; Debug.Log("[Night] Moved the HDRI out of Assets/Editor."); }
+        }
+
+        Debug.Log("[Night] Using sky texture: " + hdriPath);
 
         // import it as a cubemap so it can drive a skybox
         var importer = AssetImporter.GetAtPath(hdriPath) as TextureImporter;

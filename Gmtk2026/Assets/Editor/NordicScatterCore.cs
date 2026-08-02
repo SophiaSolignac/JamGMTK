@@ -20,7 +20,7 @@ public static class NordicScatterCore
 
     // names of every scatter container, so the tools never stack on each other
     public static readonly string[] ScatterContainers =
-        { "Rocks_Scatter", "Ruins_Scatter", "Trees_Scatter" };
+        { "Rocks_Scatter", "Ruins_Scatter", "Trees_Scatter", "Grass_Scatter" };
 
     public struct Ground
     {
@@ -166,6 +166,20 @@ public static class NordicScatterCore
         return got;
     }
 
+    /// Is the thing the ray landed on part of this hierarchy? Resolve the root once and
+    /// pass it in — GameObject.Find inside a sampling loop is thousands of string searches.
+    public static bool IsUnder(GameObject go, Transform root)
+    {
+        if (go == null || root == null) return false;
+        var t = go.transform;
+        while (t != null)
+        {
+            if (t == root) return true;
+            t = t.parent;
+        }
+        return false;
+    }
+
     static bool IsUnderScatter(Transform t)
     {
         while (t != null)
@@ -267,13 +281,18 @@ public static class NordicScatterCore
         return Mathf.Max(b.size.x, b.size.z);
     }
 
+    /// Size of a prefab asset, measured in the root's own space. Renderer.bounds is meaningless
+    /// on an asset that was never in a scene, so this goes through the mesh data too.
     public static bool TryPrefabBounds(GameObject prefab, out Bounds b)
     {
         b = new Bounds();
         bool got = false;
-        foreach (var r in prefab.GetComponentsInChildren<MeshRenderer>())
+        var toRoot = prefab.transform.worldToLocalMatrix;
+
+        foreach (var mf in prefab.GetComponentsInChildren<MeshFilter>(true))
         {
-            if (!got) { b = r.bounds; got = true; } else b.Encapsulate(r.bounds);
+            if (mf.sharedMesh == null) continue;
+            Encapsulate(ref b, ref got, mf.sharedMesh.bounds, toRoot * mf.transform.localToWorldMatrix);
         }
         return got;
     }
@@ -316,16 +335,41 @@ public static class NordicScatterCore
         return go;
     }
 
+    /// World bounds built from the mesh data and the transform matrix, NOT from Renderer.bounds.
+    /// The tools hide the container while they place, and Renderer.bounds is empty on an inactive
+    /// object — which silently skipped the grounding step and left everything floating at its pivot.
     public static bool TryWorldBounds(GameObject go, out Bounds b)
     {
         b = new Bounds();
         bool got = false;
-        foreach (var r in go.GetComponentsInChildren<Renderer>())
+
+        foreach (var mf in go.GetComponentsInChildren<MeshFilter>(true))
         {
-            if (r is ParticleSystemRenderer) continue;
-            if (!got) { b = r.bounds; got = true; } else b.Encapsulate(r.bounds);
+            if (mf.sharedMesh == null) continue;
+            Encapsulate(ref b, ref got, mf.sharedMesh.bounds, mf.transform.localToWorldMatrix);
         }
+
+        foreach (var smr in go.GetComponentsInChildren<SkinnedMeshRenderer>(true))
+        {
+            if (smr.sharedMesh == null) continue;
+            Encapsulate(ref b, ref got, smr.sharedMesh.bounds, smr.transform.localToWorldMatrix);
+        }
+
         return got;
+    }
+
+    static void Encapsulate(ref Bounds b, ref bool got, Bounds local, Matrix4x4 m)
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            var corner = new Vector3(
+                (i & 1) == 0 ? local.min.x : local.max.x,
+                (i & 2) == 0 ? local.min.y : local.max.y,
+                (i & 4) == 0 ? local.min.z : local.max.z);
+            var w = m.MultiplyPoint3x4(corner);
+            if (!got) { b = new Bounds(w, Vector3.zero); got = true; }
+            else b.Encapsulate(w);
+        }
     }
 
     // ---------------------------------------------------------------- optimisation
@@ -354,7 +398,7 @@ public static class NordicScatterCore
     /// Host must be a wrapper: identity rotation, unit scale.
     public static void EnsureBoxCollider(GameObject host, Bounds worldBounds)
     {
-        if (host.GetComponentInChildren<Collider>() != null) return;
+        if (host.GetComponentInChildren<Collider>(true) != null) return;
         var bc = host.AddComponent<BoxCollider>();
         bc.center = worldBounds.center - host.transform.position;
         bc.size = worldBounds.size;
@@ -364,7 +408,7 @@ public static class NordicScatterCore
     /// reads as a hologram, but a box the width of the canopy blocks a path that looks open.
     public static void EnsureTrunkCollider(GameObject host, Bounds worldBounds, float trunkFraction)
     {
-        if (host.GetComponentInChildren<Collider>() != null) return;
+        if (host.GetComponentInChildren<Collider>(true) != null) return;
         var cc = host.AddComponent<CapsuleCollider>();
         cc.direction = 1;                                   // world Y, because the wrapper is unrotated
         cc.height = worldBounds.size.y;
@@ -375,7 +419,7 @@ public static class NordicScatterCore
     public static int CountTris(GameObject go)
     {
         int n = 0;
-        foreach (var mf in go.GetComponentsInChildren<MeshFilter>())
+        foreach (var mf in go.GetComponentsInChildren<MeshFilter>(true))
             if (mf.sharedMesh != null) n += mf.sharedMesh.triangles.Length / 3;
         return n;
     }
@@ -404,23 +448,102 @@ public static class NordicScatterCore
     // by `inset` metres. Anything outside it is the flat non-playable ground and is refused.
     public const string MountainsPath = EnvRoot + "/Montagnes";
 
-    public static List<Vector2> BuildBoundary(string mountainsPath, float inset)
+    public enum BoundarySource
+    {
+        GameplayObjects,      // wrap where the game actually happens, then reach outward
+        MountainRingInner,    // foot of the wall
+        MountainRingOuter,    // outside of the wall, props may sit on the slopes
+        None
+    }
+
+    public static List<Vector2> BuildBoundary(BoundarySource source, string mountainsPath, float amount)
+    {
+        switch (source)
+        {
+            case BoundarySource.GameplayObjects:
+                return BuildGameplayBoundary(DefaultAvoid, DefaultStructures, amount);
+            case BoundarySource.MountainRingInner:
+                return BuildMountainBoundary(mountainsPath, amount, true);
+            case BoundarySource.MountainRingOuter:
+                return BuildMountainBoundary(mountainsPath, amount, false);
+            default:
+                return null;
+        }
+    }
+
+    /// The honest definition of "the gameplay area": wrap the spawn points, the gun spawners,
+    /// the doors, the enemies and the structures, then push that outline out by `margin`.
+    /// The mountain group is no good for this — it mixes the arena walls with background
+    /// mountains hundreds of metres away, so its hull is several times the size of the level.
+    public static List<Vector2> BuildGameplayBoundary(string[] gameplayKeys, string[] structureKeys, float margin)
     {
         var pts = new List<Vector2>();
 
-        var root = GameObject.Find(mountainsPath);
-        if (root != null)
+        foreach (var t in Object.FindObjectsByType<Transform>(FindObjectsSortMode.None))
         {
-            foreach (var r in root.GetComponentsInChildren<MeshRenderer>())
+            if (!Matches(t.name, gameplayKeys) && !Matches(t.name, structureKeys)) continue;
+
+            var r = t.GetComponent<Renderer>();
+            if (r != null && !(r is ParticleSystemRenderer))
             {
-                if (IsUnderScatter(r.transform)) continue;
-                if (r.gameObject.name.StartsWith("Fog_")) continue;
                 var b = r.bounds;
+                if (b.size.x > 400f || b.size.z > 400f) continue;    // music triggers etc.
                 pts.Add(new Vector2(b.min.x, b.min.z));
                 pts.Add(new Vector2(b.max.x, b.min.z));
                 pts.Add(new Vector2(b.max.x, b.max.z));
                 pts.Add(new Vector2(b.min.x, b.max.z));
             }
+            else pts.Add(new Vector2(t.position.x, t.position.z));
+        }
+
+        if (pts.Count < 3) return null;
+        var hull = ConvexHull(pts);
+        if (hull.Count < 3) return null;
+
+        InsetHull(hull, -Mathf.Abs(margin));    // negative inset = grow outward
+        return hull;
+    }
+
+    /// innerEdge = false wraps the outside of the mountain ring (props may sit on the slopes).
+    /// innerEdge = true wraps the inner faces instead — the ground the player actually plays on.
+    public static List<Vector2> BuildMountainBoundary(string mountainsPath, float inset, bool innerEdge = false)
+    {
+        var root = GameObject.Find(mountainsPath);
+        if (root == null) return null;
+
+        var boxes = new List<Bounds>();
+        foreach (var r in root.GetComponentsInChildren<MeshRenderer>())
+        {
+            if (IsUnderScatter(r.transform)) continue;
+            if (r.gameObject.name.StartsWith("Fog_")) continue;
+            boxes.Add(r.bounds);
+        }
+        if (boxes.Count == 0) return null;
+
+        Vector2 middle = Vector2.zero;
+        foreach (var b in boxes) middle += new Vector2(b.center.x, b.center.z);
+        middle /= boxes.Count;
+
+        var pts = new List<Vector2>();
+        foreach (var b in boxes)
+        {
+            var corners = new[]
+            {
+                new Vector2(b.min.x, b.min.z), new Vector2(b.max.x, b.min.z),
+                new Vector2(b.max.x, b.max.z), new Vector2(b.min.x, b.max.z)
+            };
+
+            if (!innerEdge) { pts.AddRange(corners); continue; }
+
+            // only the corner facing the middle of the level — that is the foot of the wall
+            Vector2 nearest = corners[0];
+            float best = float.MaxValue;
+            foreach (var c in corners)
+            {
+                float d = (c - middle).sqrMagnitude;
+                if (d < best) { best = d; nearest = c; }
+            }
+            pts.Add(nearest);
         }
 
         if (pts.Count < 3) return null;              // no mountains found — caller falls back
@@ -428,22 +551,26 @@ public static class NordicScatterCore
         var hull = ConvexHull(pts);
         if (hull.Count < 3) return null;
 
-        if (Mathf.Abs(inset) > 0.001f)
-        {
-            Vector2 centre = Vector2.zero;
-            foreach (var p in hull) centre += p;
-            centre /= hull.Count;
-
-            for (int i = 0; i < hull.Count; i++)
-            {
-                Vector2 toCentre = centre - hull[i];
-                float d = toCentre.magnitude;
-                if (d < 0.001f) continue;
-                hull[i] += toCentre / d * Mathf.Min(inset, d * 0.9f);
-            }
-        }
-
+        InsetHull(hull, inset);
         return hull;
+    }
+
+    /// Positive moves every corner toward the middle, negative pushes it outward.
+    static void InsetHull(List<Vector2> hull, float inset)
+    {
+        if (Mathf.Abs(inset) < 0.001f) return;
+
+        Vector2 centre = Vector2.zero;
+        foreach (var p in hull) centre += p;
+        centre /= hull.Count;
+
+        for (int i = 0; i < hull.Count; i++)
+        {
+            Vector2 toCentre = centre - hull[i];
+            float d = toCentre.magnitude;
+            if (d < 0.001f) continue;
+            hull[i] += toCentre / d * Mathf.Min(inset, d * 0.9f);
+        }
     }
 
     // Andrew's monotone chain

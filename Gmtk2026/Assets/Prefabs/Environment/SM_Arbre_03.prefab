@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c0f8c0be9f4dd954287af8250873da3b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0f8c0be9f4dd954287af8250873da3b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0f8c0be9f4dd954287af8250873da3b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c0f8c0be9f4dd954287af8250873da3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -31.76536
       objectReference: {fileID: 0}
@@ -48,6 +60,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2983668460148607440, guid: c0f8c0be9f4dd954287af8250873da3b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 81c22b72deae578428f0ac331856c4a0, type: 2}
     - target: {fileID: 919132149155446097, guid: c0f8c0be9f4dd954287af8250873da3b, type: 3}
       propertyPath: m_Name
       value: SM_Arbre_03
@@ -125,6 +141,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6986276485081568060, guid: 073ac40b65ca2cb46b9ceaae09194454, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ac1e3d40407de524287fce981791566a, type: 2}
     - target: {fileID: 919132149155446097, guid: 073ac40b65ca2cb46b9ceaae09194454, type: 3}
       propertyPath: m_Name
       value: SM_Leafs_01
