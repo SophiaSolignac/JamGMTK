@@ -27,6 +27,12 @@ public class NordicRockScatter : EditorWindow
     Vector2 areaSize = new Vector2(560f, 560f);
     bool areaInitialised = false;
 
+    bool limitToMountains = true;
+    string mountainsPath = NordicScatterCore.MountainsPath;
+    float boundaryInset = 10f;
+    bool showBoundary = true;
+    List<Vector2> boundary;
+
     float gameplayClearance = 22f;   // metres kept free around player / enemies / guns / doors
     float structureClearance = 10f;  // metres kept free around buildings
     float navMeshClearance = 4f;     // metres kept free around walkable navmesh (0 = off)
@@ -84,6 +90,16 @@ public class NordicRockScatter : EditorWindow
         areaSize = EditorGUILayout.Vector2Field("Area size (X, Z)", areaSize);
         if (GUILayout.Button("Fit area to the level")) GuessArea();
 
+        EditorGUILayout.Space(4);
+        limitToMountains = EditorGUILayout.Toggle("Stay inside the mountains", limitToMountains);
+        using (new EditorGUI.DisabledScope(!limitToMountains))
+        {
+            mountainsPath = EditorGUILayout.TextField("  Mountain root", mountainsPath);
+            boundaryInset = EditorGUILayout.Slider("  Pull inward by (m)", boundaryInset, -50f, 80f);
+            showBoundary = EditorGUILayout.Toggle("  Show the line", showBoundary);
+            if (GUILayout.Button("Refresh boundary")) RefreshBoundary();
+        }
+
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("Keep out of the way", EditorStyles.boldLabel);
         gameplayClearance = EditorGUILayout.Slider("Away from gameplay", gameplayClearance, 0f, 60f);
@@ -129,6 +145,23 @@ public class NordicRockScatter : EditorWindow
         }
 
         EditorGUILayout.EndScrollView();
+    }
+
+    void OnEnable() { SceneView.duringSceneGui += OnScene; RefreshBoundary(); }
+    void OnDisable() { SceneView.duringSceneGui -= OnScene; }
+
+    void OnScene(SceneView sv)
+    {
+        if (!limitToMountains || !showBoundary) return;
+        NordicScatterCore.DrawBoundary(boundary, areaCenter.y + 2f);
+    }
+
+    void RefreshBoundary()
+    {
+        boundary = limitToMountains ? NordicScatterCore.BuildBoundary(mountainsPath, boundaryInset) : null;
+        if (limitToMountains && boundary == null)
+            Debug.LogWarning($"[Rock Scatter] No mountains under \"{mountainsPath}\" — the boundary is off.");
+        SceneView.RepaintAll();
     }
 
     // ---------- area guess ----------
@@ -188,6 +221,8 @@ public class NordicRockScatter : EditorWindow
         bool oldWasActive = oldContainer != null && oldContainer.activeSelf;
         if (oldContainer != null) oldContainer.SetActive(false);
 
+        RefreshBoundary();
+
         var keepOut = BuildKeepOutList();
         bool hasNavMesh = NavMesh.CalculateTriangulation().vertices.Length > 0;
 
@@ -208,6 +243,8 @@ public class NordicRockScatter : EditorWindow
 
             if (!SampleGround(new Vector2(x, z), top, out Vector3 point, out Vector3 normal, out GameObject hitObj))
                 continue;
+
+            if (!NordicScatterCore.Inside(point, boundary)) continue;
 
             float slope = Vector3.Angle(normal, Vector3.up);
             if (slope < minSlope || slope > maxSlope) continue;
@@ -317,7 +354,8 @@ public class NordicRockScatter : EditorWindow
 
         Debug.Log($"[Rock Scatter] {picks.Count} rocks placed " +
                   $"(small {small}, medium {medium}, cliff {large}) — about {tris:N0} triangles, " +
-                  $"{attempts} tries. NavMesh check: {(hasNavMesh ? "on" : "no navmesh baked")}.", container);
+                  $"{attempts} tries. Boundary: {(boundary != null ? boundary.Count + "-sided mountain ring" : "off")}. " +
+                  $"NavMesh check: {(hasNavMesh ? "on" : "no navmesh baked")}.", container);
     }
 
     // ---------- ground ----------
