@@ -57,8 +57,9 @@ public class NordicRockScatter : EditorWindow
 
     bool markStatic = true;
     bool enableGpuInstancing = true;
-    bool addColliders = true;
-    float colliderMinSize = 1.5f;       // rocks smaller than this stay collider-free
+    NordicScatterCore.ColliderMode colliderMode = NordicScatterCore.ColliderMode.ConvexMesh;
+    float colliderShrink = 0.9f;
+    float colliderMinSize = 0.6f;       // rocks smaller than this stay collider-free
     bool contributeGI = false;
 
     string[] avoidKeywords = { "Player", "Spawn", "Enem", "Gun", "Door", "Shop", "Bricks" };
@@ -150,9 +151,15 @@ public class NordicRockScatter : EditorWindow
         markStatic = EditorGUILayout.Toggle("Mark static (batching)", markStatic);
         contributeGI = EditorGUILayout.Toggle("Contribute to lightmaps", contributeGI);
         enableGpuInstancing = EditorGUILayout.Toggle("GPU instancing on material", enableGpuInstancing);
-        addColliders = EditorGUILayout.Toggle("Colliders on big rocks", addColliders);
-        using (new EditorGUI.DisabledScope(!addColliders))
-            colliderMinSize = EditorGUILayout.Slider("  Collider above size (m)", colliderMinSize, 0.2f, 6f);
+        colliderMode = (NordicScatterCore.ColliderMode)EditorGUILayout.EnumPopup("Colliders", colliderMode);
+        using (new EditorGUI.DisabledScope(colliderMode == NordicScatterCore.ColliderMode.None))
+        {
+            colliderMinSize = EditorGUILayout.Slider("  Only above size (m)", colliderMinSize, 0.05f, 6f);
+            using (new EditorGUI.DisabledScope(colliderMode != NordicScatterCore.ColliderMode.TightBox))
+                colliderShrink = EditorGUILayout.Slider("  Box shrink", colliderShrink, 0.4f, 1f);
+        }
+        EditorGUILayout.HelpBox("Convex mesh hugs the rock, so shots land on stone and not on air. " +
+                                "Tight box is cheaper and still turns with the rock.", MessageType.None);
 
         EditorGUILayout.Space(12);
         using (new EditorGUILayout.HorizontalScope())
@@ -358,7 +365,8 @@ public class NordicRockScatter : EditorWindow
                 go.transform.position = s.pos + Vector3.up * (lift - sink);
                 tris += CountTris(go);
                 float size = Mathf.Max(wb.size.x, wb.size.y, wb.size.z);
-                if (addColliders && size >= colliderMinSize) EnsureCollider(go, wb);
+                if (size >= colliderMinSize)
+                    NordicScatterCore.ApplyCollider(go, colliderMode, colliderShrink);
             }
 
             if (markStatic)
@@ -553,19 +561,6 @@ public class NordicRockScatter : EditorWindow
         foreach (var mf in go.GetComponentsInChildren<MeshFilter>())
             if (mf.sharedMesh != null) n += mf.sharedMesh.triangles.Length / 3;
         return n;
-    }
-
-    void EnsureCollider(GameObject go, Bounds worldBounds)
-    {
-        if (go.GetComponentInChildren<Collider>() != null) return;
-        var bc = go.AddComponent<BoxCollider>();
-        // BoxCollider is local space; convert the world bounds back
-        bc.center = go.transform.InverseTransformPoint(worldBounds.center);
-        var ls = go.transform.lossyScale;
-        bc.size = new Vector3(
-            worldBounds.size.x / Mathf.Max(0.0001f, Mathf.Abs(ls.x)),
-            worldBounds.size.y / Mathf.Max(0.0001f, Mathf.Abs(ls.y)),
-            worldBounds.size.z / Mathf.Max(0.0001f, Mathf.Abs(ls.z)));
     }
 
     void EnableInstancing(List<Entry> prefabs)

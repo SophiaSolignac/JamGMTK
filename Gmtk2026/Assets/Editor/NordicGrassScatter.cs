@@ -242,6 +242,7 @@ public class NordicGrassScatter : EditorWindow
                     fieldAlign, Random.value * 360f, 0f, Vector3.one * s, fieldSink, out _);
                 if (go == null) continue;
 
+                NordicScatterCore.StripColliders(go);   // grass never blocks a shot
                 if (markStatic) NordicScatterCore.MakeStatic(go, false);
                 tris += NordicScatterCore.CountTris(go);
                 taken.Add(g.pos);
@@ -289,6 +290,7 @@ public class NordicGrassScatter : EditorWindow
                         reedAlign, Random.value * 360f, reedTilt, scale, reedSink, out _);
                     if (go == null) continue;
 
+                    NordicScatterCore.StripColliders(go);
                     if (markStatic) NordicScatterCore.MakeStatic(go, false);
                     tris += NordicScatterCore.CountTris(go);
                     local.Add(g.pos);

@@ -54,7 +54,8 @@ public class NordicTreeScatter : EditorWindow
     bool contributeGI = false;
     bool gpuInstancing = true;
     bool trunkColliders = true;
-    float trunkFraction = 0.12f;
+    float trunkRadius = 0.22f;
+    float trunkHeightShare = 1f;
 
     Vector2 scroll;
 
@@ -138,7 +139,13 @@ public class NordicTreeScatter : EditorWindow
         gpuInstancing = EditorGUILayout.Toggle("GPU instancing on materials", gpuInstancing);
         trunkColliders = EditorGUILayout.Toggle("Trunk colliders", trunkColliders);
         using (new EditorGUI.DisabledScope(!trunkColliders))
-            trunkFraction = EditorGUILayout.Slider("  Trunk width share", trunkFraction, 0.02f, 0.5f);
+        {
+            trunkRadius = EditorGUILayout.Slider("  Trunk radius (m)", trunkRadius, 0.05f, 1.5f);
+            trunkHeightShare = EditorGUILayout.Slider("  Capsule height share", trunkHeightShare, 0.2f, 1f);
+        }
+        EditorGUILayout.HelpBox("A radius in metres, not a share of the canopy. A capsule as wide " +
+                                "as the branches eats every shot that should pass between them.",
+                                MessageType.None);
 
         EditorGUILayout.Space(12);
         using (new EditorGUILayout.HorizontalScope())
@@ -327,7 +334,7 @@ public class NordicTreeScatter : EditorWindow
         if (go == null) { DestroyImmediate(wrapper); return false; }
 
         if (markStatic) { NordicScatterCore.MakeStatic(go, contributeGI); NordicScatterCore.MakeStatic(wrapper, false); }
-        if (trunkColliders) NordicScatterCore.EnsureTrunkCollider(wrapper, wb, trunkFraction);
+        if (trunkColliders) NordicScatterCore.EnsureTrunkCollider(wrapper, wb, trunkRadius * s, trunkHeightShare);
         tris += NordicScatterCore.CountTris(go);
         return true;
     }

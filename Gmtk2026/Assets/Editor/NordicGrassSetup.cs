@@ -321,6 +321,9 @@ public class NordicGrassSetup : EditorWindow
 
         try
         {
+            // grass never blocks a shot or a step, so it never carries a collider
+            NordicScatterCore.StripColliders(inst);
+
             foreach (var r in inst.GetComponentsInChildren<MeshRenderer>(true))
             {
                 int n = Mathf.Max(1, r.sharedMaterials.Length);

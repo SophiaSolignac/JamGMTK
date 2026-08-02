@@ -395,25 +395,68 @@ public static class NordicScatterCore
         return w;
     }
 
-    /// Host must be a wrapper: identity rotation, unit scale.
-    public static void EnsureBoxCollider(GameObject host, Bounds worldBounds)
+    public enum ColliderMode
     {
-        if (host.GetComponentInChildren<Collider>(true) != null) return;
-        var bc = host.AddComponent<BoxCollider>();
-        bc.center = worldBounds.center - host.transform.position;
-        bc.size = worldBounds.size;
+        None,           // shots and the player pass straight through
+        TightBox,       // oriented box hugging the mesh — cheapest thing that is not wrong
+        ConvexMesh      // the shape itself, hull-fitted
     }
 
-    /// A capsule around the trunk, on the same kind of wrapper. A tree the player walks through
-    /// reads as a hologram, but a box the width of the canopy blocks a path that looks open.
-    public static void EnsureTrunkCollider(GameObject host, Bounds worldBounds, float trunkFraction)
+    /// Colliders go on the MESH object, not on the wrapper.
+    ///
+    /// This is the whole fix. A BoxCollider on an unrotated wrapper is sized from the
+    /// world-axis-aligned bounds, so a rock tilted 30 degrees gets a box far larger than the
+    /// rock — an invisible wall the player shoots into. Putting the box on the mesh transform
+    /// makes it an ORIENTED box in the mesh's own space, which follows the model's rotation.
+    public static void ApplyCollider(GameObject modelInstance, ColliderMode mode, float shrink)
+    {
+        if (mode == ColliderMode.None) return;
+
+        foreach (var mf in modelInstance.GetComponentsInChildren<MeshFilter>(true))
+        {
+            if (mf.sharedMesh == null) continue;
+            if (mf.GetComponent<Collider>() != null) continue;
+
+            if (mode == ColliderMode.ConvexMesh)
+            {
+                var mc = mf.gameObject.AddComponent<MeshCollider>();
+                mc.sharedMesh = mf.sharedMesh;
+                mc.convex = true;
+            }
+            else
+            {
+                var bc = mf.gameObject.AddComponent<BoxCollider>();
+                var b = mf.sharedMesh.bounds;               // local to this mesh's transform
+                bc.center = b.center;
+                bc.size = b.size * Mathf.Max(0.05f, shrink);
+            }
+        }
+    }
+
+    /// A capsule around the trunk only, on the unrotated wrapper. A tree the player walks
+    /// through reads as a hologram, but a capsule the width of the canopy blocks every shot
+    /// that should have gone between the branches.
+    public static void EnsureTrunkCollider(GameObject host, Bounds worldBounds,
+                                           float radiusMetres, float heightFraction)
     {
         if (host.GetComponentInChildren<Collider>(true) != null) return;
+
         var cc = host.AddComponent<CapsuleCollider>();
-        cc.direction = 1;                                   // world Y, because the wrapper is unrotated
-        cc.height = worldBounds.size.y;
-        cc.radius = Mathf.Max(0.05f, Mathf.Max(worldBounds.size.x, worldBounds.size.z) * trunkFraction);
-        cc.center = worldBounds.center - host.transform.position;
+        cc.direction = 1;                                   // world Y — the wrapper is unrotated
+        float h = worldBounds.size.y * Mathf.Clamp01(heightFraction);
+        cc.height = h;
+        cc.radius = Mathf.Max(0.03f, radiusMetres);
+
+        // sit the capsule on the ground rather than centred on the canopy
+        var c = worldBounds.center - host.transform.position;
+        cc.center = new Vector3(c.x, (worldBounds.min.y - host.transform.position.y) + h * 0.5f, c.z);
+    }
+
+    public static void StripColliders(GameObject go)
+    {
+        if (go == null) return;
+        foreach (var c in go.GetComponentsInChildren<Collider>(true))
+            Object.DestroyImmediate(c, true);
     }
 
     public static int CountTris(GameObject go)

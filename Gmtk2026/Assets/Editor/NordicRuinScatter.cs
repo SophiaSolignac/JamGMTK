@@ -86,8 +86,9 @@ public class NordicRuinScatter : EditorWindow
     bool markStatic = true;
     bool contributeGI = false;
     bool gpuInstancing = true;
-    bool addColliders = true;
-    float colliderMinSize = 1.5f;
+    NordicScatterCore.ColliderMode colliderMode = NordicScatterCore.ColliderMode.ConvexMesh;
+    float colliderShrink = 0.9f;
+    float colliderMinSize = 0.6f;
 
     // ---- run state ----
     List<GameObject> kit, rubble;
@@ -193,9 +194,15 @@ public class NordicRuinScatter : EditorWindow
         markStatic = EditorGUILayout.Toggle("Mark static (batching)", markStatic);
         contributeGI = EditorGUILayout.Toggle("Contribute to lightmaps", contributeGI);
         gpuInstancing = EditorGUILayout.Toggle("GPU instancing on materials", gpuInstancing);
-        addColliders = EditorGUILayout.Toggle("Colliders on big pieces", addColliders);
-        using (new EditorGUI.DisabledScope(!addColliders))
-            colliderMinSize = EditorGUILayout.Slider("  Collider above size (m)", colliderMinSize, 0.2f, 8f);
+        colliderMode = (NordicScatterCore.ColliderMode)EditorGUILayout.EnumPopup("Colliders", colliderMode);
+        using (new EditorGUI.DisabledScope(colliderMode == NordicScatterCore.ColliderMode.None))
+        {
+            colliderMinSize = EditorGUILayout.Slider("  Only above size (m)", colliderMinSize, 0.05f, 8f);
+            using (new EditorGUI.DisabledScope(colliderMode != NordicScatterCore.ColliderMode.TightBox))
+                colliderShrink = EditorGUILayout.Slider("  Box shrink", colliderShrink, 0.4f, 1f);
+        }
+        EditorGUILayout.HelpBox("Convex mesh follows the model, so shots land where the stone is. " +
+                                "Tight box is cheaper and still oriented with the piece.", MessageType.None);
 
         EditorGUILayout.Space(12);
         using (new EditorGUILayout.HorizontalScope())
@@ -525,7 +532,7 @@ public class NordicRuinScatter : EditorWindow
 
         if (markStatic) { NordicScatterCore.MakeStatic(go, contributeGI); NordicScatterCore.MakeStatic(wrapper, false); }
         float size = Mathf.Max(wb.size.x, wb.size.y, wb.size.z);
-        if (addColliders && size >= colliderMinSize) NordicScatterCore.EnsureBoxCollider(wrapper, wb);
+        if (size >= colliderMinSize) NordicScatterCore.ApplyCollider(go, colliderMode, colliderShrink);
 
         triCount += NordicScatterCore.CountTris(go);
         placedCount++;
