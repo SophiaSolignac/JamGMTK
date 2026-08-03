@@ -28,7 +28,7 @@ Material:
   m_InvalidKeywords:
   - _EMISSION
   m_LightmapFlags: 2
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap:
@@ -82,7 +82,7 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _CastShadows: 1
-    - _Cull: 2
+    - _Cull: 0
     - _DirtAmount: 0
     - _DirtBlend: 0.2
     - _DirtHeight: 0.4

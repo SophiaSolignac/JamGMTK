@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 90337ba1b1f8c05469c5a2217f01930d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 26bcd3ea6fed76a4ea62b81d12807bf7, type: 2}
+      objectReference: {fileID: 2100000, guid: e4c48403e6aba3f4980aec45b6a3c584, type: 2}
     - target: {fileID: 919132149155446097, guid: 90337ba1b1f8c05469c5a2217f01930d, type: 3}
       propertyPath: m_Name
       value: SM_Small_Normal_Shape_03

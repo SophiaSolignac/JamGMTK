@@ -15,7 +15,7 @@ Material:
   m_InvalidKeywords:
   - _EMISSION
   m_LightmapFlags: 2
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap:
@@ -70,23 +70,23 @@ Material:
     - _BlendModePreserveSpecular: 1
     - _CastShadows: 1
     - _Cull: 2
-    - _DirtAmount: 0
-    - _DirtBlend: 0.2
-    - _DirtHeight: 0.4
-    - _DirtSmoothness: 0.1
+    - _DirtAmount: 0.833
+    - _DirtBlend: 0.212
+    - _DirtHeight: 0.387
+    - _DirtSmoothness: 0.017
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _HeightDepth: 0.15
+    - _HeightDepth: 1
     - _Metallic: 0
     - _NormalScale: 1
     - _OcclusionStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RoughnessStrength: 0.45
-    - _Smoothness: 0.32
-    - _SnowAmount: 0.35
-    - _SnowSmoothness: 0.35
+    - _RoughnessStrength: 0.558
+    - _Smoothness: 0.538
+    - _SnowAmount: 0.6
+    - _SnowSmoothness: 0.735
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
